@@ -73,12 +73,14 @@ test_cases = {
             "length_ft": 5, "length_in": 6,
             "liters": 36.0
         }
+    },
     "Caso 11 pollici": {
         "text": "6.0pollici",
         "expected": {
             "length_ft": 6, "length_in": 0,
 
         }
+    },
     "Caso 12 7ft/7FT": {
         "text": "7FT",
         "expected": {
