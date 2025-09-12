@@ -1,0 +1,1788 @@
+2025-09-08 15:59:03 - INFO - Scraping search results from: https://www.subito.it/annunci-lazio/vendita/usato/roma/roma/?q=tavola+da+surf
+2025-09-08 15:59:04 - INFO - Found 31 potential ad containers on the page.
+2025-09-08 15:59:04 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-roma-615545652.htm ---
+2025-09-08 15:59:04 - INFO -   > Scraped Data for Ad:
+2025-09-08 15:59:04 - INFO -     - model          : Tavola da surf
+2025-09-08 15:59:04 - INFO -     - price          : 250.0
+2025-09-08 15:59:04 - INFO -     - location       : Roma (RM)
+2025-09-08 15:59:04 - INFO -     - link           : https://www.subito.it/sport/tavola-da-surf-roma-615545652.htm
+2025-09-08 15:59:04 - INFO -     - brand          : None
+2025-09-08 15:59:04 - INFO -     - length_ft      : None
+2025-09-08 15:59:04 - INFO -     - length_in      : None
+2025-09-08 15:59:04 - INFO -     - width_in       : None
+2025-09-08 15:59:04 - INFO -     - thickness_in   : None
+2025-09-08 15:59:04 - INFO -     - liters         : None
+2025-09-08 15:59:06 - INFO - --- Processing NEW ad: https://www.subito.it/sport/windsurf-tavola-fanatic-ray-mega-100-litri-roma-508967897.htm ---
+2025-09-08 15:59:07 - INFO -   > Scraped Data for Ad:
+2025-09-08 15:59:07 - INFO -     - model          : Windsurf tavola Fanatic Ray Mega 100 litri
+2025-09-08 15:59:07 - INFO -     - price          : 145.0
+2025-09-08 15:59:07 - INFO -     - location       : Roma (RM)
+2025-09-08 15:59:07 - INFO -     - link           : https://www.subito.it/sport/windsurf-tavola-fanatic-ray-mega-100-litri-roma-508967897.htm
+2025-09-08 15:59:07 - INFO -     - brand          : None
+2025-09-08 15:59:07 - INFO -     - length_ft      : None
+2025-09-08 15:59:07 - INFO -     - length_in      : None
+2025-09-08 15:59:07 - INFO -     - width_in       : None
+2025-09-08 15:59:07 - INFO -     - thickness_in   : None
+2025-09-08 15:59:07 - INFO -     - liters         : 100.0
+2025-09-08 15:59:09 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-roma-615491921.htm ---
+2025-09-08 15:59:09 - INFO -   > Scraped Data for Ad:
+2025-09-08 15:59:09 - INFO -     - model          : Tavola da surf
+2025-09-08 15:59:09 - INFO -     - price          : 400.0
+2025-09-08 15:59:09 - INFO -     - location       : Roma (RM)
+2025-09-08 15:59:09 - INFO -     - link           : https://www.subito.it/sport/tavola-da-surf-roma-615491921.htm
+2025-09-08 15:59:09 - INFO -     - brand          : None
+2025-09-08 15:59:09 - INFO -     - length_ft      : None
+2025-09-08 15:59:09 - INFO -     - length_in      : None
+2025-09-08 15:59:09 - INFO -     - width_in       : None
+2025-09-08 15:59:09 - INFO -     - thickness_in   : None
+2025-09-08 15:59:09 - INFO -     - liters         : None
+2025-09-08 15:59:11 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-morbida-softboard-loot-hayden-shapes-roma-563712602.htm ---
+2025-09-08 15:59:12 - INFO -   > Scraped Data for Ad:
+2025-09-08 15:59:12 - INFO -     - model          : Tavola surf morbida Softboard Loot Hayden Shapes
+2025-09-08 15:59:12 - INFO -     - price          : 170.0
+2025-09-08 15:59:12 - INFO -     - location       : Roma (RM)
+2025-09-08 15:59:12 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-morbida-softboard-loot-hayden-shapes-roma-563712602.htm
+2025-09-08 15:59:12 - INFO -     - brand          : Hayden Shapes
+2025-09-08 15:59:12 - INFO -     - length_ft      : None
+2025-09-08 15:59:12 - INFO -     - length_in      : None
+2025-09-08 15:59:12 - INFO -     - width_in       : None
+2025-09-08 15:59:12 - INFO -     - thickness_in   : None
+2025-09-08 15:59:12 - INFO -     - liters         : None
+2025-09-08 15:59:14 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-firewire-seaside-misure-5-6-roma-594495900.htm ---
+2025-09-08 15:59:15 - INFO -   > Scraped Data for Ad:
+2025-09-08 15:59:15 - INFO -     - model          : Tavola da surf Firewire Seaside misure 5.6
+2025-09-08 15:59:15 - INFO -     - price          : 400.0
+2025-09-08 15:59:15 - INFO -     - location       : Roma (RM)
+2025-09-08 15:59:15 - INFO -     - link           : https://www.subito.it/sport/tavola-da-surf-firewire-seaside-misure-5-6-roma-594495900.htm
+2025-09-08 15:59:15 - INFO -     - brand          : Firewire
+2025-09-08 15:59:15 - INFO -     - length_ft      : 5
+2025-09-08 15:59:15 - INFO -     - length_in      : 6
+2025-09-08 15:59:15 - INFO -     - width_in       : None
+2025-09-08 15:59:15 - INFO -     - thickness_in   : None
+2025-09-08 15:59:15 - INFO -     - liters         : None
+2025-09-08 15:59:16 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-morbida-softboard-loot-hayden-shapes-roma-563712602.htm ---
+2025-09-08 15:59:17 - INFO -   > Scraped Data for Ad:
+2025-09-08 15:59:17 - INFO -     - model          : Tavola surf morbida Softboard Loot Hayden Shapes
+2025-09-08 15:59:17 - INFO -     - price          : 170.0
+2025-09-08 15:59:17 - INFO -     - location       : Roma (RM)
+2025-09-08 15:59:17 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-morbida-softboard-loot-hayden-shapes-roma-563712602.htm
+2025-09-08 15:59:17 - INFO -     - brand          : Hayden Shapes
+2025-09-08 15:59:17 - INFO -     - length_ft      : None
+2025-09-08 15:59:17 - INFO -     - length_in      : None
+2025-09-08 15:59:17 - INFO -     - width_in       : None
+2025-09-08 15:59:17 - INFO -     - thickness_in   : None
+2025-09-08 15:59:17 - INFO -     - liters         : None
+2025-09-08 15:59:19 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-pukas-hyperlink-5-11-32-litri-roma-roma-615150018.htm ---
+2025-09-08 15:59:20 - INFO -   > Scraped Data for Ad:
+2025-09-08 15:59:20 - INFO -     - model          : Tavola Surf Pukas Hyperlink 5.11 - 32 Litri Roma
+2025-09-08 15:59:20 - INFO -     - price          : 350.0
+2025-09-08 15:59:20 - INFO -     - location       : Roma (RM)
+2025-09-08 15:59:20 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-pukas-hyperlink-5-11-32-litri-roma-roma-615150018.htm
+2025-09-08 15:59:20 - INFO -     - brand          : Pukas
+2025-09-08 15:59:20 - INFO -     - length_ft      : 5
+2025-09-08 15:59:20 - INFO -     - length_in      : 11
+2025-09-08 15:59:20 - INFO -     - width_in       : None
+2025-09-08 15:59:20 - INFO -     - thickness_in   : None
+2025-09-08 15:59:20 - INFO -     - liters         : 32.0
+2025-09-08 15:59:22 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-soft-morbida-roma-615306556.htm ---
+2025-09-08 15:59:23 - INFO -   > Scraped Data for Ad:
+2025-09-08 15:59:23 - INFO -     - model          : Tavola da surf soft, morbida
+2025-09-08 15:59:23 - INFO -     - price          : 180.0
+2025-09-08 15:59:23 - INFO -     - location       : Roma (RM)
+2025-09-08 15:59:23 - INFO -     - link           : https://www.subito.it/sport/tavola-da-surf-soft-morbida-roma-615306556.htm
+2025-09-08 15:59:23 - INFO -     - brand          : None
+2025-09-08 15:59:23 - INFO -     - length_ft      : None
+2025-09-08 15:59:23 - INFO -     - length_in      : None
+2025-09-08 15:59:23 - INFO -     - width_in       : None
+2025-09-08 15:59:23 - INFO -     - thickness_in   : None
+2025-09-08 15:59:23 - INFO -     - liters         : None
+2025-09-08 15:59:25 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-nuova-roma-568510366.htm ---
+2025-09-08 15:59:25 - INFO -   > Scraped Data for Ad:
+2025-09-08 15:59:25 - INFO -     - model          : Tavola da surf Nuova
+2025-09-08 15:59:25 - INFO -     - price          : 200.0
+2025-09-08 15:59:25 - INFO -     - location       : Roma (RM)
+2025-09-08 15:59:25 - INFO -     - link           : https://www.subito.it/sport/tavola-da-surf-nuova-roma-568510366.htm
+2025-09-08 15:59:25 - INFO -     - brand          : None
+2025-09-08 15:59:25 - INFO -     - length_ft      : None
+2025-09-08 15:59:25 - INFO -     - length_in      : None
+2025-09-08 15:59:25 - INFO -     - width_in       : None
+2025-09-08 15:59:25 - INFO -     - thickness_in   : None
+2025-09-08 15:59:25 - INFO -     - liters         : None
+2025-09-08 15:59:27 - INFO - --- Processing NEW ad: https://www.subito.it/sport/surf-longboard-roma-615193023.htm ---
+2025-09-08 15:59:28 - INFO -   > Scraped Data for Ad:
+2025-09-08 15:59:28 - INFO -     - model          : surf longboard
+2025-09-08 15:59:28 - INFO -     - price          : 400.0
+2025-09-08 15:59:28 - INFO -     - location       : Roma (RM)
+2025-09-08 15:59:28 - INFO -     - link           : https://www.subito.it/sport/surf-longboard-roma-615193023.htm
+2025-09-08 15:59:28 - INFO -     - brand          : None
+2025-09-08 15:59:28 - INFO -     - length_ft      : None
+2025-09-08 15:59:28 - INFO -     - length_in      : None
+2025-09-08 15:59:28 - INFO -     - width_in       : None
+2025-09-08 15:59:28 - INFO -     - thickness_in   : None
+2025-09-08 15:59:28 - INFO -     - liters         : None
+2025-09-08 15:59:30 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-da-onda-longboard-roma-615161364.htm ---
+2025-09-08 15:59:31 - INFO -   > Scraped Data for Ad:
+2025-09-08 15:59:31 - INFO -     - model          : Tavola Surf  da onda Longboard
+2025-09-08 15:59:31 - INFO -     - price          : 450.0
+2025-09-08 15:59:31 - INFO -     - location       : Roma (RM)
+2025-09-08 15:59:31 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-da-onda-longboard-roma-615161364.htm
+2025-09-08 15:59:31 - INFO -     - brand          : None
+2025-09-08 15:59:31 - INFO -     - length_ft      : None
+2025-09-08 15:59:31 - INFO -     - length_in      : None
+2025-09-08 15:59:31 - INFO -     - width_in       : None
+2025-09-08 15:59:31 - INFO -     - thickness_in   : None
+2025-09-08 15:59:31 - INFO -     - liters         : None
+2025-09-08 15:59:33 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-longboard-crime-glider-roma-614704274.htm ---
+2025-09-08 15:59:33 - INFO -   > Scraped Data for Ad:
+2025-09-08 15:59:33 - INFO -     - model          : Tavola surf longboard Crime GLIDER
+2025-09-08 15:59:33 - INFO -     - price          : 760.0
+2025-09-08 15:59:33 - INFO -     - location       : Roma (RM)
+2025-09-08 15:59:33 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-longboard-crime-glider-roma-614704274.htm
+2025-09-08 15:59:33 - INFO -     - brand          : None
+2025-09-08 15:59:33 - INFO -     - length_ft      : None
+2025-09-08 15:59:33 - INFO -     - length_in      : None
+2025-09-08 15:59:33 - INFO -     - width_in       : None
+2025-09-08 15:59:33 - INFO -     - thickness_in   : None
+2025-09-08 15:59:33 - INFO -     - liters         : None
+2025-09-08 15:59:35 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-mccoy-surfboards-roma-614658070.htm ---
+2025-09-08 15:59:35 - INFO -   > Scraped Data for Ad:
+2025-09-08 15:59:35 - INFO -     - model          : Tavola da Surf  "McCoy Surfboards"
+2025-09-08 15:59:35 - INFO -     - price          : 400.0
+2025-09-08 15:59:35 - INFO -     - location       : Roma (RM)
+2025-09-08 15:59:35 - INFO -     - link           : https://www.subito.it/sport/tavola-da-surf-mccoy-surfboards-roma-614658070.htm
+2025-09-08 15:59:35 - INFO -     - brand          : None
+2025-09-08 15:59:35 - INFO -     - length_ft      : None
+2025-09-08 15:59:35 - INFO -     - length_in      : None
+2025-09-08 15:59:35 - INFO -     - width_in       : None
+2025-09-08 15:59:35 - INFO -     - thickness_in   : None
+2025-09-08 15:59:35 - INFO -     - liters         : None
+2025-09-08 15:59:37 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-rocket-wide-channel-island-swallow-roma-614602357.htm ---
+2025-09-08 15:59:37 - INFO -   > Scraped Data for Ad:
+2025-09-08 15:59:37 - INFO -     - model          : Tavola surf Rocket Wide Channel Island swallow
+2025-09-08 15:59:37 - INFO -     - price          : 399.0
+2025-09-08 15:59:37 - INFO -     - location       : Roma (RM)
+2025-09-08 15:59:37 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-rocket-wide-channel-island-swallow-roma-614602357.htm
+2025-09-08 15:59:37 - INFO -     - brand          : None
+2025-09-08 15:59:37 - INFO -     - length_ft      : None
+2025-09-08 15:59:37 - INFO -     - length_in      : None
+2025-09-08 15:59:37 - INFO -     - width_in       : None
+2025-09-08 15:59:37 - INFO -     - thickness_in   : None
+2025-09-08 15:59:37 - INFO -     - liters         : None
+2025-09-08 15:59:39 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-sup-wave-roma-567339123.htm ---
+2025-09-08 15:59:40 - INFO -   > Scraped Data for Ad:
+2025-09-08 15:59:40 - INFO -     - model          : Tavola SUP Wave
+2025-09-08 15:59:40 - INFO -     - price          : 350.0
+2025-09-08 15:59:40 - INFO -     - location       : Roma (RM)
+2025-09-08 15:59:40 - INFO -     - link           : https://www.subito.it/sport/tavola-sup-wave-roma-567339123.htm
+2025-09-08 15:59:40 - INFO -     - brand          : None
+2025-09-08 15:59:40 - INFO -     - length_ft      : None
+2025-09-08 15:59:40 - INFO -     - length_in      : None
+2025-09-08 15:59:40 - INFO -     - width_in       : None
+2025-09-08 15:59:40 - INFO -     - thickness_in   : None
+2025-09-08 15:59:40 - INFO -     - liters         : None
+2025-09-08 15:59:41 - INFO - --- Processing NEW ad: https://www.subito.it/bambini-giocattoli/tavole-da-surf-roma-614109433.htm ---
+2025-09-08 15:59:42 - INFO -   > Scraped Data for Ad:
+2025-09-08 15:59:42 - INFO -     - model          : Tavole da surf
+2025-09-08 15:59:42 - INFO -     - price          : 15.0
+2025-09-08 15:59:42 - INFO -     - location       : Roma (RM)
+2025-09-08 15:59:42 - INFO -     - link           : https://www.subito.it/bambini-giocattoli/tavole-da-surf-roma-614109433.htm
+2025-09-08 15:59:42 - INFO -     - brand          : None
+2025-09-08 15:59:42 - INFO -     - length_ft      : None
+2025-09-08 15:59:42 - INFO -     - length_in      : None
+2025-09-08 15:59:42 - INFO -     - width_in       : None
+2025-09-08 15:59:42 - INFO -     - thickness_in   : None
+2025-09-08 15:59:42 - INFO -     - liters         : None
+2025-09-08 15:59:44 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-soft-8-roma-614157845.htm ---
+2025-09-08 15:59:44 - INFO -   > Scraped Data for Ad:
+2025-09-08 15:59:44 - INFO -     - model          : Tavola da surf soft 8'
+2025-09-08 15:59:44 - INFO -     - price          : 300.0
+2025-09-08 15:59:44 - INFO -     - location       : Roma (RM)
+2025-09-08 15:59:44 - INFO -     - link           : https://www.subito.it/sport/tavola-da-surf-soft-8-roma-614157845.htm
+2025-09-08 15:59:44 - INFO -     - brand          : None
+2025-09-08 15:59:44 - INFO -     - length_ft      : 8
+2025-09-08 15:59:44 - INFO -     - length_in      : 6
+2025-09-08 15:59:44 - INFO -     - width_in       : None
+2025-09-08 15:59:44 - INFO -     - thickness_in   : None
+2025-09-08 15:59:44 - INFO -     - liters         : None
+2025-09-08 15:59:45 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-bruce-hansel-the-whale-6-4-43lt-roma-613376379.htm ---
+2025-09-08 15:59:46 - INFO -   > Scraped Data for Ad:
+2025-09-08 15:59:46 - INFO -     - model          : Tavola Surf Bruce Hansel "The Whale" 6'4 43lt
+2025-09-08 15:59:46 - INFO -     - price          : 400.0
+2025-09-08 15:59:46 - INFO -     - location       : Roma (RM)
+2025-09-08 15:59:46 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-bruce-hansel-the-whale-6-4-43lt-roma-613376379.htm
+2025-09-08 15:59:46 - INFO -     - brand          : None
+2025-09-08 15:59:46 - INFO -     - length_ft      : 6
+2025-09-08 15:59:46 - INFO -     - length_in      : 4
+2025-09-08 15:59:46 - INFO -     - width_in       : None
+2025-09-08 15:59:46 - INFO -     - thickness_in   : None
+2025-09-08 15:59:46 - INFO -     - liters         : 43.0
+2025-09-08 15:59:47 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-6-0-33-5l-2024-roma-613966894.htm ---
+2025-09-08 15:59:49 - INFO -   > Scraped Data for Ad:
+2025-09-08 15:59:49 - INFO -     - model          : Tavola Surf 6.0 - 33.5l (2024)
+2025-09-08 15:59:49 - INFO -     - price          : 280.0
+2025-09-08 15:59:49 - INFO -     - location       : Roma (RM)
+2025-09-08 15:59:49 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-6-0-33-5l-2024-roma-613966894.htm
+2025-09-08 15:59:49 - INFO -     - brand          : None
+2025-09-08 15:59:49 - INFO -     - length_ft      : 6
+2025-09-08 15:59:49 - INFO -     - length_in      : 0
+2025-09-08 15:59:49 - INFO -     - width_in       : None
+2025-09-08 15:59:49 - INFO -     - thickness_in   : None
+2025-09-08 15:59:49 - INFO -     - liters         : 33.5
+2025-09-08 15:59:51 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-perfetta-reds-made-roma-613664546.htm ---
+2025-09-08 15:59:52 - INFO -   > Scraped Data for Ad:
+2025-09-08 15:59:52 - INFO -     - model          : Tavola  da surf perfetta “Reds made”
+2025-09-08 15:59:52 - INFO -     - price          : 250.0
+2025-09-08 15:59:52 - INFO -     - location       : Roma (RM)
+2025-09-08 15:59:52 - INFO -     - link           : https://www.subito.it/sport/tavola-da-surf-perfetta-reds-made-roma-613664546.htm
+2025-09-08 15:59:52 - INFO -     - brand          : None
+2025-09-08 15:59:52 - INFO -     - length_ft      : None
+2025-09-08 15:59:52 - INFO -     - length_in      : None
+2025-09-08 15:59:52 - INFO -     - width_in       : None
+2025-09-08 15:59:52 - INFO -     - thickness_in   : None
+2025-09-08 15:59:52 - INFO -     - liters         : None
+2025-09-08 15:59:53 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-cbc-sushi-fish-6-2-x-22-x-3-roma-613590274.htm ---
+2025-09-08 15:59:53 - INFO -   > Scraped Data for Ad:
+2025-09-08 15:59:53 - INFO -     - model          : Tavola Surf CBC Sushi Fish 6'2'' x 22" x 3"
+2025-09-08 15:59:53 - INFO -     - price          : 250.0
+2025-09-08 15:59:53 - INFO -     - location       : Roma (RM)
+2025-09-08 15:59:53 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-cbc-sushi-fish-6-2-x-22-x-3-roma-613590274.htm
+2025-09-08 15:59:53 - INFO -     - brand          : None
+2025-09-08 15:59:53 - INFO -     - length_ft      : 6
+2025-09-08 15:59:53 - INFO -     - length_in      : 2
+2025-09-08 15:59:53 - INFO -     - width_in       : None
+2025-09-08 15:59:53 - INFO -     - thickness_in   : None
+2025-09-08 15:59:53 - INFO -     - liters         : None
+2025-09-08 15:59:55 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-sharpeye-roma-613516842.htm ---
+2025-09-08 15:59:56 - INFO -   > Scraped Data for Ad:
+2025-09-08 15:59:56 - INFO -     - model          : Tavola da surf sharpeye
+2025-09-08 15:59:56 - INFO -     - price          : 330.0
+2025-09-08 15:59:56 - INFO -     - location       : Roma (RM)
+2025-09-08 15:59:56 - INFO -     - link           : https://www.subito.it/sport/tavola-da-surf-sharpeye-roma-613516842.htm
+2025-09-08 15:59:56 - INFO -     - brand          : Sharpeye
+2025-09-08 15:59:56 - INFO -     - length_ft      : None
+2025-09-08 15:59:56 - INFO -     - length_in      : None
+2025-09-08 15:59:56 - INFO -     - width_in       : None
+2025-09-08 15:59:56 - INFO -     - thickness_in   : None
+2025-09-08 15:59:56 - INFO -     - liters         : None
+2025-09-08 15:59:58 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-circa-9-roma-613442648.htm ---
+2025-09-08 15:59:59 - INFO -   > Scraped Data for Ad:
+2025-09-08 15:59:59 - INFO -     - model          : Tavola da surf circa ‘9
+2025-09-08 15:59:59 - INFO -     - price          : 150.0
+2025-09-08 15:59:59 - INFO -     - location       : Roma (RM)
+2025-09-08 15:59:59 - INFO -     - link           : https://www.subito.it/sport/tavola-da-surf-circa-9-roma-613442648.htm
+2025-09-08 15:59:59 - INFO -     - brand          : None
+2025-09-08 15:59:59 - INFO -     - length_ft      : None
+2025-09-08 15:59:59 - INFO -     - length_in      : None
+2025-09-08 15:59:59 - INFO -     - width_in       : None
+2025-09-08 15:59:59 - INFO -     - thickness_in   : None
+2025-09-08 15:59:59 - INFO -     - liters         : None
+2025-09-08 16:00:01 - INFO - --- Processing NEW ad: https://www.subito.it/sport/sup-windsurf-adh-sealion-xl-150l-roma-613404871.htm ---
+2025-09-08 16:00:01 - INFO -   > Scraped Data for Ad:
+2025-09-08 16:00:01 - INFO -     - model          : SUP/Windsurf ADH Sealion XL 150L
+2025-09-08 16:00:01 - INFO -     - price          : 350.0
+2025-09-08 16:00:01 - INFO -     - location       : Roma (RM)
+2025-09-08 16:00:01 - INFO -     - link           : https://www.subito.it/sport/sup-windsurf-adh-sealion-xl-150l-roma-613404871.htm
+2025-09-08 16:00:01 - INFO -     - brand          : None
+2025-09-08 16:00:01 - INFO -     - length_ft      : None
+2025-09-08 16:00:01 - INFO -     - length_in      : None
+2025-09-08 16:00:01 - INFO -     - width_in       : None
+2025-09-08 16:00:01 - INFO -     - thickness_in   : None
+2025-09-08 16:00:01 - INFO -     - liters         : 150.0
+2025-09-08 16:00:04 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-roma-613276535.htm ---
+2025-09-08 16:00:05 - INFO -   > Scraped Data for Ad:
+2025-09-08 16:00:05 - INFO -     - model          : Tavola da surf
+2025-09-08 16:00:05 - INFO -     - price          : 350.0
+2025-09-08 16:00:05 - INFO -     - location       : Roma (RM)
+2025-09-08 16:00:05 - INFO -     - link           : https://www.subito.it/sport/tavola-da-surf-roma-613276535.htm
+2025-09-08 16:00:05 - INFO -     - brand          : None
+2025-09-08 16:00:05 - INFO -     - length_ft      : None
+2025-09-08 16:00:05 - INFO -     - length_in      : None
+2025-09-08 16:00:05 - INFO -     - width_in       : None
+2025-09-08 16:00:05 - INFO -     - thickness_in   : None
+2025-09-08 16:00:05 - INFO -     - liters         : None
+2025-09-08 16:00:07 - INFO - --- Processing NEW ad: https://www.subito.it/sport/surf-da-onda-roma-507124389.htm ---
+2025-09-08 16:00:07 - INFO -   > Scraped Data for Ad:
+2025-09-08 16:00:07 - INFO -     - model          : Surf da onda
+2025-09-08 16:00:07 - INFO -     - price          : 450.0
+2025-09-08 16:00:07 - INFO -     - location       : Roma (RM)
+2025-09-08 16:00:07 - INFO -     - link           : https://www.subito.it/sport/surf-da-onda-roma-507124389.htm
+2025-09-08 16:00:07 - INFO -     - brand          : None
+2025-09-08 16:00:07 - INFO -     - length_ft      : None
+2025-09-08 16:00:07 - INFO -     - length_in      : None
+2025-09-08 16:00:07 - INFO -     - width_in       : None
+2025-09-08 16:00:07 - INFO -     - thickness_in   : None
+2025-09-08 16:00:07 - INFO -     - liters         : None
+2025-09-08 16:00:09 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-roma-613106270.htm ---
+2025-09-08 16:00:09 - INFO -   > Scraped Data for Ad:
+2025-09-08 16:00:09 - INFO -     - model          : Tavola da surf
+2025-09-08 16:00:09 - INFO -     - price          : 450.0
+2025-09-08 16:00:09 - INFO -     - location       : Roma (RM)
+2025-09-08 16:00:09 - INFO -     - link           : https://www.subito.it/sport/tavola-da-surf-roma-613106270.htm
+2025-09-08 16:00:09 - INFO -     - brand          : None
+2025-09-08 16:00:09 - INFO -     - length_ft      : None
+2025-09-08 16:00:09 - INFO -     - length_in      : None
+2025-09-08 16:00:09 - INFO -     - width_in       : None
+2025-09-08 16:00:09 - INFO -     - thickness_in   : None
+2025-09-08 16:00:09 - INFO -     - liters         : None
+2025-09-08 16:00:10 - INFO - --- Processing NEW ad: https://www.subito.it/sport/sup-gonfiabile-roma-613044721.htm ---
+2025-09-08 16:00:11 - INFO -   > Scraped Data for Ad:
+2025-09-08 16:00:11 - INFO -     - model          : SUP gonfiabile
+2025-09-08 16:00:11 - INFO -     - price          : 150.0
+2025-09-08 16:00:11 - INFO -     - location       : Roma (RM)
+2025-09-08 16:00:11 - INFO -     - link           : https://www.subito.it/sport/sup-gonfiabile-roma-613044721.htm
+2025-09-08 16:00:11 - INFO -     - brand          : None
+2025-09-08 16:00:11 - INFO -     - length_ft      : None
+2025-09-08 16:00:11 - INFO -     - length_in      : None
+2025-09-08 16:00:11 - INFO -     - width_in       : None
+2025-09-08 16:00:11 - INFO -     - thickness_in   : None
+2025-09-08 16:00:11 - INFO -     - liters         : None
+2025-09-08 16:00:12 - INFO - --- Processing NEW ad: https://www.subito.it/sport/lost-surfboards-mayhem-sub-driver-2-0-pro-formance-roma-612940174.htm ---
+2025-09-08 16:00:13 - INFO -   > Scraped Data for Ad:
+2025-09-08 16:00:13 - INFO -     - model          : Lost Surfboards Mayhem Sub-Driver 2.0 pro-formance
+2025-09-08 16:00:13 - INFO -     - price          : 499.0
+2025-09-08 16:00:13 - INFO -     - location       : Roma (RM)
+2025-09-08 16:00:13 - INFO -     - link           : https://www.subito.it/sport/lost-surfboards-mayhem-sub-driver-2-0-pro-formance-roma-612940174.htm
+2025-09-08 16:00:13 - INFO -     - brand          : Lost
+2025-09-08 16:00:13 - INFO -     - length_ft      : 2
+2025-09-08 16:00:13 - INFO -     - length_in      : 0
+2025-09-08 16:00:13 - INFO -     - width_in       : None
+2025-09-08 16:00:13 - INFO -     - thickness_in   : None
+2025-09-08 16:00:13 - INFO -     - liters         : None
+2025-09-08 16:00:14 - INFO - --- Processing NEW ad: https://www.subito.it/abbigliamento-accessori/ciondolo-argento-raspini-a-tema-sport-roma-612641358.htm ---
+2025-09-08 16:00:14 - INFO -   > Scraped Data for Ad:
+2025-09-08 16:00:14 - INFO -     - model          : Ciondolo argento Raspini a tema sport
+2025-09-08 16:00:14 - INFO -     - price          : 25.0
+2025-09-08 16:00:14 - INFO -     - location       : Roma (RM)
+2025-09-08 16:00:14 - INFO -     - link           : https://www.subito.it/abbigliamento-accessori/ciondolo-argento-raspini-a-tema-sport-roma-612641358.htm
+2025-09-08 16:00:14 - INFO -     - brand          : Rt
+2025-09-08 16:00:14 - INFO -     - length_ft      : None
+2025-09-08 16:00:14 - INFO -     - length_in      : None
+2025-09-08 16:00:14 - INFO -     - width_in       : None
+2025-09-08 16:00:14 - INFO -     - thickness_in   : None
+2025-09-08 16:00:14 - INFO -     - liters         : None
+2025-09-08 16:00:17 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-surfboard-gonfiabile-coasto-8-roma-564620833.htm ---
+2025-09-08 16:00:18 - INFO -   > Scraped Data for Ad:
+2025-09-08 16:00:18 - INFO -     - model          : Tavola Surf Surfboard Gonfiabile Coasto 8’
+2025-09-08 16:00:18 - INFO -     - price          : 230.0
+2025-09-08 16:00:18 - INFO -     - location       : Roma (RM)
+2025-09-08 16:00:18 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-surfboard-gonfiabile-coasto-8-roma-564620833.htm
+2025-09-08 16:00:18 - INFO -     - brand          : None
+2025-09-08 16:00:18 - INFO -     - length_ft      : 8
+2025-09-08 16:00:18 - INFO -     - length_in      : 2
+2025-09-08 16:00:18 - INFO -     - width_in       : None
+2025-09-08 16:00:18 - INFO -     - thickness_in   : None
+2025-09-08 16:00:18 - INFO -     - liters         : None
+2025-09-08 16:00:20 - INFO - Scraping search results from: https://www.subito.it/annunci-lazio/vendita/usato/roma/roma/?q=surfboard
+2025-09-08 16:00:21 - INFO - Found 29 potential ad containers on the page.
+2025-09-08 16:00:21 - INFO - --- Processing NEW ad: https://www.subito.it/abbigliamento-accessori/orologio-bulova-uomo-roma-615436765.htm ---
+2025-09-08 16:00:21 - INFO -   > Scraped Data for Ad:
+2025-09-08 16:00:21 - INFO -     - model          : orologio bulova uomo
+2025-09-08 16:00:21 - INFO -     - price          : 349.0
+2025-09-08 16:00:21 - INFO -     - location       : Roma (RM)
+2025-09-08 16:00:21 - INFO -     - link           : https://www.subito.it/abbigliamento-accessori/orologio-bulova-uomo-roma-615436765.htm
+2025-09-08 16:00:21 - INFO -     - brand          : None
+2025-09-08 16:00:21 - INFO -     - length_ft      : None
+2025-09-08 16:00:21 - INFO -     - length_in      : None
+2025-09-08 16:00:21 - INFO -     - width_in       : None
+2025-09-08 16:00:21 - INFO -     - thickness_in   : None
+2025-09-08 16:00:21 - INFO -     - liters         : None
+2025-09-08 16:00:23 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-pukas-hyperlink-5-11-32-litri-roma-roma-615150018.htm ---
+2025-09-08 16:00:23 - INFO -   > Scraped Data for Ad:
+2025-09-08 16:00:23 - INFO -     - model          : Tavola Surf Pukas Hyperlink 5.11 - 32 Litri Roma
+2025-09-08 16:00:23 - INFO -     - price          : 350.0
+2025-09-08 16:00:23 - INFO -     - location       : Roma (RM)
+2025-09-08 16:00:23 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-pukas-hyperlink-5-11-32-litri-roma-roma-615150018.htm
+2025-09-08 16:00:23 - INFO -     - brand          : Pukas
+2025-09-08 16:00:23 - INFO -     - length_ft      : 5
+2025-09-08 16:00:23 - INFO -     - length_in      : 11
+2025-09-08 16:00:23 - INFO -     - width_in       : None
+2025-09-08 16:00:23 - INFO -     - thickness_in   : None
+2025-09-08 16:00:23 - INFO -     - liters         : 32.0
+2025-09-08 16:00:24 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-longboard-crime-glider-roma-614704274.htm ---
+2025-09-08 16:00:24 - INFO -   > Scraped Data for Ad:
+2025-09-08 16:00:24 - INFO -     - model          : Tavola surf longboard Crime GLIDER
+2025-09-08 16:00:24 - INFO -     - price          : 760.0
+2025-09-08 16:00:24 - INFO -     - location       : Roma (RM)
+2025-09-08 16:00:24 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-longboard-crime-glider-roma-614704274.htm
+2025-09-08 16:00:24 - INFO -     - brand          : None
+2025-09-08 16:00:24 - INFO -     - length_ft      : None
+2025-09-08 16:00:24 - INFO -     - length_in      : None
+2025-09-08 16:00:24 - INFO -     - width_in       : None
+2025-09-08 16:00:24 - INFO -     - thickness_in   : None
+2025-09-08 16:00:24 - INFO -     - liters         : None
+2025-09-08 16:00:26 - INFO - --- Processing NEW ad: https://www.subito.it/sport/sacca-surfboard-bag-roma-613288725.htm ---
+2025-09-08 16:00:27 - INFO -   > Scraped Data for Ad:
+2025-09-08 16:00:27 - INFO -     - model          : Sacca surfboard bag
+2025-09-08 16:00:27 - INFO -     - price          : 33.0
+2025-09-08 16:00:27 - INFO -     - location       : Roma (RM)
+2025-09-08 16:00:27 - INFO -     - link           : https://www.subito.it/sport/sacca-surfboard-bag-roma-613288725.htm
+2025-09-08 16:00:27 - INFO -     - brand          : None
+2025-09-08 16:00:27 - INFO -     - length_ft      : None
+2025-09-08 16:00:27 - INFO -     - length_in      : None
+2025-09-08 16:00:27 - INFO -     - width_in       : None
+2025-09-08 16:00:27 - INFO -     - thickness_in   : None
+2025-09-08 16:00:27 - INFO -     - liters         : None
+2025-09-08 16:00:28 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-surfboard-gonfiabile-coasto-8-roma-564620833.htm ---
+2025-09-08 16:00:28 - INFO -   > Scraped Data for Ad:
+2025-09-08 16:00:28 - INFO -     - model          : Tavola Surf Surfboard Gonfiabile Coasto 8’
+2025-09-08 16:00:28 - INFO -     - price          : 230.0
+2025-09-08 16:00:28 - INFO -     - location       : Roma (RM)
+2025-09-08 16:00:28 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-surfboard-gonfiabile-coasto-8-roma-564620833.htm
+2025-09-08 16:00:28 - INFO -     - brand          : None
+2025-09-08 16:00:28 - INFO -     - length_ft      : 8
+2025-09-08 16:00:28 - INFO -     - length_in      : 2
+2025-09-08 16:00:28 - INFO -     - width_in       : None
+2025-09-08 16:00:28 - INFO -     - thickness_in   : None
+2025-09-08 16:00:28 - INFO -     - liters         : None
+2025-09-08 16:00:30 - INFO - --- Processing NEW ad: https://www.subito.it/sport/sacca-trasporto-surfboard-impermeabile-northcore-roma-611290215.htm ---
+2025-09-08 16:00:30 - INFO -   > Scraped Data for Ad:
+2025-09-08 16:00:30 - INFO -     - model          : Sacca trasporto Surfboard impermeabile Northcore
+2025-09-08 16:00:30 - INFO -     - price          : 50.0
+2025-09-08 16:00:30 - INFO -     - location       : Roma (RM)
+2025-09-08 16:00:30 - INFO -     - link           : https://www.subito.it/sport/sacca-trasporto-surfboard-impermeabile-northcore-roma-611290215.htm
+2025-09-08 16:00:30 - INFO -     - brand          : Rt
+2025-09-08 16:00:30 - INFO -     - length_ft      : None
+2025-09-08 16:00:30 - INFO -     - length_in      : None
+2025-09-08 16:00:30 - INFO -     - width_in       : None
+2025-09-08 16:00:30 - INFO -     - thickness_in   : None
+2025-09-08 16:00:30 - INFO -     - liters         : None
+2025-09-08 16:00:33 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-m-a-t-5-7-in-fibra-di-vetro-26-5l-roma-611289541.htm ---
+2025-09-08 16:00:33 - INFO -   > Scraped Data for Ad:
+2025-09-08 16:00:33 - INFO -     - model          : Tavola da Surf M.A.T. 5.7 in fibra di vetro, 26,5L
+2025-09-08 16:00:33 - INFO -     - price          : 200.0
+2025-09-08 16:00:33 - INFO -     - location       : Roma (RM)
+2025-09-08 16:00:33 - INFO -     - link           : https://www.subito.it/sport/tavola-da-surf-m-a-t-5-7-in-fibra-di-vetro-26-5l-roma-611289541.htm
+2025-09-08 16:00:33 - INFO -     - brand          : None
+2025-09-08 16:00:33 - INFO -     - length_ft      : 5
+2025-09-08 16:00:33 - INFO -     - length_in      : 7
+2025-09-08 16:00:33 - INFO -     - width_in       : None
+2025-09-08 16:00:33 - INFO -     - thickness_in   : None
+2025-09-08 16:00:33 - INFO -     - liters         : 26.5
+2025-09-08 16:00:36 - INFO - --- Processing NEW ad: https://www.subito.it/sport/surfboard-roma-605229001.htm ---
+2025-09-08 16:00:36 - INFO -   > Scraped Data for Ad:
+2025-09-08 16:00:36 - INFO -     - model          : surfboard
+2025-09-08 16:00:36 - INFO -     - price          : 90.0
+2025-09-08 16:00:36 - INFO -     - location       : Roma (RM)
+2025-09-08 16:00:36 - INFO -     - link           : https://www.subito.it/sport/surfboard-roma-605229001.htm
+2025-09-08 16:00:36 - INFO -     - brand          : None
+2025-09-08 16:00:36 - INFO -     - length_ft      : None
+2025-09-08 16:00:36 - INFO -     - length_in      : None
+2025-09-08 16:00:36 - INFO -     - width_in       : None
+2025-09-08 16:00:36 - INFO -     - thickness_in   : None
+2025-09-08 16:00:36 - INFO -     - liters         : None
+2025-09-08 16:00:39 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-roma-604224615.htm ---
+2025-09-08 16:00:40 - INFO -   > Scraped Data for Ad:
+2025-09-08 16:00:40 - INFO -     - model          : Tavola da Surf
+2025-09-08 16:00:40 - INFO -     - price          : 800.0
+2025-09-08 16:00:40 - INFO -     - location       : Roma (RM)
+2025-09-08 16:00:40 - INFO -     - link           : https://www.subito.it/sport/tavola-da-surf-roma-604224615.htm
+2025-09-08 16:00:40 - INFO -     - brand          : None
+2025-09-08 16:00:40 - INFO -     - length_ft      : None
+2025-09-08 16:00:40 - INFO -     - length_in      : None
+2025-09-08 16:00:40 - INFO -     - width_in       : None
+2025-09-08 16:00:40 - INFO -     - thickness_in   : None
+2025-09-08 16:00:40 - INFO -     - liters         : None
+2025-09-08 16:00:42 - INFO - --- Processing NEW ad: https://www.subito.it/sport/surfboard-bic-mini-malibu-7-3-gerard-dabbadie-roma-603457255.htm ---
+2025-09-08 16:00:43 - INFO -   > Scraped Data for Ad:
+2025-09-08 16:00:43 - INFO -     - model          : Surfboard BIC Mini Malibu 7'3"  - Gerard Dabbadie
+2025-09-08 16:00:43 - INFO -     - price          : 190.0
+2025-09-08 16:00:43 - INFO -     - location       : Roma (RM)
+2025-09-08 16:00:43 - INFO -     - link           : https://www.subito.it/sport/surfboard-bic-mini-malibu-7-3-gerard-dabbadie-roma-603457255.htm
+2025-09-08 16:00:43 - INFO -     - brand          : Bic
+2025-09-08 16:00:43 - INFO -     - length_ft      : 7
+2025-09-08 16:00:43 - INFO -     - length_in      : 3
+2025-09-08 16:00:43 - INFO -     - width_in       : None
+2025-09-08 16:00:43 - INFO -     - thickness_in   : None
+2025-09-08 16:00:43 - INFO -     - liters         : None
+2025-09-08 16:00:44 - INFO - --- Processing NEW ad: https://www.subito.it/sport/honu-surfboard-fish-tail-roma-601702001.htm ---
+2025-09-08 16:00:45 - INFO -   > Scraped Data for Ad:
+2025-09-08 16:00:45 - INFO -     - model          : Honu surfboard fish tail
+2025-09-08 16:00:45 - INFO -     - price          : 250.0
+2025-09-08 16:00:45 - INFO -     - location       : Roma (RM)
+2025-09-08 16:00:45 - INFO -     - link           : https://www.subito.it/sport/honu-surfboard-fish-tail-roma-601702001.htm
+2025-09-08 16:00:45 - INFO -     - brand          : None
+2025-09-08 16:00:45 - INFO -     - length_ft      : None
+2025-09-08 16:00:45 - INFO -     - length_in      : None
+2025-09-08 16:00:45 - INFO -     - width_in       : None
+2025-09-08 16:00:45 - INFO -     - thickness_in   : None
+2025-09-08 16:00:45 - INFO -     - liters         : None
+2025-09-08 16:00:46 - INFO - --- Processing NEW ad: https://www.subito.it/sport/surfboard-olaian-soft-roma-599506043.htm ---
+2025-09-08 16:00:47 - INFO -   > Scraped Data for Ad:
+2025-09-08 16:00:47 - INFO -     - model          : Surfboard Olaian Soft
+2025-09-08 16:00:47 - INFO -     - price          : 90.0
+2025-09-08 16:00:47 - INFO -     - location       : Roma (RM)
+2025-09-08 16:00:47 - INFO -     - link           : https://www.subito.it/sport/surfboard-olaian-soft-roma-599506043.htm
+2025-09-08 16:00:47 - INFO -     - brand          : None
+2025-09-08 16:00:47 - INFO -     - length_ft      : None
+2025-09-08 16:00:47 - INFO -     - length_in      : None
+2025-09-08 16:00:47 - INFO -     - width_in       : None
+2025-09-08 16:00:47 - INFO -     - thickness_in   : None
+2025-09-08 16:00:47 - INFO -     - liters         : None
+2025-09-08 16:00:49 - INFO - --- Processing NEW ad: https://www.subito.it/sport/surf-surfboard-6-6-soft-roma-597202498.htm ---
+2025-09-08 16:00:50 - INFO -   > Scraped Data for Ad:
+2025-09-08 16:00:50 - INFO -     - model          : Surf surfboard 6’6 soft
+2025-09-08 16:00:50 - INFO -     - price          : 280.0
+2025-09-08 16:00:50 - INFO -     - location       : Roma (RM)
+2025-09-08 16:00:50 - INFO -     - link           : https://www.subito.it/sport/surf-surfboard-6-6-soft-roma-597202498.htm
+2025-09-08 16:00:50 - INFO -     - brand          : None
+2025-09-08 16:00:50 - INFO -     - length_ft      : 6
+2025-09-08 16:00:50 - INFO -     - length_in      : 6
+2025-09-08 16:00:50 - INFO -     - width_in       : None
+2025-09-08 16:00:50 - INFO -     - thickness_in   : None
+2025-09-08 16:00:50 - INFO -     - liters         : None
+2025-09-08 16:00:51 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-surfboard-fish-roma-595415969.htm ---
+2025-09-08 16:00:52 - INFO -   > Scraped Data for Ad:
+2025-09-08 16:00:52 - INFO -     - model          : Tavola surf ,Surfboard  fish
+2025-09-08 16:00:52 - INFO -     - price          : 400.0
+2025-09-08 16:00:52 - INFO -     - location       : Roma (RM)
+2025-09-08 16:00:52 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-surfboard-fish-roma-595415969.htm
+2025-09-08 16:00:52 - INFO -     - brand          : None
+2025-09-08 16:00:52 - INFO -     - length_ft      : None
+2025-09-08 16:00:52 - INFO -     - length_in      : None
+2025-09-08 16:00:52 - INFO -     - width_in       : None
+2025-09-08 16:00:52 - INFO -     - thickness_in   : None
+2025-09-08 16:00:52 - INFO -     - liters         : None
+2025-09-08 16:00:54 - INFO - --- Processing NEW ad: https://www.subito.it/sport/sacca-surf-7-6-ocean-earth-roma-594746262.htm ---
+2025-09-08 16:00:55 - INFO -   > Scraped Data for Ad:
+2025-09-08 16:00:55 - INFO -     - model          : Sacca Surf 7.6" Ocean & Earth
+2025-09-08 16:00:55 - INFO -     - price          : 50.0
+2025-09-08 16:00:55 - INFO -     - location       : Roma (RM)
+2025-09-08 16:00:55 - INFO -     - link           : https://www.subito.it/sport/sacca-surf-7-6-ocean-earth-roma-594746262.htm
+2025-09-08 16:00:55 - INFO -     - brand          : Rt
+2025-09-08 16:00:55 - INFO -     - length_ft      : 7
+2025-09-08 16:00:55 - INFO -     - length_in      : 6
+2025-09-08 16:00:55 - INFO -     - width_in       : None
+2025-09-08 16:00:55 - INFO -     - thickness_in   : None
+2025-09-08 16:00:55 - INFO -     - liters         : None
+2025-09-08 16:00:57 - INFO - --- Processing NEW ad: https://www.subito.it/sport/surfboard-30-litri-5-6-roma-588558605.htm ---
+2025-09-08 16:00:58 - INFO -   > Scraped Data for Ad:
+2025-09-08 16:00:58 - INFO -     - model          : Surfboard 30 litri 5.6
+2025-09-08 16:00:58 - INFO -     - price          : 230.0
+2025-09-08 16:00:58 - INFO -     - location       : Roma (RM)
+2025-09-08 16:00:58 - INFO -     - link           : https://www.subito.it/sport/surfboard-30-litri-5-6-roma-588558605.htm
+2025-09-08 16:00:58 - INFO -     - brand          : None
+2025-09-08 16:00:58 - INFO -     - length_ft      : 5
+2025-09-08 16:00:58 - INFO -     - length_in      : 6
+2025-09-08 16:00:58 - INFO -     - width_in       : None
+2025-09-08 16:00:58 - INFO -     - thickness_in   : None
+2025-09-08 16:00:58 - INFO -     - liters         : 30.0
+2025-09-08 16:01:01 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-fish-x-roma-584788413.htm ---
+2025-09-08 16:01:01 - INFO -   > Scraped Data for Ad:
+2025-09-08 16:01:01 - INFO -     - model          : Tavola surf Fish X
+2025-09-08 16:01:01 - INFO -     - price          : 250.0
+2025-09-08 16:01:01 - INFO -     - location       : Roma (RM)
+2025-09-08 16:01:01 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-fish-x-roma-584788413.htm
+2025-09-08 16:01:01 - INFO -     - brand          : None
+2025-09-08 16:01:01 - INFO -     - length_ft      : None
+2025-09-08 16:01:01 - INFO -     - length_in      : None
+2025-09-08 16:01:01 - INFO -     - width_in       : None
+2025-09-08 16:01:01 - INFO -     - thickness_in   : None
+2025-09-08 16:01:01 - INFO -     - liters         : None
+2025-09-08 16:01:03 - INFO - --- Processing NEW ad: https://www.subito.it/bambini-giocattoli/lego-6518-guardia-spiaggia-roma-583535240.htm ---
+2025-09-08 16:01:03 - INFO -   > Scraped Data for Ad:
+2025-09-08 16:01:03 - INFO -     - model          : Lego 6518 Guardia spiaggia
+2025-09-08 16:01:03 - INFO -     - price          : 14.0
+2025-09-08 16:01:03 - INFO -     - location       : Roma (RM)
+2025-09-08 16:01:03 - INFO -     - link           : https://www.subito.it/bambini-giocattoli/lego-6518-guardia-spiaggia-roma-583535240.htm
+2025-09-08 16:01:03 - INFO -     - brand          : None
+2025-09-08 16:01:03 - INFO -     - length_ft      : None
+2025-09-08 16:01:03 - INFO -     - length_in      : None
+2025-09-08 16:01:03 - INFO -     - width_in       : None
+2025-09-08 16:01:03 - INFO -     - thickness_in   : None
+2025-09-08 16:01:03 - INFO -     - liters         : None
+2025-09-08 16:01:06 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-epoxy-7ft-verde-menta-roma-526925605.htm ---
+2025-09-08 16:01:07 - INFO -   > Scraped Data for Ad:
+2025-09-08 16:01:07 - INFO -     - model          : Tavola surf epoxy 7ft verde menta
+2025-09-08 16:01:07 - INFO -     - price          : 350.0
+2025-09-08 16:01:07 - INFO -     - location       : Roma (RM)
+2025-09-08 16:01:07 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-epoxy-7ft-verde-menta-roma-526925605.htm
+2025-09-08 16:01:07 - INFO -     - brand          : None
+2025-09-08 16:01:07 - INFO -     - length_ft      : None
+2025-09-08 16:01:07 - INFO -     - length_in      : None
+2025-09-08 16:01:07 - INFO -     - width_in       : None
+2025-09-08 16:01:07 - INFO -     - thickness_in   : None
+2025-09-08 16:01:07 - INFO -     - liters         : None
+2025-09-08 16:01:08 - INFO - --- Processing NEW ad: https://www.subito.it/hobby-collezionismo/lego-6813-space-police-roma-581867278.htm ---
+2025-09-08 16:01:08 - INFO -   > Scraped Data for Ad:
+2025-09-08 16:01:08 - INFO -     - model          : Lego 6813 Space Police
+2025-09-08 16:01:08 - INFO -     - price          : 18.0
+2025-09-08 16:01:08 - INFO -     - location       : Roma (RM)
+2025-09-08 16:01:08 - INFO -     - link           : https://www.subito.it/hobby-collezionismo/lego-6813-space-police-roma-581867278.htm
+2025-09-08 16:01:08 - INFO -     - brand          : None
+2025-09-08 16:01:08 - INFO -     - length_ft      : None
+2025-09-08 16:01:08 - INFO -     - length_in      : None
+2025-09-08 16:01:08 - INFO -     - width_in       : None
+2025-09-08 16:01:08 - INFO -     - thickness_in   : None
+2025-09-08 16:01:08 - INFO -     - liters         : None
+2025-09-08 16:01:09 - INFO - --- Processing NEW ad: https://www.subito.it/hobby-collezionismo/lego-6538-rebel-roadster-roma-581867815.htm ---
+2025-09-08 16:01:10 - INFO -   > Scraped Data for Ad:
+2025-09-08 16:01:10 - INFO -     - model          : Lego 6538 Rebel Roadster
+2025-09-08 16:01:10 - INFO -     - price          : 14.0
+2025-09-08 16:01:10 - INFO -     - location       : Roma (RM)
+2025-09-08 16:01:10 - INFO -     - link           : https://www.subito.it/hobby-collezionismo/lego-6538-rebel-roadster-roma-581867815.htm
+2025-09-08 16:01:10 - INFO -     - brand          : None
+2025-09-08 16:01:10 - INFO -     - length_ft      : None
+2025-09-08 16:01:10 - INFO -     - length_in      : None
+2025-09-08 16:01:10 - INFO -     - width_in       : None
+2025-09-08 16:01:10 - INFO -     - thickness_in   : None
+2025-09-08 16:01:10 - INFO -     - liters         : None
+2025-09-08 16:01:12 - INFO - --- Processing NEW ad: https://www.subito.it/hobby-collezionismo/lego-4002-racer-boat-roma-581868068.htm ---
+2025-09-08 16:01:12 - INFO -   > Scraped Data for Ad:
+2025-09-08 16:01:12 - INFO -     - model          : Lego 4002 Racer boat
+2025-09-08 16:01:12 - INFO -     - price          : 19.0
+2025-09-08 16:01:12 - INFO -     - location       : Roma (RM)
+2025-09-08 16:01:12 - INFO -     - link           : https://www.subito.it/hobby-collezionismo/lego-4002-racer-boat-roma-581868068.htm
+2025-09-08 16:01:12 - INFO -     - brand          : None
+2025-09-08 16:01:12 - INFO -     - length_ft      : None
+2025-09-08 16:01:12 - INFO -     - length_in      : None
+2025-09-08 16:01:12 - INFO -     - width_in       : None
+2025-09-08 16:01:12 - INFO -     - thickness_in   : None
+2025-09-08 16:01:12 - INFO -     - liters         : None
+2025-09-08 16:01:15 - INFO - --- Processing NEW ad: https://www.subito.it/hobby-collezionismo/lego-6712-wild-west-no-title-dinamite-roma-581868300.htm ---
+2025-09-08 16:01:15 - INFO -   > Scraped Data for Ad:
+2025-09-08 16:01:15 - INFO -     - model          : Lego 6712 Wild West (no title dinamite)
+2025-09-08 16:01:15 - INFO -     - price          : 21.0
+2025-09-08 16:01:15 - INFO -     - location       : Roma (RM)
+2025-09-08 16:01:15 - INFO -     - link           : https://www.subito.it/hobby-collezionismo/lego-6712-wild-west-no-title-dinamite-roma-581868300.htm
+2025-09-08 16:01:15 - INFO -     - brand          : None
+2025-09-08 16:01:15 - INFO -     - length_ft      : None
+2025-09-08 16:01:15 - INFO -     - length_in      : None
+2025-09-08 16:01:15 - INFO -     - width_in       : None
+2025-09-08 16:01:15 - INFO -     - thickness_in   : None
+2025-09-08 16:01:15 - INFO -     - liters         : None
+2025-09-08 16:01:18 - INFO - --- Processing NEW ad: https://www.subito.it/hobby-collezionismo/lego-6237-pirati-roma-581868590.htm ---
+2025-09-08 16:01:19 - INFO -   > Scraped Data for Ad:
+2025-09-08 16:01:19 - INFO -     - model          : Lego 6237 Pirati
+2025-09-08 16:01:19 - INFO -     - price          : 14.0
+2025-09-08 16:01:19 - INFO -     - location       : Roma (RM)
+2025-09-08 16:01:19 - INFO -     - link           : https://www.subito.it/hobby-collezionismo/lego-6237-pirati-roma-581868590.htm
+2025-09-08 16:01:19 - INFO -     - brand          : None
+2025-09-08 16:01:19 - INFO -     - length_ft      : None
+2025-09-08 16:01:19 - INFO -     - length_in      : None
+2025-09-08 16:01:19 - INFO -     - width_in       : None
+2025-09-08 16:01:19 - INFO -     - thickness_in   : None
+2025-09-08 16:01:19 - INFO -     - liters         : None
+2025-09-08 16:01:21 - INFO - --- Processing NEW ad: https://www.subito.it/hobby-collezionismo/lego-6351-surf-n-sail-camper-no-surfboard-roma-581868754.htm ---
+2025-09-08 16:01:22 - INFO -   > Scraped Data for Ad:
+2025-09-08 16:01:22 - INFO -     - model          : Lego 6351 Surf N' Sail Camper (no surfboard)
+2025-09-08 16:01:22 - INFO -     - price          : 31.0
+2025-09-08 16:01:22 - INFO -     - location       : Roma (RM)
+2025-09-08 16:01:22 - INFO -     - link           : https://www.subito.it/hobby-collezionismo/lego-6351-surf-n-sail-camper-no-surfboard-roma-581868754.htm
+2025-09-08 16:01:22 - INFO -     - brand          : None
+2025-09-08 16:01:22 - INFO -     - length_ft      : None
+2025-09-08 16:01:22 - INFO -     - length_in      : None
+2025-09-08 16:01:22 - INFO -     - width_in       : None
+2025-09-08 16:01:22 - INFO -     - thickness_in   : None
+2025-09-08 16:01:22 - INFO -     - liters         : None
+2025-09-08 16:01:25 - INFO - --- Processing NEW ad: https://www.subito.it/sport/surfboard-by-x-ad-6-6-roma-579176335.htm ---
+2025-09-08 16:01:25 - INFO -   > Scraped Data for Ad:
+2025-09-08 16:01:25 - INFO -     - model          : Surfboard by X AD 6,6
+2025-09-08 16:01:25 - INFO -     - price          : 150.0
+2025-09-08 16:01:25 - INFO -     - location       : Roma (RM)
+2025-09-08 16:01:25 - INFO -     - link           : https://www.subito.it/sport/surfboard-by-x-ad-6-6-roma-579176335.htm
+2025-09-08 16:01:25 - INFO -     - brand          : None
+2025-09-08 16:01:25 - INFO -     - length_ft      : None
+2025-09-08 16:01:25 - INFO -     - length_in      : None
+2025-09-08 16:01:25 - INFO -     - width_in       : None
+2025-09-08 16:01:25 - INFO -     - thickness_in   : None
+2025-09-08 16:01:25 - INFO -     - liters         : None
+2025-09-08 16:01:27 - INFO - --- Processing NEW ad: https://www.subito.it/sport/surfboard-roma-575939909.htm ---
+2025-09-08 16:01:27 - INFO -   > Scraped Data for Ad:
+2025-09-08 16:01:27 - INFO -     - model          : Surfboard
+2025-09-08 16:01:27 - INFO -     - price          : 350.0
+2025-09-08 16:01:27 - INFO -     - location       : Roma (RM)
+2025-09-08 16:01:27 - INFO -     - link           : https://www.subito.it/sport/surfboard-roma-575939909.htm
+2025-09-08 16:01:27 - INFO -     - brand          : None
+2025-09-08 16:01:27 - INFO -     - length_ft      : None
+2025-09-08 16:01:27 - INFO -     - length_in      : None
+2025-09-08 16:01:27 - INFO -     - width_in       : None
+2025-09-08 16:01:27 - INFO -     - thickness_in   : None
+2025-09-08 16:01:27 - INFO -     - liters         : None
+2025-09-08 16:01:30 - INFO - --- Processing NEW ad: https://www.subito.it/sport/firewire-sweet-potato-6-0-roma-569299224.htm ---
+2025-09-08 16:01:30 - INFO -   > Scraped Data for Ad:
+2025-09-08 16:01:30 - INFO -     - model          : Firewire Sweet Potato 6’0
+2025-09-08 16:01:30 - INFO -     - price          : 450.0
+2025-09-08 16:01:30 - INFO -     - location       : Roma (RM)
+2025-09-08 16:01:30 - INFO -     - link           : https://www.subito.it/sport/firewire-sweet-potato-6-0-roma-569299224.htm
+2025-09-08 16:01:30 - INFO -     - brand          : Firewire
+2025-09-08 16:01:30 - INFO -     - length_ft      : 6
+2025-09-08 16:01:30 - INFO -     - length_in      : 0
+2025-09-08 16:01:30 - INFO -     - width_in       : None
+2025-09-08 16:01:30 - INFO -     - thickness_in   : None
+2025-09-08 16:01:30 - INFO -     - liters         : None
+2025-09-08 16:01:33 - INFO - Committing new ads to the database...
+2025-09-08 16:01:33 - INFO - Scraping session finished. Added 59 new ads.
+2025-09-08 16:13:23 - INFO - Scraping search results from: https://www.subito.it/annunci-lazio/vendita/usato/roma/roma/?q=tavola+da+surf
+2025-09-08 16:13:23 - INFO - Found 31 potential ad containers on the page.
+2025-09-08 16:13:23 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-roma-615545652.htm ---
+2025-09-08 16:13:24 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:13:24 - INFO -     - model          : Tavola da surf
+2025-09-08 16:13:24 - INFO -     - price          : 250.0
+2025-09-08 16:13:24 - INFO -     - location       : Roma (RM)
+2025-09-08 16:13:24 - INFO -     - link           : https://www.subito.it/sport/tavola-da-surf-roma-615545652.htm
+2025-09-08 16:13:24 - INFO -     - brand          : None
+2025-09-08 16:13:24 - INFO -     - liters         : None
+2025-09-08 16:13:24 - INFO -   > API output preview (formatted values):
+2025-09-08 16:13:24 - ERROR -   > Could not process detail page https://www.subito.it/sport/tavola-da-surf-roma-615545652.htm. Error: 'NoneType' object has no attribute 'isoformat'
+2025-09-08 16:13:25 - INFO - --- Processing NEW ad: https://www.subito.it/sport/windsurf-tavola-fanatic-ray-mega-100-litri-roma-508967897.htm ---
+2025-09-08 16:13:25 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:13:25 - INFO -     - model          : Windsurf tavola Fanatic Ray Mega 100 litri
+2025-09-08 16:13:25 - INFO -     - price          : 145.0
+2025-09-08 16:13:25 - INFO -     - location       : Roma (RM)
+2025-09-08 16:13:25 - INFO -     - link           : https://www.subito.it/sport/windsurf-tavola-fanatic-ray-mega-100-litri-roma-508967897.htm
+2025-09-08 16:13:25 - INFO -     - brand          : None
+2025-09-08 16:13:25 - INFO -     - liters         : 100.0
+2025-09-08 16:13:25 - INFO -   > API output preview (formatted values):
+2025-09-08 16:13:25 - ERROR -   > Could not process detail page https://www.subito.it/sport/windsurf-tavola-fanatic-ray-mega-100-litri-roma-508967897.htm. Error: 'NoneType' object has no attribute 'isoformat'
+2025-09-08 16:13:26 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-roma-615491921.htm ---
+2025-09-08 16:13:27 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:13:27 - INFO -     - model          : Tavola da surf
+2025-09-08 16:13:27 - INFO -     - price          : 400.0
+2025-09-08 16:13:27 - INFO -     - location       : Roma (RM)
+2025-09-08 16:13:27 - INFO -     - link           : https://www.subito.it/sport/tavola-da-surf-roma-615491921.htm
+2025-09-08 16:13:27 - INFO -     - brand          : None
+2025-09-08 16:13:27 - INFO -     - liters         : None
+2025-09-08 16:13:27 - INFO -   > API output preview (formatted values):
+2025-09-08 16:13:27 - ERROR -   > Could not process detail page https://www.subito.it/sport/tavola-da-surf-roma-615491921.htm. Error: 'NoneType' object has no attribute 'isoformat'
+2025-09-08 16:13:29 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-morbida-softboard-loot-hayden-shapes-roma-563712602.htm ---
+2025-09-08 16:13:29 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:13:29 - INFO -     - model          : Tavola surf morbida Softboard Loot Hayden Shapes
+2025-09-08 16:13:29 - INFO -     - price          : 170.0
+2025-09-08 16:13:29 - INFO -     - location       : Roma (RM)
+2025-09-08 16:13:29 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-morbida-softboard-loot-hayden-shapes-roma-563712602.htm
+2025-09-08 16:13:29 - INFO -     - brand          : Hayden Shapes
+2025-09-08 16:13:29 - INFO -     - liters         : None
+2025-09-08 16:13:29 - INFO -   > API output preview (formatted values):
+2025-09-08 16:13:29 - ERROR -   > Could not process detail page https://www.subito.it/sport/tavola-surf-morbida-softboard-loot-hayden-shapes-roma-563712602.htm. Error: 'NoneType' object has no attribute 'isoformat'
+2025-09-08 16:13:31 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-firewire-seaside-misure-5-6-roma-594495900.htm ---
+2025-09-08 16:13:31 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:13:31 - INFO -     - model          : Tavola da surf Firewire Seaside misure 5.6
+2025-09-08 16:13:31 - INFO -     - price          : 400.0
+2025-09-08 16:13:31 - INFO -     - location       : Roma (RM)
+2025-09-08 16:13:31 - INFO -     - link           : https://www.subito.it/sport/tavola-da-surf-firewire-seaside-misure-5-6-roma-594495900.htm
+2025-09-08 16:13:31 - INFO -     - brand          : Firewire
+2025-09-08 16:13:31 - INFO -     - liters         : None
+2025-09-08 16:13:31 - INFO -     - length_ft      : 5
+2025-09-08 16:13:31 - INFO -     - length_in      : 6
+2025-09-08 16:13:31 - INFO -     - width_in       : None
+2025-09-08 16:13:31 - INFO -     - thickness_in   : None
+2025-09-08 16:13:31 - INFO -   > API output preview (formatted values):
+2025-09-08 16:13:31 - ERROR -   > Could not process detail page https://www.subito.it/sport/tavola-da-surf-firewire-seaside-misure-5-6-roma-594495900.htm. Error: 'NoneType' object has no attribute 'isoformat'
+2025-09-08 16:13:33 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-morbida-softboard-loot-hayden-shapes-roma-563712602.htm ---
+2025-09-08 16:13:33 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:13:33 - INFO -     - model          : Tavola surf morbida Softboard Loot Hayden Shapes
+2025-09-08 16:13:33 - INFO -     - price          : 170.0
+2025-09-08 16:13:33 - INFO -     - location       : Roma (RM)
+2025-09-08 16:13:33 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-morbida-softboard-loot-hayden-shapes-roma-563712602.htm
+2025-09-08 16:13:33 - INFO -     - brand          : Hayden Shapes
+2025-09-08 16:13:33 - INFO -     - liters         : None
+2025-09-08 16:13:33 - INFO -   > API output preview (formatted values):
+2025-09-08 16:13:33 - ERROR -   > Could not process detail page https://www.subito.it/sport/tavola-surf-morbida-softboard-loot-hayden-shapes-roma-563712602.htm. Error: 'NoneType' object has no attribute 'isoformat'
+2025-09-08 16:13:36 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-pukas-hyperlink-5-11-32-litri-roma-roma-615150018.htm ---
+2025-09-08 16:13:37 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:13:37 - INFO -     - model          : Tavola Surf Pukas Hyperlink 5.11 - 32 Litri Roma
+2025-09-08 16:13:37 - INFO -     - price          : 350.0
+2025-09-08 16:13:37 - INFO -     - location       : Roma (RM)
+2025-09-08 16:13:37 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-pukas-hyperlink-5-11-32-litri-roma-roma-615150018.htm
+2025-09-08 16:13:37 - INFO -     - brand          : Pukas
+2025-09-08 16:13:37 - INFO -     - liters         : 32.0
+2025-09-08 16:13:37 - INFO -     - length_ft      : 5
+2025-09-08 16:13:37 - INFO -     - length_in      : 11
+2025-09-08 16:13:37 - INFO -     - width_in       : None
+2025-09-08 16:13:37 - INFO -     - thickness_in   : None
+2025-09-08 16:13:37 - INFO -   > API output preview (formatted values):
+2025-09-08 16:13:37 - ERROR -   > Could not process detail page https://www.subito.it/sport/tavola-surf-pukas-hyperlink-5-11-32-litri-roma-roma-615150018.htm. Error: 'NoneType' object has no attribute 'isoformat'
+2025-09-08 16:13:38 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-soft-morbida-roma-615306556.htm ---
+2025-09-08 16:13:43 - ERROR -   > Could not process detail page https://www.subito.it/sport/tavola-da-surf-soft-morbida-roma-615306556.htm. Error: The read operation timed out
+2025-09-08 16:13:46 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-nuova-roma-568510366.htm ---
+2025-09-08 16:13:49 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:13:49 - INFO -     - model          : Tavola da surf Nuova
+2025-09-08 16:13:49 - INFO -     - price          : 200.0
+2025-09-08 16:13:49 - INFO -     - location       : Roma (RM)
+2025-09-08 16:13:49 - INFO -     - link           : https://www.subito.it/sport/tavola-da-surf-nuova-roma-568510366.htm
+2025-09-08 16:13:49 - INFO -     - brand          : None
+2025-09-08 16:13:49 - INFO -     - liters         : None
+2025-09-08 16:13:49 - INFO -   > API output preview (formatted values):
+2025-09-08 16:13:49 - ERROR -   > Could not process detail page https://www.subito.it/sport/tavola-da-surf-nuova-roma-568510366.htm. Error: 'NoneType' object has no attribute 'isoformat'
+2025-09-08 16:13:51 - INFO - --- Processing NEW ad: https://www.subito.it/sport/surf-longboard-roma-615193023.htm ---
+2025-09-08 16:13:52 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:13:52 - INFO -     - model          : surf longboard
+2025-09-08 16:13:52 - INFO -     - price          : 400.0
+2025-09-08 16:13:52 - INFO -     - location       : Roma (RM)
+2025-09-08 16:13:52 - INFO -     - link           : https://www.subito.it/sport/surf-longboard-roma-615193023.htm
+2025-09-08 16:13:52 - INFO -     - brand          : None
+2025-09-08 16:13:52 - INFO -     - liters         : None
+2025-09-08 16:13:52 - INFO -   > API output preview (formatted values):
+2025-09-08 16:13:52 - ERROR -   > Could not process detail page https://www.subito.it/sport/surf-longboard-roma-615193023.htm. Error: 'NoneType' object has no attribute 'isoformat'
+2025-09-08 16:13:54 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-da-onda-longboard-roma-615161364.htm ---
+2025-09-08 16:13:54 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:13:54 - INFO -     - model          : Tavola Surf  da onda Longboard
+2025-09-08 16:13:54 - INFO -     - price          : 450.0
+2025-09-08 16:13:54 - INFO -     - location       : Roma (RM)
+2025-09-08 16:13:54 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-da-onda-longboard-roma-615161364.htm
+2025-09-08 16:13:54 - INFO -     - brand          : None
+2025-09-08 16:13:54 - INFO -     - liters         : None
+2025-09-08 16:13:54 - INFO -   > API output preview (formatted values):
+2025-09-08 16:13:54 - ERROR -   > Could not process detail page https://www.subito.it/sport/tavola-surf-da-onda-longboard-roma-615161364.htm. Error: 'NoneType' object has no attribute 'isoformat'
+2025-09-08 16:13:56 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-longboard-crime-glider-roma-614704274.htm ---
+2025-09-08 16:13:56 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:13:56 - INFO -     - model          : Tavola surf longboard Crime GLIDER
+2025-09-08 16:13:56 - INFO -     - price          : 760.0
+2025-09-08 16:13:56 - INFO -     - location       : Roma (RM)
+2025-09-08 16:13:56 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-longboard-crime-glider-roma-614704274.htm
+2025-09-08 16:13:56 - INFO -     - brand          : None
+2025-09-08 16:13:56 - INFO -     - liters         : None
+2025-09-08 16:13:56 - INFO -   > API output preview (formatted values):
+2025-09-08 16:13:56 - ERROR -   > Could not process detail page https://www.subito.it/sport/tavola-surf-longboard-crime-glider-roma-614704274.htm. Error: 'NoneType' object has no attribute 'isoformat'
+2025-09-08 16:13:59 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-mccoy-surfboards-roma-614658070.htm ---
+2025-09-08 16:14:00 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:14:00 - INFO -     - model          : Tavola da Surf  "McCoy Surfboards"
+2025-09-08 16:14:00 - INFO -     - price          : 400.0
+2025-09-08 16:14:00 - INFO -     - location       : Roma (RM)
+2025-09-08 16:14:00 - INFO -     - link           : https://www.subito.it/sport/tavola-da-surf-mccoy-surfboards-roma-614658070.htm
+2025-09-08 16:14:00 - INFO -     - brand          : None
+2025-09-08 16:14:00 - INFO -     - liters         : None
+2025-09-08 16:14:00 - INFO -   > API output preview (formatted values):
+2025-09-08 16:14:00 - ERROR -   > Could not process detail page https://www.subito.it/sport/tavola-da-surf-mccoy-surfboards-roma-614658070.htm. Error: 'NoneType' object has no attribute 'isoformat'
+2025-09-08 16:14:01 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-rocket-wide-channel-island-swallow-roma-614602357.htm ---
+2025-09-08 16:14:01 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:14:01 - INFO -     - model          : Tavola surf Rocket Wide Channel Island swallow
+2025-09-08 16:14:01 - INFO -     - price          : 399.0
+2025-09-08 16:14:01 - INFO -     - location       : Roma (RM)
+2025-09-08 16:14:01 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-rocket-wide-channel-island-swallow-roma-614602357.htm
+2025-09-08 16:14:01 - INFO -     - brand          : None
+2025-09-08 16:14:01 - INFO -     - liters         : None
+2025-09-08 16:14:01 - INFO -   > API output preview (formatted values):
+2025-09-08 16:14:01 - ERROR -   > Could not process detail page https://www.subito.it/sport/tavola-surf-rocket-wide-channel-island-swallow-roma-614602357.htm. Error: 'NoneType' object has no attribute 'isoformat'
+2025-09-08 16:14:04 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-sup-wave-roma-567339123.htm ---
+2025-09-08 16:14:05 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:14:05 - INFO -     - model          : Tavola SUP Wave
+2025-09-08 16:14:05 - INFO -     - price          : 350.0
+2025-09-08 16:14:05 - INFO -     - location       : Roma (RM)
+2025-09-08 16:14:05 - INFO -     - link           : https://www.subito.it/sport/tavola-sup-wave-roma-567339123.htm
+2025-09-08 16:14:05 - INFO -     - brand          : None
+2025-09-08 16:14:05 - INFO -     - liters         : None
+2025-09-08 16:14:05 - INFO -   > API output preview (formatted values):
+2025-09-08 16:14:05 - ERROR -   > Could not process detail page https://www.subito.it/sport/tavola-sup-wave-roma-567339123.htm. Error: 'NoneType' object has no attribute 'isoformat'
+2025-09-08 16:14:07 - INFO - --- Processing NEW ad: https://www.subito.it/bambini-giocattoli/tavole-da-surf-roma-614109433.htm ---
+2025-09-08 16:14:07 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:14:07 - INFO -     - model          : Tavole da surf
+2025-09-08 16:14:07 - INFO -     - price          : 15.0
+2025-09-08 16:14:07 - INFO -     - location       : Roma (RM)
+2025-09-08 16:14:07 - INFO -     - link           : https://www.subito.it/bambini-giocattoli/tavole-da-surf-roma-614109433.htm
+2025-09-08 16:14:07 - INFO -     - brand          : None
+2025-09-08 16:14:07 - INFO -     - liters         : None
+2025-09-08 16:14:07 - INFO -   > API output preview (formatted values):
+2025-09-08 16:14:07 - ERROR -   > Could not process detail page https://www.subito.it/bambini-giocattoli/tavole-da-surf-roma-614109433.htm. Error: 'NoneType' object has no attribute 'isoformat'
+2025-09-08 16:14:09 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-soft-8-roma-614157845.htm ---
+2025-09-08 16:14:09 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:14:09 - INFO -     - model          : Tavola da surf soft 8'
+2025-09-08 16:14:09 - INFO -     - price          : 300.0
+2025-09-08 16:14:09 - INFO -     - location       : Roma (RM)
+2025-09-08 16:14:09 - INFO -     - link           : https://www.subito.it/sport/tavola-da-surf-soft-8-roma-614157845.htm
+2025-09-08 16:14:09 - INFO -     - brand          : None
+2025-09-08 16:14:09 - INFO -     - liters         : None
+2025-09-08 16:14:09 - INFO -     - length_ft      : 8
+2025-09-08 16:14:09 - INFO -     - length_in      : 6
+2025-09-08 16:14:09 - INFO -     - width_in       : None
+2025-09-08 16:14:09 - INFO -     - thickness_in   : None
+2025-09-08 16:14:09 - INFO -   > API output preview (formatted values):
+2025-09-08 16:14:09 - ERROR -   > Could not process detail page https://www.subito.it/sport/tavola-da-surf-soft-8-roma-614157845.htm. Error: 'NoneType' object has no attribute 'isoformat'
+2025-09-08 16:14:12 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-bruce-hansel-the-whale-6-4-43lt-roma-613376379.htm ---
+2025-09-08 16:14:12 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:14:12 - INFO -     - model          : Tavola Surf Bruce Hansel "The Whale" 6'4 43lt
+2025-09-08 16:14:12 - INFO -     - price          : 400.0
+2025-09-08 16:14:12 - INFO -     - location       : Roma (RM)
+2025-09-08 16:14:12 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-bruce-hansel-the-whale-6-4-43lt-roma-613376379.htm
+2025-09-08 16:14:12 - INFO -     - brand          : None
+2025-09-08 16:14:12 - INFO -     - liters         : 43.0
+2025-09-08 16:14:12 - INFO -     - length_ft      : 6
+2025-09-08 16:14:12 - INFO -     - length_in      : 4
+2025-09-08 16:14:12 - INFO -     - width_in       : None
+2025-09-08 16:14:12 - INFO -     - thickness_in   : None
+2025-09-08 16:14:12 - INFO -   > API output preview (formatted values):
+2025-09-08 16:14:12 - ERROR -   > Could not process detail page https://www.subito.it/sport/tavola-surf-bruce-hansel-the-whale-6-4-43lt-roma-613376379.htm. Error: 'NoneType' object has no attribute 'isoformat'
+2025-09-08 16:14:14 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-6-0-33-5l-2024-roma-613966894.htm ---
+2025-09-08 16:14:14 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:14:14 - INFO -     - model          : Tavola Surf 6.0 - 33.5l (2024)
+2025-09-08 16:14:14 - INFO -     - price          : 280.0
+2025-09-08 16:14:14 - INFO -     - location       : Roma (RM)
+2025-09-08 16:14:14 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-6-0-33-5l-2024-roma-613966894.htm
+2025-09-08 16:14:14 - INFO -     - brand          : None
+2025-09-08 16:14:14 - INFO -     - liters         : 33.5
+2025-09-08 16:14:14 - INFO -     - length_ft      : 6
+2025-09-08 16:14:14 - INFO -     - length_in      : 0
+2025-09-08 16:14:14 - INFO -     - width_in       : None
+2025-09-08 16:14:14 - INFO -     - thickness_in   : None
+2025-09-08 16:14:14 - INFO -   > API output preview (formatted values):
+2025-09-08 16:14:14 - ERROR -   > Could not process detail page https://www.subito.it/sport/tavola-surf-6-0-33-5l-2024-roma-613966894.htm. Error: 'NoneType' object has no attribute 'isoformat'
+2025-09-08 16:14:15 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-perfetta-reds-made-roma-613664546.htm ---
+2025-09-08 16:14:16 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:14:16 - INFO -     - model          : Tavola  da surf perfetta “Reds made”
+2025-09-08 16:14:16 - INFO -     - price          : 250.0
+2025-09-08 16:14:16 - INFO -     - location       : Roma (RM)
+2025-09-08 16:14:16 - INFO -     - link           : https://www.subito.it/sport/tavola-da-surf-perfetta-reds-made-roma-613664546.htm
+2025-09-08 16:14:16 - INFO -     - brand          : None
+2025-09-08 16:14:16 - INFO -     - liters         : None
+2025-09-08 16:14:16 - INFO -   > API output preview (formatted values):
+2025-09-08 16:14:16 - ERROR -   > Could not process detail page https://www.subito.it/sport/tavola-da-surf-perfetta-reds-made-roma-613664546.htm. Error: 'NoneType' object has no attribute 'isoformat'
+2025-09-08 16:14:18 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-cbc-sushi-fish-6-2-x-22-x-3-roma-613590274.htm ---
+2025-09-08 16:14:18 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:14:18 - INFO -     - model          : Tavola Surf CBC Sushi Fish 6'2'' x 22" x 3"
+2025-09-08 16:14:18 - INFO -     - price          : 250.0
+2025-09-08 16:14:18 - INFO -     - location       : Roma (RM)
+2025-09-08 16:14:18 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-cbc-sushi-fish-6-2-x-22-x-3-roma-613590274.htm
+2025-09-08 16:14:18 - INFO -     - brand          : None
+2025-09-08 16:14:18 - INFO -     - liters         : None
+2025-09-08 16:14:18 - INFO -     - length_ft      : 6
+2025-09-08 16:14:18 - INFO -     - length_in      : 2
+2025-09-08 16:14:18 - INFO -     - width_in       : None
+2025-09-08 16:14:18 - INFO -     - thickness_in   : None
+2025-09-08 16:14:18 - INFO -   > API output preview (formatted values):
+2025-09-08 16:14:18 - ERROR -   > Could not process detail page https://www.subito.it/sport/tavola-surf-cbc-sushi-fish-6-2-x-22-x-3-roma-613590274.htm. Error: 'NoneType' object has no attribute 'isoformat'
+2025-09-08 16:14:20 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-sharpeye-roma-613516842.htm ---
+2025-09-08 16:14:21 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:14:21 - INFO -     - model          : Tavola da surf sharpeye
+2025-09-08 16:14:21 - INFO -     - price          : 330.0
+2025-09-08 16:14:21 - INFO -     - location       : Roma (RM)
+2025-09-08 16:14:21 - INFO -     - link           : https://www.subito.it/sport/tavola-da-surf-sharpeye-roma-613516842.htm
+2025-09-08 16:14:21 - INFO -     - brand          : Sharpeye
+2025-09-08 16:14:21 - INFO -     - liters         : None
+2025-09-08 16:14:21 - INFO -   > API output preview (formatted values):
+2025-09-08 16:14:21 - ERROR -   > Could not process detail page https://www.subito.it/sport/tavola-da-surf-sharpeye-roma-613516842.htm. Error: 'NoneType' object has no attribute 'isoformat'
+2025-09-08 16:14:23 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-circa-9-roma-613442648.htm ---
+2025-09-08 16:14:23 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:14:23 - INFO -     - model          : Tavola da surf circa ‘9
+2025-09-08 16:14:23 - INFO -     - price          : 150.0
+2025-09-08 16:14:23 - INFO -     - location       : Roma (RM)
+2025-09-08 16:14:23 - INFO -     - link           : https://www.subito.it/sport/tavola-da-surf-circa-9-roma-613442648.htm
+2025-09-08 16:14:23 - INFO -     - brand          : None
+2025-09-08 16:14:23 - INFO -     - liters         : None
+2025-09-08 16:14:23 - INFO -   > API output preview (formatted values):
+2025-09-08 16:14:23 - ERROR -   > Could not process detail page https://www.subito.it/sport/tavola-da-surf-circa-9-roma-613442648.htm. Error: 'NoneType' object has no attribute 'isoformat'
+2025-09-08 16:14:25 - INFO - --- Processing NEW ad: https://www.subito.it/sport/sup-windsurf-adh-sealion-xl-150l-roma-613404871.htm ---
+2025-09-08 16:14:26 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:14:26 - INFO -     - model          : SUP/Windsurf ADH Sealion XL 150L
+2025-09-08 16:14:26 - INFO -     - price          : 350.0
+2025-09-08 16:14:26 - INFO -     - location       : Roma (RM)
+2025-09-08 16:14:26 - INFO -     - link           : https://www.subito.it/sport/sup-windsurf-adh-sealion-xl-150l-roma-613404871.htm
+2025-09-08 16:14:26 - INFO -     - brand          : None
+2025-09-08 16:14:26 - INFO -     - liters         : 150.0
+2025-09-08 16:14:26 - INFO -   > API output preview (formatted values):
+2025-09-08 16:14:26 - ERROR -   > Could not process detail page https://www.subito.it/sport/sup-windsurf-adh-sealion-xl-150l-roma-613404871.htm. Error: 'NoneType' object has no attribute 'isoformat'
+2025-09-08 16:14:28 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-roma-613276535.htm ---
+2025-09-08 16:14:29 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:14:29 - INFO -     - model          : Tavola da surf
+2025-09-08 16:14:29 - INFO -     - price          : 350.0
+2025-09-08 16:14:29 - INFO -     - location       : Roma (RM)
+2025-09-08 16:14:29 - INFO -     - link           : https://www.subito.it/sport/tavola-da-surf-roma-613276535.htm
+2025-09-08 16:14:29 - INFO -     - brand          : None
+2025-09-08 16:14:29 - INFO -     - liters         : None
+2025-09-08 16:14:29 - INFO -   > API output preview (formatted values):
+2025-09-08 16:14:29 - ERROR -   > Could not process detail page https://www.subito.it/sport/tavola-da-surf-roma-613276535.htm. Error: 'NoneType' object has no attribute 'isoformat'
+2025-09-08 16:14:30 - INFO - --- Processing NEW ad: https://www.subito.it/sport/surf-da-onda-roma-507124389.htm ---
+2025-09-08 16:14:31 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:14:31 - INFO -     - model          : Surf da onda
+2025-09-08 16:14:31 - INFO -     - price          : 450.0
+2025-09-08 16:14:31 - INFO -     - location       : Roma (RM)
+2025-09-08 16:14:31 - INFO -     - link           : https://www.subito.it/sport/surf-da-onda-roma-507124389.htm
+2025-09-08 16:14:31 - INFO -     - brand          : None
+2025-09-08 16:14:31 - INFO -     - liters         : None
+2025-09-08 16:14:31 - INFO -   > API output preview (formatted values):
+2025-09-08 16:14:31 - ERROR -   > Could not process detail page https://www.subito.it/sport/surf-da-onda-roma-507124389.htm. Error: 'NoneType' object has no attribute 'isoformat'
+2025-09-08 16:14:33 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-roma-613106270.htm ---
+2025-09-08 16:14:33 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:14:33 - INFO -     - model          : Tavola da surf
+2025-09-08 16:14:33 - INFO -     - price          : 450.0
+2025-09-08 16:14:33 - INFO -     - location       : Roma (RM)
+2025-09-08 16:14:33 - INFO -     - link           : https://www.subito.it/sport/tavola-da-surf-roma-613106270.htm
+2025-09-08 16:14:33 - INFO -     - brand          : None
+2025-09-08 16:14:33 - INFO -     - liters         : None
+2025-09-08 16:14:33 - INFO -   > API output preview (formatted values):
+2025-09-08 16:14:33 - ERROR -   > Could not process detail page https://www.subito.it/sport/tavola-da-surf-roma-613106270.htm. Error: 'NoneType' object has no attribute 'isoformat'
+2025-09-08 16:14:34 - INFO - --- Processing NEW ad: https://www.subito.it/sport/sup-gonfiabile-roma-613044721.htm ---
+2025-09-08 16:14:36 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:14:36 - INFO -     - model          : SUP gonfiabile
+2025-09-08 16:14:36 - INFO -     - price          : 150.0
+2025-09-08 16:14:36 - INFO -     - location       : Roma (RM)
+2025-09-08 16:14:36 - INFO -     - link           : https://www.subito.it/sport/sup-gonfiabile-roma-613044721.htm
+2025-09-08 16:14:36 - INFO -     - brand          : None
+2025-09-08 16:14:36 - INFO -     - liters         : None
+2025-09-08 16:14:36 - INFO -   > API output preview (formatted values):
+2025-09-08 16:14:36 - ERROR -   > Could not process detail page https://www.subito.it/sport/sup-gonfiabile-roma-613044721.htm. Error: 'NoneType' object has no attribute 'isoformat'
+2025-09-08 16:14:37 - INFO - --- Processing NEW ad: https://www.subito.it/sport/lost-surfboards-mayhem-sub-driver-2-0-pro-formance-roma-612940174.htm ---
+2025-09-08 16:14:38 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:14:38 - INFO -     - model          : Lost Surfboards Mayhem Sub-Driver 2.0 pro-formance
+2025-09-08 16:14:38 - INFO -     - price          : 499.0
+2025-09-08 16:14:38 - INFO -     - location       : Roma (RM)
+2025-09-08 16:14:38 - INFO -     - link           : https://www.subito.it/sport/lost-surfboards-mayhem-sub-driver-2-0-pro-formance-roma-612940174.htm
+2025-09-08 16:14:38 - INFO -     - brand          : Lost
+2025-09-08 16:14:38 - INFO -     - liters         : None
+2025-09-08 16:14:38 - INFO -     - length_ft      : 2
+2025-09-08 16:14:38 - INFO -     - length_in      : 0
+2025-09-08 16:14:38 - INFO -     - width_in       : None
+2025-09-08 16:14:38 - INFO -     - thickness_in   : None
+2025-09-08 16:14:38 - INFO -   > API output preview (formatted values):
+2025-09-08 16:14:38 - ERROR -   > Could not process detail page https://www.subito.it/sport/lost-surfboards-mayhem-sub-driver-2-0-pro-formance-roma-612940174.htm. Error: 'NoneType' object has no attribute 'isoformat'
+2025-09-08 16:14:40 - INFO - --- Processing NEW ad: https://www.subito.it/abbigliamento-accessori/ciondolo-argento-raspini-a-tema-sport-roma-612641358.htm ---
+2025-09-08 16:14:42 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:14:42 - INFO -     - model          : Ciondolo argento Raspini a tema sport
+2025-09-08 16:14:42 - INFO -     - price          : 25.0
+2025-09-08 16:14:42 - INFO -     - location       : Roma (RM)
+2025-09-08 16:14:42 - INFO -     - link           : https://www.subito.it/abbigliamento-accessori/ciondolo-argento-raspini-a-tema-sport-roma-612641358.htm
+2025-09-08 16:14:42 - INFO -     - brand          : Rt
+2025-09-08 16:14:42 - INFO -     - liters         : None
+2025-09-08 16:14:42 - INFO -   > API output preview (formatted values):
+2025-09-08 16:14:42 - ERROR -   > Could not process detail page https://www.subito.it/abbigliamento-accessori/ciondolo-argento-raspini-a-tema-sport-roma-612641358.htm. Error: 'NoneType' object has no attribute 'isoformat'
+2025-09-08 16:14:44 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-surfboard-gonfiabile-coasto-8-roma-564620833.htm ---
+2025-09-08 16:14:48 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:14:48 - INFO -     - model          : Tavola Surf Surfboard Gonfiabile Coasto 8’
+2025-09-08 16:14:48 - INFO -     - price          : 230.0
+2025-09-08 16:14:48 - INFO -     - location       : Roma (RM)
+2025-09-08 16:14:48 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-surfboard-gonfiabile-coasto-8-roma-564620833.htm
+2025-09-08 16:14:48 - INFO -     - brand          : None
+2025-09-08 16:14:48 - INFO -     - liters         : None
+2025-09-08 16:14:48 - INFO -     - length_ft      : 8
+2025-09-08 16:14:48 - INFO -     - length_in      : 2
+2025-09-08 16:14:48 - INFO -     - width_in       : None
+2025-09-08 16:14:48 - INFO -     - thickness_in   : None
+2025-09-08 16:14:48 - INFO -   > API output preview (formatted values):
+2025-09-08 16:14:48 - ERROR -   > Could not process detail page https://www.subito.it/sport/tavola-surf-surfboard-gonfiabile-coasto-8-roma-564620833.htm. Error: 'NoneType' object has no attribute 'isoformat'
+2025-09-08 16:14:50 - INFO - Scraping search results from: https://www.subito.it/annunci-lazio/vendita/usato/roma/roma/?q=surfboard
+2025-09-08 16:14:55 - ERROR - Network error while fetching https://www.subito.it/annunci-lazio/vendita/usato/roma/roma/?q=surfboard: The read operation timed out
+2025-09-08 16:14:55 - INFO - Committing new ads to the database...
+2025-09-08 16:14:55 - INFO - Scraping session finished. Added 0 new ads.
+2025-09-08 16:16:58 - INFO - Scraping search results from: https://www.subito.it/annunci-lazio/vendita/usato/roma/roma/?q=tavola+da+surf
+2025-09-08 16:17:02 - INFO - Found 31 potential ad containers on the page.
+2025-09-08 16:17:02 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-roma-615545652.htm ---
+2025-09-08 16:17:04 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:17:04 - INFO -     - model          : Tavola da surf
+2025-09-08 16:17:04 - INFO -     - price          : 250.0
+2025-09-08 16:17:04 - INFO -     - location       : Roma (RM)
+2025-09-08 16:17:04 - INFO -     - link           : https://www.subito.it/sport/tavola-da-surf-roma-615545652.htm
+2025-09-08 16:17:04 - INFO -     - brand          : None
+2025-09-08 16:17:04 - INFO -     - liters         : None
+2025-09-08 16:17:04 - INFO -   > API output preview (formatted values):
+2025-09-08 16:17:04 - INFO -     - length         : None
+2025-09-08 16:17:04 - INFO -     - width          : None
+2025-09-08 16:17:04 - INFO -     - thickness      : None
+2025-09-08 16:17:16 - INFO - --- Processing NEW ad: https://www.subito.it/sport/windsurf-tavola-fanatic-ray-mega-100-litri-roma-508967897.htm ---
+2025-09-08 16:17:17 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:17:17 - INFO -     - model          : Windsurf tavola Fanatic Ray Mega 100 litri
+2025-09-08 16:17:17 - INFO -     - price          : 145.0
+2025-09-08 16:17:17 - INFO -     - location       : Roma (RM)
+2025-09-08 16:17:17 - INFO -     - link           : https://www.subito.it/sport/windsurf-tavola-fanatic-ray-mega-100-litri-roma-508967897.htm
+2025-09-08 16:17:17 - INFO -     - brand          : None
+2025-09-08 16:17:17 - INFO -     - liters         : 100.0
+2025-09-08 16:17:17 - INFO -   > API output preview (formatted values):
+2025-09-08 16:17:17 - INFO -     - length         : None
+2025-09-08 16:17:17 - INFO -     - width          : None
+2025-09-08 16:17:17 - INFO -     - thickness      : None
+2025-09-08 16:17:30 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-roma-615491921.htm ---
+2025-09-08 16:17:30 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:17:30 - INFO -     - model          : Tavola da surf
+2025-09-08 16:17:30 - INFO -     - price          : 400.0
+2025-09-08 16:17:30 - INFO -     - location       : Roma (RM)
+2025-09-08 16:17:30 - INFO -     - link           : https://www.subito.it/sport/tavola-da-surf-roma-615491921.htm
+2025-09-08 16:17:30 - INFO -     - brand          : None
+2025-09-08 16:17:30 - INFO -     - liters         : None
+2025-09-08 16:17:30 - INFO -   > API output preview (formatted values):
+2025-09-08 16:17:30 - INFO -     - length         : None
+2025-09-08 16:17:30 - INFO -     - width          : None
+2025-09-08 16:17:30 - INFO -     - thickness      : None
+2025-09-08 16:17:42 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-morbida-softboard-loot-hayden-shapes-roma-563712602.htm ---
+2025-09-08 16:17:42 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:17:42 - INFO -     - model          : Tavola surf morbida Softboard Loot Hayden Shapes
+2025-09-08 16:17:42 - INFO -     - price          : 170.0
+2025-09-08 16:17:42 - INFO -     - location       : Roma (RM)
+2025-09-08 16:17:42 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-morbida-softboard-loot-hayden-shapes-roma-563712602.htm
+2025-09-08 16:17:42 - INFO -     - brand          : Hayden Shapes
+2025-09-08 16:17:42 - INFO -     - liters         : None
+2025-09-08 16:17:42 - INFO -   > API output preview (formatted values):
+2025-09-08 16:17:42 - INFO -     - length         : None
+2025-09-08 16:17:42 - INFO -     - width          : None
+2025-09-08 16:17:42 - INFO -     - thickness      : None
+2025-09-08 16:17:58 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-firewire-seaside-misure-5-6-roma-594495900.htm ---
+2025-09-08 16:17:58 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:17:58 - INFO -     - model          : Tavola da surf Firewire Seaside misure 5.6
+2025-09-08 16:17:58 - INFO -     - price          : 400.0
+2025-09-08 16:17:58 - INFO -     - location       : Roma (RM)
+2025-09-08 16:17:58 - INFO -     - link           : https://www.subito.it/sport/tavola-da-surf-firewire-seaside-misure-5-6-roma-594495900.htm
+2025-09-08 16:17:58 - INFO -     - brand          : Firewire
+2025-09-08 16:17:58 - INFO -     - liters         : None
+2025-09-08 16:17:58 - INFO -     - length_ft      : 5
+2025-09-08 16:17:58 - INFO -     - length_in      : 6
+2025-09-08 16:17:58 - INFO -     - width_in       : None
+2025-09-08 16:17:58 - INFO -     - thickness_in   : None
+2025-09-08 16:17:58 - INFO -   > API output preview (formatted values):
+2025-09-08 16:17:58 - INFO -     - length         : 5'6"
+2025-09-08 16:17:58 - INFO -     - width          : None
+2025-09-08 16:17:58 - INFO -     - thickness      : None
+2025-09-08 16:18:17 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-morbida-softboard-loot-hayden-shapes-roma-563712602.htm ---
+2025-09-08 16:18:18 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:18:18 - INFO -     - model          : Tavola surf morbida Softboard Loot Hayden Shapes
+2025-09-08 16:18:18 - INFO -     - price          : 170.0
+2025-09-08 16:18:18 - INFO -     - location       : Roma (RM)
+2025-09-08 16:18:18 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-morbida-softboard-loot-hayden-shapes-roma-563712602.htm
+2025-09-08 16:18:18 - INFO -     - brand          : Hayden Shapes
+2025-09-08 16:18:18 - INFO -     - liters         : None
+2025-09-08 16:18:18 - INFO -   > API output preview (formatted values):
+2025-09-08 16:18:18 - INFO -     - length         : None
+2025-09-08 16:18:18 - INFO -     - width          : None
+2025-09-08 16:18:18 - INFO -     - thickness      : None
+2025-09-08 16:18:28 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-pukas-hyperlink-5-11-32-litri-roma-roma-615150018.htm ---
+2025-09-08 16:18:29 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:18:29 - INFO -     - model          : Tavola Surf Pukas Hyperlink 5.11 - 32 Litri Roma
+2025-09-08 16:18:29 - INFO -     - price          : 350.0
+2025-09-08 16:18:29 - INFO -     - location       : Roma (RM)
+2025-09-08 16:18:29 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-pukas-hyperlink-5-11-32-litri-roma-roma-615150018.htm
+2025-09-08 16:18:29 - INFO -     - brand          : Pukas
+2025-09-08 16:18:29 - INFO -     - liters         : 32.0
+2025-09-08 16:18:29 - INFO -     - length_ft      : 5
+2025-09-08 16:18:29 - INFO -     - length_in      : 11
+2025-09-08 16:18:29 - INFO -     - width_in       : None
+2025-09-08 16:18:29 - INFO -     - thickness_in   : None
+2025-09-08 16:18:29 - INFO -   > API output preview (formatted values):
+2025-09-08 16:18:29 - INFO -     - length         : 5'11"
+2025-09-08 16:18:29 - INFO -     - width          : None
+2025-09-08 16:18:29 - INFO -     - thickness      : None
+2025-09-08 16:18:42 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-soft-morbida-roma-615306556.htm ---
+2025-09-08 16:18:42 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:18:42 - INFO -     - model          : Tavola da surf soft, morbida
+2025-09-08 16:18:42 - INFO -     - price          : 180.0
+2025-09-08 16:18:42 - INFO -     - location       : Roma (RM)
+2025-09-08 16:18:42 - INFO -     - link           : https://www.subito.it/sport/tavola-da-surf-soft-morbida-roma-615306556.htm
+2025-09-08 16:18:42 - INFO -     - brand          : None
+2025-09-08 16:18:42 - INFO -     - liters         : None
+2025-09-08 16:18:42 - INFO -   > API output preview (formatted values):
+2025-09-08 16:18:42 - INFO -     - length         : None
+2025-09-08 16:18:42 - INFO -     - width          : None
+2025-09-08 16:18:42 - INFO -     - thickness      : None
+2025-09-08 16:19:07 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-nuova-roma-568510366.htm ---
+2025-09-08 16:19:08 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:19:08 - INFO -     - model          : Tavola da surf Nuova
+2025-09-08 16:19:08 - INFO -     - price          : 200.0
+2025-09-08 16:19:08 - INFO -     - location       : Roma (RM)
+2025-09-08 16:19:08 - INFO -     - link           : https://www.subito.it/sport/tavola-da-surf-nuova-roma-568510366.htm
+2025-09-08 16:19:08 - INFO -     - brand          : None
+2025-09-08 16:19:08 - INFO -     - liters         : None
+2025-09-08 16:19:08 - INFO -   > API output preview (formatted values):
+2025-09-08 16:19:08 - INFO -     - length         : None
+2025-09-08 16:19:08 - INFO -     - width          : None
+2025-09-08 16:19:08 - INFO -     - thickness      : None
+2025-09-08 16:19:33 - INFO - --- Processing NEW ad: https://www.subito.it/sport/surf-longboard-roma-615193023.htm ---
+2025-09-08 16:19:35 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:19:35 - INFO -     - model          : surf longboard
+2025-09-08 16:19:35 - INFO -     - price          : 400.0
+2025-09-08 16:19:35 - INFO -     - location       : Roma (RM)
+2025-09-08 16:19:35 - INFO -     - link           : https://www.subito.it/sport/surf-longboard-roma-615193023.htm
+2025-09-08 16:19:35 - INFO -     - brand          : None
+2025-09-08 16:19:35 - INFO -     - liters         : None
+2025-09-08 16:19:35 - INFO -   > API output preview (formatted values):
+2025-09-08 16:19:35 - INFO -     - length         : None
+2025-09-08 16:19:35 - INFO -     - width          : None
+2025-09-08 16:19:35 - INFO -     - thickness      : None
+2025-09-08 16:19:46 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-da-onda-longboard-roma-615161364.htm ---
+2025-09-08 16:19:46 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:19:46 - INFO -     - model          : Tavola Surf  da onda Longboard
+2025-09-08 16:19:46 - INFO -     - price          : 450.0
+2025-09-08 16:19:46 - INFO -     - location       : Roma (RM)
+2025-09-08 16:19:46 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-da-onda-longboard-roma-615161364.htm
+2025-09-08 16:19:46 - INFO -     - brand          : None
+2025-09-08 16:19:46 - INFO -     - liters         : None
+2025-09-08 16:19:46 - INFO -   > API output preview (formatted values):
+2025-09-08 16:19:46 - INFO -     - length         : None
+2025-09-08 16:19:46 - INFO -     - width          : None
+2025-09-08 16:19:46 - INFO -     - thickness      : None
+2025-09-08 16:19:58 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-longboard-crime-glider-roma-614704274.htm ---
+2025-09-08 16:19:58 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:19:58 - INFO -     - model          : Tavola surf longboard Crime GLIDER
+2025-09-08 16:19:58 - INFO -     - price          : 760.0
+2025-09-08 16:19:58 - INFO -     - location       : Roma (RM)
+2025-09-08 16:19:58 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-longboard-crime-glider-roma-614704274.htm
+2025-09-08 16:19:58 - INFO -     - brand          : None
+2025-09-08 16:19:58 - INFO -     - liters         : None
+2025-09-08 16:19:58 - INFO -   > API output preview (formatted values):
+2025-09-08 16:19:58 - INFO -     - length         : None
+2025-09-08 16:19:58 - INFO -     - width          : None
+2025-09-08 16:19:58 - INFO -     - thickness      : None
+2025-09-08 16:20:19 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-mccoy-surfboards-roma-614658070.htm ---
+2025-09-08 16:20:22 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:20:22 - INFO -     - model          : Tavola da Surf  "McCoy Surfboards"
+2025-09-08 16:20:22 - INFO -     - price          : 400.0
+2025-09-08 16:20:22 - INFO -     - location       : Roma (RM)
+2025-09-08 16:20:22 - INFO -     - link           : https://www.subito.it/sport/tavola-da-surf-mccoy-surfboards-roma-614658070.htm
+2025-09-08 16:20:22 - INFO -     - brand          : None
+2025-09-08 16:20:22 - INFO -     - liters         : None
+2025-09-08 16:20:22 - INFO -   > API output preview (formatted values):
+2025-09-08 16:20:22 - INFO -     - length         : None
+2025-09-08 16:20:22 - INFO -     - width          : None
+2025-09-08 16:20:22 - INFO -     - thickness      : None
+2025-09-08 16:20:37 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-rocket-wide-channel-island-swallow-roma-614602357.htm ---
+2025-09-08 16:20:37 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:20:37 - INFO -     - model          : Tavola surf Rocket Wide Channel Island swallow
+2025-09-08 16:20:37 - INFO -     - price          : 399.0
+2025-09-08 16:20:37 - INFO -     - location       : Roma (RM)
+2025-09-08 16:20:37 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-rocket-wide-channel-island-swallow-roma-614602357.htm
+2025-09-08 16:20:37 - INFO -     - brand          : None
+2025-09-08 16:20:37 - INFO -     - liters         : None
+2025-09-08 16:20:37 - INFO -   > API output preview (formatted values):
+2025-09-08 16:20:37 - INFO -     - length         : None
+2025-09-08 16:20:37 - INFO -     - width          : None
+2025-09-08 16:20:37 - INFO -     - thickness      : None
+2025-09-08 16:21:03 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-sup-wave-roma-567339123.htm ---
+2025-09-08 16:21:04 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:21:04 - INFO -     - model          : Tavola SUP Wave
+2025-09-08 16:21:04 - INFO -     - price          : 350.0
+2025-09-08 16:21:04 - INFO -     - location       : Roma (RM)
+2025-09-08 16:21:04 - INFO -     - link           : https://www.subito.it/sport/tavola-sup-wave-roma-567339123.htm
+2025-09-08 16:21:04 - INFO -     - brand          : None
+2025-09-08 16:21:04 - INFO -     - liters         : None
+2025-09-08 16:21:04 - INFO -   > API output preview (formatted values):
+2025-09-08 16:21:04 - INFO -     - length         : None
+2025-09-08 16:21:04 - INFO -     - width          : None
+2025-09-08 16:21:04 - INFO -     - thickness      : None
+2025-09-08 16:21:29 - INFO - --- Processing NEW ad: https://www.subito.it/bambini-giocattoli/tavole-da-surf-roma-614109433.htm ---
+2025-09-08 16:21:30 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:21:30 - INFO -     - model          : Tavole da surf
+2025-09-08 16:21:30 - INFO -     - price          : 15.0
+2025-09-08 16:21:30 - INFO -     - location       : Roma (RM)
+2025-09-08 16:21:30 - INFO -     - link           : https://www.subito.it/bambini-giocattoli/tavole-da-surf-roma-614109433.htm
+2025-09-08 16:21:30 - INFO -     - brand          : None
+2025-09-08 16:21:30 - INFO -     - liters         : None
+2025-09-08 16:21:30 - INFO -   > API output preview (formatted values):
+2025-09-08 16:21:30 - INFO -     - length         : None
+2025-09-08 16:21:30 - INFO -     - width          : None
+2025-09-08 16:21:30 - INFO -     - thickness      : None
+2025-09-08 16:21:52 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-soft-8-roma-614157845.htm ---
+2025-09-08 16:21:52 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:21:52 - INFO -     - model          : Tavola da surf soft 8'
+2025-09-08 16:21:52 - INFO -     - price          : 300.0
+2025-09-08 16:21:52 - INFO -     - location       : Roma (RM)
+2025-09-08 16:21:52 - INFO -     - link           : https://www.subito.it/sport/tavola-da-surf-soft-8-roma-614157845.htm
+2025-09-08 16:21:52 - INFO -     - brand          : None
+2025-09-08 16:21:52 - INFO -     - liters         : None
+2025-09-08 16:21:52 - INFO -     - length_ft      : 8
+2025-09-08 16:21:52 - INFO -     - length_in      : 6
+2025-09-08 16:21:52 - INFO -     - width_in       : None
+2025-09-08 16:21:52 - INFO -     - thickness_in   : None
+2025-09-08 16:21:52 - INFO -   > API output preview (formatted values):
+2025-09-08 16:21:52 - INFO -     - length         : 8'6"
+2025-09-08 16:21:52 - INFO -     - width          : None
+2025-09-08 16:21:52 - INFO -     - thickness      : None
+2025-09-08 16:22:05 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-bruce-hansel-the-whale-6-4-43lt-roma-613376379.htm ---
+2025-09-08 16:22:05 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:22:05 - INFO -     - model          : Tavola Surf Bruce Hansel "The Whale" 6'4 43lt
+2025-09-08 16:22:05 - INFO -     - price          : 400.0
+2025-09-08 16:22:05 - INFO -     - location       : Roma (RM)
+2025-09-08 16:22:05 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-bruce-hansel-the-whale-6-4-43lt-roma-613376379.htm
+2025-09-08 16:22:05 - INFO -     - brand          : None
+2025-09-08 16:22:05 - INFO -     - liters         : 43.0
+2025-09-08 16:22:05 - INFO -     - length_ft      : 6
+2025-09-08 16:22:05 - INFO -     - length_in      : 4
+2025-09-08 16:22:05 - INFO -     - width_in       : None
+2025-09-08 16:22:05 - INFO -     - thickness_in   : None
+2025-09-08 16:22:05 - INFO -   > API output preview (formatted values):
+2025-09-08 16:22:05 - INFO -     - length         : 6'4"
+2025-09-08 16:22:05 - INFO -     - width          : None
+2025-09-08 16:22:05 - INFO -     - thickness      : None
+2025-09-08 16:22:32 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-6-0-33-5l-2024-roma-613966894.htm ---
+2025-09-08 16:22:33 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:22:33 - INFO -     - model          : Tavola Surf 6.0 - 33.5l (2024)
+2025-09-08 16:22:33 - INFO -     - price          : 280.0
+2025-09-08 16:22:33 - INFO -     - location       : Roma (RM)
+2025-09-08 16:22:33 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-6-0-33-5l-2024-roma-613966894.htm
+2025-09-08 16:22:33 - INFO -     - brand          : None
+2025-09-08 16:22:33 - INFO -     - liters         : 33.5
+2025-09-08 16:22:33 - INFO -     - length_ft      : 6
+2025-09-08 16:22:33 - INFO -     - length_in      : 0
+2025-09-08 16:22:33 - INFO -     - width_in       : None
+2025-09-08 16:22:33 - INFO -     - thickness_in   : None
+2025-09-08 16:22:33 - INFO -   > API output preview (formatted values):
+2025-09-08 16:22:33 - INFO -     - length         : 6'0"
+2025-09-08 16:22:33 - INFO -     - width          : None
+2025-09-08 16:22:33 - INFO -     - thickness      : None
+2025-09-08 16:22:55 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-perfetta-reds-made-roma-613664546.htm ---
+2025-09-08 16:23:04 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:23:04 - INFO -     - model          : Tavola  da surf perfetta “Reds made”
+2025-09-08 16:23:04 - INFO -     - price          : 250.0
+2025-09-08 16:23:04 - INFO -     - location       : Roma (RM)
+2025-09-08 16:23:04 - INFO -     - link           : https://www.subito.it/sport/tavola-da-surf-perfetta-reds-made-roma-613664546.htm
+2025-09-08 16:23:04 - INFO -     - brand          : None
+2025-09-08 16:23:04 - INFO -     - liters         : None
+2025-09-08 16:23:04 - INFO -   > API output preview (formatted values):
+2025-09-08 16:23:04 - INFO -     - length         : None
+2025-09-08 16:23:04 - INFO -     - width          : None
+2025-09-08 16:23:04 - INFO -     - thickness      : None
+2025-09-08 16:23:17 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-cbc-sushi-fish-6-2-x-22-x-3-roma-613590274.htm ---
+2025-09-08 16:23:24 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:23:24 - INFO -     - model          : Tavola Surf CBC Sushi Fish 6'2'' x 22" x 3"
+2025-09-08 16:23:24 - INFO -     - price          : 250.0
+2025-09-08 16:23:24 - INFO -     - location       : Roma (RM)
+2025-09-08 16:23:24 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-cbc-sushi-fish-6-2-x-22-x-3-roma-613590274.htm
+2025-09-08 16:23:24 - INFO -     - brand          : None
+2025-09-08 16:23:24 - INFO -     - liters         : None
+2025-09-08 16:23:24 - INFO -     - length_ft      : 6
+2025-09-08 16:23:24 - INFO -     - length_in      : 2
+2025-09-08 16:23:24 - INFO -     - width_in       : None
+2025-09-08 16:23:24 - INFO -     - thickness_in   : None
+2025-09-08 16:23:24 - INFO -   > API output preview (formatted values):
+2025-09-08 16:23:24 - INFO -     - length         : 6'2"
+2025-09-08 16:23:24 - INFO -     - width          : None
+2025-09-08 16:23:24 - INFO -     - thickness      : None
+2025-09-08 16:23:48 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-sharpeye-roma-613516842.htm ---
+2025-09-08 16:24:01 - ERROR -   > Could not process detail page https://www.subito.it/sport/tavola-da-surf-sharpeye-roma-613516842.htm. Error: _ssl.c:983: The handshake operation timed out
+2025-09-08 16:24:18 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-circa-9-roma-613442648.htm ---
+2025-09-08 16:24:19 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:24:19 - INFO -     - model          : Tavola da surf circa ‘9
+2025-09-08 16:24:19 - INFO -     - price          : 150.0
+2025-09-08 16:24:19 - INFO -     - location       : Roma (RM)
+2025-09-08 16:24:19 - INFO -     - link           : https://www.subito.it/sport/tavola-da-surf-circa-9-roma-613442648.htm
+2025-09-08 16:24:19 - INFO -     - brand          : None
+2025-09-08 16:24:19 - INFO -     - liters         : None
+2025-09-08 16:24:19 - INFO -   > API output preview (formatted values):
+2025-09-08 16:24:19 - INFO -     - length         : None
+2025-09-08 16:24:19 - INFO -     - width          : None
+2025-09-08 16:24:19 - INFO -     - thickness      : None
+2025-09-08 16:24:42 - INFO - --- Processing NEW ad: https://www.subito.it/sport/sup-windsurf-adh-sealion-xl-150l-roma-613404871.htm ---
+2025-09-08 16:24:43 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:24:43 - INFO -     - model          : SUP/Windsurf ADH Sealion XL 150L
+2025-09-08 16:24:43 - INFO -     - price          : 350.0
+2025-09-08 16:24:43 - INFO -     - location       : Roma (RM)
+2025-09-08 16:24:43 - INFO -     - link           : https://www.subito.it/sport/sup-windsurf-adh-sealion-xl-150l-roma-613404871.htm
+2025-09-08 16:24:43 - INFO -     - brand          : None
+2025-09-08 16:24:43 - INFO -     - liters         : 150.0
+2025-09-08 16:24:43 - INFO -   > API output preview (formatted values):
+2025-09-08 16:24:43 - INFO -     - length         : None
+2025-09-08 16:24:43 - INFO -     - width          : None
+2025-09-08 16:24:43 - INFO -     - thickness      : None
+2025-09-08 16:25:11 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-roma-613276535.htm ---
+2025-09-08 16:25:13 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:25:13 - INFO -     - model          : Tavola da surf
+2025-09-08 16:25:13 - INFO -     - price          : 350.0
+2025-09-08 16:25:13 - INFO -     - location       : Roma (RM)
+2025-09-08 16:25:13 - INFO -     - link           : https://www.subito.it/sport/tavola-da-surf-roma-613276535.htm
+2025-09-08 16:25:13 - INFO -     - brand          : None
+2025-09-08 16:25:13 - INFO -     - liters         : None
+2025-09-08 16:25:13 - INFO -   > API output preview (formatted values):
+2025-09-08 16:25:13 - INFO -     - length         : None
+2025-09-08 16:25:13 - INFO -     - width          : None
+2025-09-08 16:25:13 - INFO -     - thickness      : None
+2025-09-08 16:25:25 - INFO - --- Processing NEW ad: https://www.subito.it/sport/surf-da-onda-roma-507124389.htm ---
+2025-09-08 16:25:26 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:25:26 - INFO -     - model          : Surf da onda
+2025-09-08 16:25:26 - INFO -     - price          : 450.0
+2025-09-08 16:25:26 - INFO -     - location       : Roma (RM)
+2025-09-08 16:25:26 - INFO -     - link           : https://www.subito.it/sport/surf-da-onda-roma-507124389.htm
+2025-09-08 16:25:26 - INFO -     - brand          : None
+2025-09-08 16:25:26 - INFO -     - liters         : None
+2025-09-08 16:25:26 - INFO -   > API output preview (formatted values):
+2025-09-08 16:25:26 - INFO -     - length         : None
+2025-09-08 16:25:26 - INFO -     - width          : None
+2025-09-08 16:25:26 - INFO -     - thickness      : None
+2025-09-08 16:25:47 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-roma-613106270.htm ---
+2025-09-08 16:25:47 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:25:47 - INFO -     - model          : Tavola da surf
+2025-09-08 16:25:47 - INFO -     - price          : 450.0
+2025-09-08 16:25:47 - INFO -     - location       : Roma (RM)
+2025-09-08 16:25:47 - INFO -     - link           : https://www.subito.it/sport/tavola-da-surf-roma-613106270.htm
+2025-09-08 16:25:47 - INFO -     - brand          : None
+2025-09-08 16:25:47 - INFO -     - liters         : None
+2025-09-08 16:25:47 - INFO -   > API output preview (formatted values):
+2025-09-08 16:25:47 - INFO -     - length         : None
+2025-09-08 16:25:47 - INFO -     - width          : None
+2025-09-08 16:25:47 - INFO -     - thickness      : None
+2025-09-08 16:26:09 - INFO - --- Processing NEW ad: https://www.subito.it/sport/sup-gonfiabile-roma-613044721.htm ---
+2025-09-08 16:26:09 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:26:09 - INFO -     - model          : SUP gonfiabile
+2025-09-08 16:26:09 - INFO -     - price          : 150.0
+2025-09-08 16:26:09 - INFO -     - location       : Roma (RM)
+2025-09-08 16:26:09 - INFO -     - link           : https://www.subito.it/sport/sup-gonfiabile-roma-613044721.htm
+2025-09-08 16:26:09 - INFO -     - brand          : None
+2025-09-08 16:26:09 - INFO -     - liters         : None
+2025-09-08 16:26:09 - INFO -   > API output preview (formatted values):
+2025-09-08 16:26:09 - INFO -     - length         : None
+2025-09-08 16:26:09 - INFO -     - width          : None
+2025-09-08 16:26:09 - INFO -     - thickness      : None
+2025-09-08 16:26:36 - INFO - --- Processing NEW ad: https://www.subito.it/sport/lost-surfboards-mayhem-sub-driver-2-0-pro-formance-roma-612940174.htm ---
+2025-09-08 16:26:36 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:26:36 - INFO -     - model          : Lost Surfboards Mayhem Sub-Driver 2.0 pro-formance
+2025-09-08 16:26:36 - INFO -     - price          : 499.0
+2025-09-08 16:26:36 - INFO -     - location       : Roma (RM)
+2025-09-08 16:26:36 - INFO -     - link           : https://www.subito.it/sport/lost-surfboards-mayhem-sub-driver-2-0-pro-formance-roma-612940174.htm
+2025-09-08 16:26:36 - INFO -     - brand          : Lost
+2025-09-08 16:26:36 - INFO -     - liters         : None
+2025-09-08 16:26:36 - INFO -     - length_ft      : 2
+2025-09-08 16:26:36 - INFO -     - length_in      : 0
+2025-09-08 16:26:36 - INFO -     - width_in       : None
+2025-09-08 16:26:36 - INFO -     - thickness_in   : None
+2025-09-08 16:26:36 - INFO -   > API output preview (formatted values):
+2025-09-08 16:26:36 - INFO -     - length         : 2'0"
+2025-09-08 16:26:36 - INFO -     - width          : None
+2025-09-08 16:26:36 - INFO -     - thickness      : None
+2025-09-08 16:27:02 - INFO - --- Processing NEW ad: https://www.subito.it/abbigliamento-accessori/ciondolo-argento-raspini-a-tema-sport-roma-612641358.htm ---
+2025-09-08 16:27:03 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:27:03 - INFO -     - model          : Ciondolo argento Raspini a tema sport
+2025-09-08 16:27:03 - INFO -     - price          : 25.0
+2025-09-08 16:27:03 - INFO -     - location       : Roma (RM)
+2025-09-08 16:27:03 - INFO -     - link           : https://www.subito.it/abbigliamento-accessori/ciondolo-argento-raspini-a-tema-sport-roma-612641358.htm
+2025-09-08 16:27:03 - INFO -     - brand          : Rt
+2025-09-08 16:27:03 - INFO -     - liters         : None
+2025-09-08 16:27:03 - INFO -   > API output preview (formatted values):
+2025-09-08 16:27:03 - INFO -     - length         : None
+2025-09-08 16:27:03 - INFO -     - width          : None
+2025-09-08 16:27:03 - INFO -     - thickness      : None
+2025-09-08 16:27:24 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-surfboard-gonfiabile-coasto-8-roma-564620833.htm ---
+2025-09-08 16:27:25 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:27:25 - INFO -     - model          : Tavola Surf Surfboard Gonfiabile Coasto 8’
+2025-09-08 16:27:25 - INFO -     - price          : 230.0
+2025-09-08 16:27:25 - INFO -     - location       : Roma (RM)
+2025-09-08 16:27:25 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-surfboard-gonfiabile-coasto-8-roma-564620833.htm
+2025-09-08 16:27:25 - INFO -     - brand          : None
+2025-09-08 16:27:25 - INFO -     - liters         : None
+2025-09-08 16:27:25 - INFO -     - length_ft      : 8
+2025-09-08 16:27:25 - INFO -     - length_in      : 2
+2025-09-08 16:27:25 - INFO -     - width_in       : None
+2025-09-08 16:27:25 - INFO -     - thickness_in   : None
+2025-09-08 16:27:25 - INFO -   > API output preview (formatted values):
+2025-09-08 16:27:25 - INFO -     - length         : 8'2"
+2025-09-08 16:27:25 - INFO -     - width          : None
+2025-09-08 16:27:25 - INFO -     - thickness      : None
+2025-09-08 16:27:48 - INFO - Scraping search results from: https://www.subito.it/annunci-lazio/vendita/usato/roma/roma/?q=surfboard
+2025-09-08 16:27:48 - INFO - Found 29 potential ad containers on the page.
+2025-09-08 16:27:48 - INFO - --- Processing NEW ad: https://www.subito.it/abbigliamento-accessori/orologio-bulova-uomo-roma-615436765.htm ---
+2025-09-08 16:27:49 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:27:49 - INFO -     - model          : orologio bulova uomo
+2025-09-08 16:27:49 - INFO -     - price          : 349.0
+2025-09-08 16:27:49 - INFO -     - location       : Roma (RM)
+2025-09-08 16:27:49 - INFO -     - link           : https://www.subito.it/abbigliamento-accessori/orologio-bulova-uomo-roma-615436765.htm
+2025-09-08 16:27:49 - INFO -     - brand          : None
+2025-09-08 16:27:49 - INFO -     - liters         : None
+2025-09-08 16:27:49 - INFO -   > API output preview (formatted values):
+2025-09-08 16:27:49 - INFO -     - length         : None
+2025-09-08 16:27:49 - INFO -     - width          : None
+2025-09-08 16:27:49 - INFO -     - thickness      : None
+2025-09-08 16:28:08 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-pukas-hyperlink-5-11-32-litri-roma-roma-615150018.htm ---
+2025-09-08 16:28:09 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:28:09 - INFO -     - model          : Tavola Surf Pukas Hyperlink 5.11 - 32 Litri Roma
+2025-09-08 16:28:09 - INFO -     - price          : 350.0
+2025-09-08 16:28:09 - INFO -     - location       : Roma (RM)
+2025-09-08 16:28:09 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-pukas-hyperlink-5-11-32-litri-roma-roma-615150018.htm
+2025-09-08 16:28:09 - INFO -     - brand          : Pukas
+2025-09-08 16:28:09 - INFO -     - liters         : 32.0
+2025-09-08 16:28:09 - INFO -     - length_ft      : 5
+2025-09-08 16:28:09 - INFO -     - length_in      : 11
+2025-09-08 16:28:09 - INFO -     - width_in       : None
+2025-09-08 16:28:09 - INFO -     - thickness_in   : None
+2025-09-08 16:28:09 - INFO -   > API output preview (formatted values):
+2025-09-08 16:28:09 - INFO -     - length         : 5'11"
+2025-09-08 16:28:09 - INFO -     - width          : None
+2025-09-08 16:28:09 - INFO -     - thickness      : None
+2025-09-08 16:28:28 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-longboard-crime-glider-roma-614704274.htm ---
+2025-09-08 16:28:29 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:28:29 - INFO -     - model          : Tavola surf longboard Crime GLIDER
+2025-09-08 16:28:29 - INFO -     - price          : 760.0
+2025-09-08 16:28:29 - INFO -     - location       : Roma (RM)
+2025-09-08 16:28:29 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-longboard-crime-glider-roma-614704274.htm
+2025-09-08 16:28:29 - INFO -     - brand          : None
+2025-09-08 16:28:29 - INFO -     - liters         : None
+2025-09-08 16:28:29 - INFO -   > API output preview (formatted values):
+2025-09-08 16:28:29 - INFO -     - length         : None
+2025-09-08 16:28:29 - INFO -     - width          : None
+2025-09-08 16:28:29 - INFO -     - thickness      : None
+2025-09-08 16:28:53 - INFO - --- Processing NEW ad: https://www.subito.it/sport/sacca-surfboard-bag-roma-613288725.htm ---
+2025-09-08 16:28:54 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:28:54 - INFO -     - model          : Sacca surfboard bag
+2025-09-08 16:28:54 - INFO -     - price          : 33.0
+2025-09-08 16:28:54 - INFO -     - location       : Roma (RM)
+2025-09-08 16:28:54 - INFO -     - link           : https://www.subito.it/sport/sacca-surfboard-bag-roma-613288725.htm
+2025-09-08 16:28:54 - INFO -     - brand          : None
+2025-09-08 16:28:54 - INFO -     - liters         : None
+2025-09-08 16:28:54 - INFO -   > API output preview (formatted values):
+2025-09-08 16:28:54 - INFO -     - length         : None
+2025-09-08 16:28:54 - INFO -     - width          : None
+2025-09-08 16:28:54 - INFO -     - thickness      : None
+2025-09-08 16:29:23 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-surfboard-gonfiabile-coasto-8-roma-564620833.htm ---
+2025-09-08 16:29:24 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:29:24 - INFO -     - model          : Tavola Surf Surfboard Gonfiabile Coasto 8’
+2025-09-08 16:29:24 - INFO -     - price          : 230.0
+2025-09-08 16:29:24 - INFO -     - location       : Roma (RM)
+2025-09-08 16:29:24 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-surfboard-gonfiabile-coasto-8-roma-564620833.htm
+2025-09-08 16:29:24 - INFO -     - brand          : None
+2025-09-08 16:29:24 - INFO -     - liters         : None
+2025-09-08 16:29:24 - INFO -     - length_ft      : 8
+2025-09-08 16:29:24 - INFO -     - length_in      : 2
+2025-09-08 16:29:24 - INFO -     - width_in       : None
+2025-09-08 16:29:24 - INFO -     - thickness_in   : None
+2025-09-08 16:29:24 - INFO -   > API output preview (formatted values):
+2025-09-08 16:29:24 - INFO -     - length         : 8'2"
+2025-09-08 16:29:24 - INFO -     - width          : None
+2025-09-08 16:29:24 - INFO -     - thickness      : None
+2025-09-08 16:29:37 - INFO - --- Processing NEW ad: https://www.subito.it/sport/sacca-trasporto-surfboard-impermeabile-northcore-roma-611290215.htm ---
+2025-09-08 16:29:38 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:29:38 - INFO -     - model          : Sacca trasporto Surfboard impermeabile Northcore
+2025-09-08 16:29:38 - INFO -     - price          : 50.0
+2025-09-08 16:29:38 - INFO -     - location       : Roma (RM)
+2025-09-08 16:29:38 - INFO -     - link           : https://www.subito.it/sport/sacca-trasporto-surfboard-impermeabile-northcore-roma-611290215.htm
+2025-09-08 16:29:38 - INFO -     - brand          : Rt
+2025-09-08 16:29:38 - INFO -     - liters         : None
+2025-09-08 16:29:38 - INFO -   > API output preview (formatted values):
+2025-09-08 16:29:38 - INFO -     - length         : None
+2025-09-08 16:29:38 - INFO -     - width          : None
+2025-09-08 16:29:38 - INFO -     - thickness      : None
+2025-09-08 16:29:53 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-m-a-t-5-7-in-fibra-di-vetro-26-5l-roma-611289541.htm ---
+2025-09-08 16:29:53 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:29:53 - INFO -     - model          : Tavola da Surf M.A.T. 5.7 in fibra di vetro, 26,5L
+2025-09-08 16:29:53 - INFO -     - price          : 200.0
+2025-09-08 16:29:53 - INFO -     - location       : Roma (RM)
+2025-09-08 16:29:53 - INFO -     - link           : https://www.subito.it/sport/tavola-da-surf-m-a-t-5-7-in-fibra-di-vetro-26-5l-roma-611289541.htm
+2025-09-08 16:29:53 - INFO -     - brand          : None
+2025-09-08 16:29:53 - INFO -     - liters         : 26.5
+2025-09-08 16:29:53 - INFO -     - length_ft      : 5
+2025-09-08 16:29:53 - INFO -     - length_in      : 7
+2025-09-08 16:29:53 - INFO -     - width_in       : None
+2025-09-08 16:29:53 - INFO -     - thickness_in   : None
+2025-09-08 16:29:53 - INFO -   > API output preview (formatted values):
+2025-09-08 16:29:53 - INFO -     - length         : 5'7"
+2025-09-08 16:29:53 - INFO -     - width          : None
+2025-09-08 16:29:53 - INFO -     - thickness      : None
+2025-09-08 16:30:13 - INFO - --- Processing NEW ad: https://www.subito.it/sport/surfboard-roma-605229001.htm ---
+2025-09-08 16:30:33 - ERROR -   > Could not process detail page https://www.subito.it/sport/surfboard-roma-605229001.htm. Error: [Errno -3] Temporary failure in name resolution
+2025-09-08 16:30:50 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-da-surf-roma-604224615.htm ---
+2025-09-08 16:31:10 - ERROR -   > Could not process detail page https://www.subito.it/sport/tavola-da-surf-roma-604224615.htm. Error: [Errno -3] Temporary failure in name resolution
+2025-09-08 16:31:22 - INFO - --- Processing NEW ad: https://www.subito.it/sport/surfboard-bic-mini-malibu-7-3-gerard-dabbadie-roma-603457255.htm ---
+2025-09-08 16:31:33 - ERROR -   > Could not process detail page https://www.subito.it/sport/surfboard-bic-mini-malibu-7-3-gerard-dabbadie-roma-603457255.htm. Error: [Errno -3] Temporary failure in name resolution
+2025-09-08 16:31:59 - INFO - --- Processing NEW ad: https://www.subito.it/sport/honu-surfboard-fish-tail-roma-601702001.htm ---
+2025-09-08 16:31:59 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:31:59 - INFO -     - model          : Honu surfboard fish tail
+2025-09-08 16:31:59 - INFO -     - price          : 250.0
+2025-09-08 16:31:59 - INFO -     - location       : Roma (RM)
+2025-09-08 16:31:59 - INFO -     - link           : https://www.subito.it/sport/honu-surfboard-fish-tail-roma-601702001.htm
+2025-09-08 16:31:59 - INFO -     - brand          : None
+2025-09-08 16:31:59 - INFO -     - liters         : None
+2025-09-08 16:31:59 - INFO -   > API output preview (formatted values):
+2025-09-08 16:31:59 - INFO -     - length         : None
+2025-09-08 16:31:59 - INFO -     - width          : None
+2025-09-08 16:31:59 - INFO -     - thickness      : None
+2025-09-08 16:32:24 - INFO - --- Processing NEW ad: https://www.subito.it/sport/surfboard-olaian-soft-roma-599506043.htm ---
+2025-09-08 16:32:24 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:32:24 - INFO -     - model          : Surfboard Olaian Soft
+2025-09-08 16:32:24 - INFO -     - price          : 90.0
+2025-09-08 16:32:24 - INFO -     - location       : Roma (RM)
+2025-09-08 16:32:24 - INFO -     - link           : https://www.subito.it/sport/surfboard-olaian-soft-roma-599506043.htm
+2025-09-08 16:32:24 - INFO -     - brand          : None
+2025-09-08 16:32:24 - INFO -     - liters         : None
+2025-09-08 16:32:24 - INFO -   > API output preview (formatted values):
+2025-09-08 16:32:24 - INFO -     - length         : None
+2025-09-08 16:32:24 - INFO -     - width          : None
+2025-09-08 16:32:24 - INFO -     - thickness      : None
+2025-09-08 16:32:44 - INFO - --- Processing NEW ad: https://www.subito.it/sport/surf-surfboard-6-6-soft-roma-597202498.htm ---
+2025-09-08 16:32:53 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:32:53 - INFO -     - model          : Surf surfboard 6’6 soft
+2025-09-08 16:32:53 - INFO -     - price          : 280.0
+2025-09-08 16:32:53 - INFO -     - location       : Roma (RM)
+2025-09-08 16:32:53 - INFO -     - link           : https://www.subito.it/sport/surf-surfboard-6-6-soft-roma-597202498.htm
+2025-09-08 16:32:53 - INFO -     - brand          : None
+2025-09-08 16:32:53 - INFO -     - liters         : None
+2025-09-08 16:32:53 - INFO -     - length_ft      : 6
+2025-09-08 16:32:53 - INFO -     - length_in      : 6
+2025-09-08 16:32:53 - INFO -     - width_in       : None
+2025-09-08 16:32:53 - INFO -     - thickness_in   : None
+2025-09-08 16:32:53 - INFO -   > API output preview (formatted values):
+2025-09-08 16:32:53 - INFO -     - length         : 6'6"
+2025-09-08 16:32:53 - INFO -     - width          : None
+2025-09-08 16:32:53 - INFO -     - thickness      : None
+2025-09-08 16:33:12 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-surfboard-fish-roma-595415969.htm ---
+2025-09-08 16:33:13 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:33:13 - INFO -     - model          : Tavola surf ,Surfboard  fish
+2025-09-08 16:33:13 - INFO -     - price          : 400.0
+2025-09-08 16:33:13 - INFO -     - location       : Roma (RM)
+2025-09-08 16:33:13 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-surfboard-fish-roma-595415969.htm
+2025-09-08 16:33:13 - INFO -     - brand          : None
+2025-09-08 16:33:13 - INFO -     - liters         : None
+2025-09-08 16:33:13 - INFO -   > API output preview (formatted values):
+2025-09-08 16:33:13 - INFO -     - length         : None
+2025-09-08 16:33:13 - INFO -     - width          : None
+2025-09-08 16:33:13 - INFO -     - thickness      : None
+2025-09-08 16:33:27 - INFO - --- Processing NEW ad: https://www.subito.it/sport/sacca-surf-7-6-ocean-earth-roma-594746262.htm ---
+2025-09-08 16:33:28 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:33:28 - INFO -     - model          : Sacca Surf 7.6" Ocean & Earth
+2025-09-08 16:33:28 - INFO -     - price          : 50.0
+2025-09-08 16:33:28 - INFO -     - location       : Roma (RM)
+2025-09-08 16:33:28 - INFO -     - link           : https://www.subito.it/sport/sacca-surf-7-6-ocean-earth-roma-594746262.htm
+2025-09-08 16:33:28 - INFO -     - brand          : Rt
+2025-09-08 16:33:28 - INFO -     - liters         : None
+2025-09-08 16:33:28 - INFO -     - length_ft      : 7
+2025-09-08 16:33:28 - INFO -     - length_in      : 6
+2025-09-08 16:33:28 - INFO -     - width_in       : None
+2025-09-08 16:33:28 - INFO -     - thickness_in   : None
+2025-09-08 16:33:28 - INFO -   > API output preview (formatted values):
+2025-09-08 16:33:28 - INFO -     - length         : 7'6"
+2025-09-08 16:33:28 - INFO -     - width          : None
+2025-09-08 16:33:28 - INFO -     - thickness      : None
+2025-09-08 16:33:52 - INFO - --- Processing NEW ad: https://www.subito.it/sport/surfboard-30-litri-5-6-roma-588558605.htm ---
+2025-09-08 16:33:53 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:33:53 - INFO -     - model          : Surfboard 30 litri 5.6
+2025-09-08 16:33:53 - INFO -     - price          : 230.0
+2025-09-08 16:33:53 - INFO -     - location       : Roma (RM)
+2025-09-08 16:33:53 - INFO -     - link           : https://www.subito.it/sport/surfboard-30-litri-5-6-roma-588558605.htm
+2025-09-08 16:33:53 - INFO -     - brand          : None
+2025-09-08 16:33:53 - INFO -     - liters         : 30.0
+2025-09-08 16:33:53 - INFO -     - length_ft      : 5
+2025-09-08 16:33:53 - INFO -     - length_in      : 6
+2025-09-08 16:33:53 - INFO -     - width_in       : None
+2025-09-08 16:33:53 - INFO -     - thickness_in   : None
+2025-09-08 16:33:53 - INFO -   > API output preview (formatted values):
+2025-09-08 16:33:53 - INFO -     - length         : 5'6"
+2025-09-08 16:33:53 - INFO -     - width          : None
+2025-09-08 16:33:53 - INFO -     - thickness      : None
+2025-09-08 16:34:05 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-fish-x-roma-584788413.htm ---
+2025-09-08 16:34:06 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:34:06 - INFO -     - model          : Tavola surf Fish X
+2025-09-08 16:34:06 - INFO -     - price          : 250.0
+2025-09-08 16:34:06 - INFO -     - location       : Roma (RM)
+2025-09-08 16:34:06 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-fish-x-roma-584788413.htm
+2025-09-08 16:34:06 - INFO -     - brand          : None
+2025-09-08 16:34:06 - INFO -     - liters         : None
+2025-09-08 16:34:06 - INFO -   > API output preview (formatted values):
+2025-09-08 16:34:06 - INFO -     - length         : None
+2025-09-08 16:34:06 - INFO -     - width          : None
+2025-09-08 16:34:06 - INFO -     - thickness      : None
+2025-09-08 16:34:21 - INFO - --- Processing NEW ad: https://www.subito.it/bambini-giocattoli/lego-6518-guardia-spiaggia-roma-583535240.htm ---
+2025-09-08 16:34:21 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:34:21 - INFO -     - model          : Lego 6518 Guardia spiaggia
+2025-09-08 16:34:21 - INFO -     - price          : 14.0
+2025-09-08 16:34:21 - INFO -     - location       : Roma (RM)
+2025-09-08 16:34:21 - INFO -     - link           : https://www.subito.it/bambini-giocattoli/lego-6518-guardia-spiaggia-roma-583535240.htm
+2025-09-08 16:34:21 - INFO -     - brand          : None
+2025-09-08 16:34:21 - INFO -     - liters         : None
+2025-09-08 16:34:21 - INFO -   > API output preview (formatted values):
+2025-09-08 16:34:21 - INFO -     - length         : None
+2025-09-08 16:34:21 - INFO -     - width          : None
+2025-09-08 16:34:21 - INFO -     - thickness      : None
+2025-09-08 16:34:35 - INFO - --- Processing NEW ad: https://www.subito.it/sport/tavola-surf-epoxy-7ft-verde-menta-roma-526925605.htm ---
+2025-09-08 16:34:35 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:34:35 - INFO -     - model          : Tavola surf epoxy 7ft verde menta
+2025-09-08 16:34:35 - INFO -     - price          : 350.0
+2025-09-08 16:34:35 - INFO -     - location       : Roma (RM)
+2025-09-08 16:34:35 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-epoxy-7ft-verde-menta-roma-526925605.htm
+2025-09-08 16:34:35 - INFO -     - brand          : None
+2025-09-08 16:34:35 - INFO -     - liters         : None
+2025-09-08 16:34:35 - INFO -   > API output preview (formatted values):
+2025-09-08 16:34:35 - INFO -     - length         : None
+2025-09-08 16:34:35 - INFO -     - width          : None
+2025-09-08 16:34:35 - INFO -     - thickness      : None
+2025-09-08 16:34:58 - INFO - --- Processing NEW ad: https://www.subito.it/hobby-collezionismo/lego-6813-space-police-roma-581867278.htm ---
+2025-09-08 16:34:59 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:34:59 - INFO -     - model          : Lego 6813 Space Police
+2025-09-08 16:34:59 - INFO -     - price          : 18.0
+2025-09-08 16:34:59 - INFO -     - location       : Roma (RM)
+2025-09-08 16:34:59 - INFO -     - link           : https://www.subito.it/hobby-collezionismo/lego-6813-space-police-roma-581867278.htm
+2025-09-08 16:34:59 - INFO -     - brand          : None
+2025-09-08 16:34:59 - INFO -     - liters         : None
+2025-09-08 16:34:59 - INFO -   > API output preview (formatted values):
+2025-09-08 16:34:59 - INFO -     - length         : None
+2025-09-08 16:34:59 - INFO -     - width          : None
+2025-09-08 16:34:59 - INFO -     - thickness      : None
+2025-09-08 16:35:16 - INFO - --- Processing NEW ad: https://www.subito.it/hobby-collezionismo/lego-6538-rebel-roadster-roma-581867815.htm ---
+2025-09-08 16:35:17 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:35:17 - INFO -     - model          : Lego 6538 Rebel Roadster
+2025-09-08 16:35:17 - INFO -     - price          : 14.0
+2025-09-08 16:35:17 - INFO -     - location       : Roma (RM)
+2025-09-08 16:35:17 - INFO -     - link           : https://www.subito.it/hobby-collezionismo/lego-6538-rebel-roadster-roma-581867815.htm
+2025-09-08 16:35:17 - INFO -     - brand          : None
+2025-09-08 16:35:17 - INFO -     - liters         : None
+2025-09-08 16:35:17 - INFO -   > API output preview (formatted values):
+2025-09-08 16:35:17 - INFO -     - length         : None
+2025-09-08 16:35:17 - INFO -     - width          : None
+2025-09-08 16:35:17 - INFO -     - thickness      : None
+2025-09-08 16:35:35 - INFO - --- Processing NEW ad: https://www.subito.it/hobby-collezionismo/lego-4002-racer-boat-roma-581868068.htm ---
+2025-09-08 16:35:36 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:35:36 - INFO -     - model          : Lego 4002 Racer boat
+2025-09-08 16:35:36 - INFO -     - price          : 19.0
+2025-09-08 16:35:36 - INFO -     - location       : Roma (RM)
+2025-09-08 16:35:36 - INFO -     - link           : https://www.subito.it/hobby-collezionismo/lego-4002-racer-boat-roma-581868068.htm
+2025-09-08 16:35:36 - INFO -     - brand          : None
+2025-09-08 16:35:36 - INFO -     - liters         : None
+2025-09-08 16:35:36 - INFO -   > API output preview (formatted values):
+2025-09-08 16:35:36 - INFO -     - length         : None
+2025-09-08 16:35:36 - INFO -     - width          : None
+2025-09-08 16:35:36 - INFO -     - thickness      : None
+2025-09-08 16:35:49 - INFO - --- Processing NEW ad: https://www.subito.it/hobby-collezionismo/lego-6712-wild-west-no-title-dinamite-roma-581868300.htm ---
+2025-09-08 16:35:49 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:35:49 - INFO -     - model          : Lego 6712 Wild West (no title dinamite)
+2025-09-08 16:35:49 - INFO -     - price          : 21.0
+2025-09-08 16:35:49 - INFO -     - location       : Roma (RM)
+2025-09-08 16:35:49 - INFO -     - link           : https://www.subito.it/hobby-collezionismo/lego-6712-wild-west-no-title-dinamite-roma-581868300.htm
+2025-09-08 16:35:49 - INFO -     - brand          : None
+2025-09-08 16:35:49 - INFO -     - liters         : None
+2025-09-08 16:35:49 - INFO -   > API output preview (formatted values):
+2025-09-08 16:35:49 - INFO -     - length         : None
+2025-09-08 16:35:49 - INFO -     - width          : None
+2025-09-08 16:35:49 - INFO -     - thickness      : None
+2025-09-08 16:36:01 - INFO - --- Processing NEW ad: https://www.subito.it/hobby-collezionismo/lego-6237-pirati-roma-581868590.htm ---
+2025-09-08 16:36:02 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:36:02 - INFO -     - model          : Lego 6237 Pirati
+2025-09-08 16:36:02 - INFO -     - price          : 14.0
+2025-09-08 16:36:02 - INFO -     - location       : Roma (RM)
+2025-09-08 16:36:02 - INFO -     - link           : https://www.subito.it/hobby-collezionismo/lego-6237-pirati-roma-581868590.htm
+2025-09-08 16:36:02 - INFO -     - brand          : None
+2025-09-08 16:36:02 - INFO -     - liters         : None
+2025-09-08 16:36:02 - INFO -   > API output preview (formatted values):
+2025-09-08 16:36:02 - INFO -     - length         : None
+2025-09-08 16:36:02 - INFO -     - width          : None
+2025-09-08 16:36:02 - INFO -     - thickness      : None
+2025-09-08 16:36:25 - INFO - --- Processing NEW ad: https://www.subito.it/hobby-collezionismo/lego-6351-surf-n-sail-camper-no-surfboard-roma-581868754.htm ---
+2025-09-08 16:36:26 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:36:26 - INFO -     - model          : Lego 6351 Surf N' Sail Camper (no surfboard)
+2025-09-08 16:36:26 - INFO -     - price          : 31.0
+2025-09-08 16:36:26 - INFO -     - location       : Roma (RM)
+2025-09-08 16:36:26 - INFO -     - link           : https://www.subito.it/hobby-collezionismo/lego-6351-surf-n-sail-camper-no-surfboard-roma-581868754.htm
+2025-09-08 16:36:26 - INFO -     - brand          : None
+2025-09-08 16:36:26 - INFO -     - liters         : None
+2025-09-08 16:36:26 - INFO -   > API output preview (formatted values):
+2025-09-08 16:36:26 - INFO -     - length         : None
+2025-09-08 16:36:26 - INFO -     - width          : None
+2025-09-08 16:36:26 - INFO -     - thickness      : None
+2025-09-08 16:36:37 - INFO - --- Processing NEW ad: https://www.subito.it/sport/surfboard-by-x-ad-6-6-roma-579176335.htm ---
+2025-09-08 16:36:40 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:36:40 - INFO -     - model          : Surfboard by X AD 6,6
+2025-09-08 16:36:40 - INFO -     - price          : 150.0
+2025-09-08 16:36:40 - INFO -     - location       : Roma (RM)
+2025-09-08 16:36:40 - INFO -     - link           : https://www.subito.it/sport/surfboard-by-x-ad-6-6-roma-579176335.htm
+2025-09-08 16:36:40 - INFO -     - brand          : None
+2025-09-08 16:36:40 - INFO -     - liters         : None
+2025-09-08 16:36:40 - INFO -   > API output preview (formatted values):
+2025-09-08 16:36:40 - INFO -     - length         : None
+2025-09-08 16:36:40 - INFO -     - width          : None
+2025-09-08 16:36:40 - INFO -     - thickness      : None
+2025-09-08 16:36:57 - INFO - --- Processing NEW ad: https://www.subito.it/sport/surfboard-roma-575939909.htm ---
+2025-09-08 16:36:58 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:36:58 - INFO -     - model          : Surfboard
+2025-09-08 16:36:58 - INFO -     - price          : 350.0
+2025-09-08 16:36:58 - INFO -     - location       : Roma (RM)
+2025-09-08 16:36:58 - INFO -     - link           : https://www.subito.it/sport/surfboard-roma-575939909.htm
+2025-09-08 16:36:58 - INFO -     - brand          : None
+2025-09-08 16:36:58 - INFO -     - liters         : None
+2025-09-08 16:36:58 - INFO -   > API output preview (formatted values):
+2025-09-08 16:36:58 - INFO -     - length         : None
+2025-09-08 16:36:58 - INFO -     - width          : None
+2025-09-08 16:36:58 - INFO -     - thickness      : None
+2025-09-08 16:37:11 - INFO - --- Processing NEW ad: https://www.subito.it/sport/firewire-sweet-potato-6-0-roma-569299224.htm ---
+2025-09-08 16:37:13 - INFO -   > Scraped data (raw values for DB):
+2025-09-08 16:37:13 - INFO -     - model          : Firewire Sweet Potato 6’0
+2025-09-08 16:37:13 - INFO -     - price          : 450.0
+2025-09-08 16:37:13 - INFO -     - location       : Roma (RM)
+2025-09-08 16:37:13 - INFO -     - link           : https://www.subito.it/sport/firewire-sweet-potato-6-0-roma-569299224.htm
+2025-09-08 16:37:13 - INFO -     - brand          : Firewire
+2025-09-08 16:37:13 - INFO -     - liters         : None
+2025-09-08 16:37:13 - INFO -     - length_ft      : 6
+2025-09-08 16:37:13 - INFO -     - length_in      : 0
+2025-09-08 16:37:13 - INFO -     - width_in       : None
+2025-09-08 16:37:13 - INFO -     - thickness_in   : None
+2025-09-08 16:37:13 - INFO -   > API output preview (formatted values):
+2025-09-08 16:37:13 - INFO -     - length         : 6'0"
+2025-09-08 16:37:13 - INFO -     - width          : None
+2025-09-08 16:37:13 - INFO -     - thickness      : None
+2025-09-08 16:37:33 - INFO - Committing new ads to the database...
+2025-09-08 16:37:33 - INFO - Scraping session finished. Added 55 new ads.
