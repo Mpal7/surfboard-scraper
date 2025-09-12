@@ -106,9 +106,11 @@ def text_pre_processor(text):
     text = re.sub(r'\s*[xX×*]\s*', ' x ', text)
 
     # Remove explicit unit words, including when attached to digits (e.g. '6ft', '21.25in')
+    # Added Italian 'pollici' / 'pollice' to the list of inch words to drop after digits.
     text = re.sub(r'(?<=\d)(?:\s*)(?:ft|foot|feet)\b', '', text, flags=re.IGNORECASE)
-    text = re.sub(r'(?<=\d)(?:\s*)(?:in|inch|inches)\b', '', text, flags=re.IGNORECASE)
-    # normalize cm to token
+    text = re.sub(r'(?<=\d)(?:\s*)(?:in|inch|inches|pollici|pollice)\b', '', text, flags=re.IGNORECASE)
+
+    # normalize cm to token (keep cm token so metric detection can still apply)
     text = re.sub(r'(?<=\d)(?:\s*)(?:cm|centimeters|centimetri)\b', 'cm', text, flags=re.IGNORECASE)
     
     # Collapse repeated spaces and tidy
@@ -144,31 +146,52 @@ def parse_dimension_part(part):
     return total if total != 0.0 else None
 
 def extract_dimensions(text):
-    """Main extraction for length / width / thickness (US inches + feet)."""
-    # isolated length patterns (require an explicit separator)
+    """Main extraction for length / width / thickness (US inches + feet).
+    Improved to handle:
+     - decimal ft.in patterns followed immediately by letters (e.g. '6.0pollici'),
+     - uppercase/lowercase 'FT' (e.g. '7FT') as a feet-only fallback,
+     - keeps earlier full-dimension and metric parsing logic.
+    """
+    if not text:
+        return None
+
+    original = text  # keep original for unit-aware heuristics
+
+    # --- 1) Try isolated ft'in or ft.in patterns on ORIGINAL text (more permissive) ---
     isolated = None
-    m = re.search(r"\b(?P<ft>\d{1,2})\s*(?:'|’|′)\s*(?P<in>\d{1,2})\b", text)
+
+    # a) feet + apostrophe + inches: 6'0, 5’6, etc.
+    m = re.search(r"\b(?P<ft>\d{1,2})\s*(?:'|’|′)\s*(?P<in>\d{1,2})\b", original)
+    # b) decimal-style ft.in or ft,in allowing letters immediately after (e.g. "6.0pollici")
     if not m:
-        m = re.search(r"\b(?P<ft>\d{1,2})\.(?P<in>\d{1,2})\b", text)
+        m = re.search(r"\b(?P<ft>\d{1,2})[.,](?P<in>\d{1,2})(?=\D|$)", original)
+
     if m:
         try:
             ft = int(m.group('ft')); inch = int(m.group('in'))
             if 4 <= ft <= 10 and 0 <= inch <= 11:
                 isolated = {'ft': ft, 'in': inch}
-        except:
+        except Exception:
             isolated = None
 
-    processed = text_pre_processor(text)
+    # --- 2) normalize text for 'x' splitting and unit removal and run full-dim pattern ---
+    processed = text_pre_processor(original)
 
     # Full dimensions pattern length x width x thickness
-    pattern = r"(?<!/)(?P<length>\d{1,2}(?:['.]\d{1,2})?)['\"]*\s*x\s+(?P<width>\d{1,3}(?:[.,]\d+)?(?:\s+\d/\d)?)['\"]*(?:\s*x\s+(?P<thickness>\d{1,2}(?:[.,]\d+)?(?:\s+\d/\d)?))?['\"]*"
+    pattern = (
+        r"(?<!/)"
+        r"(?P<length>\d{1,2}(?:['.]\d{1,2})?)['\"]*\s*x\s+"
+        r"(?P<width>\d{1,3}(?:[.,]\d+)?(?:\s+\d/\d)?)['\"]*"
+        r"(?:\s*x\s+(?P<thickness>\d{1,2}(?:[.,]\d+)?(?:\s+\d/\d)?))?['\"]*"
+    )
     full_match = re.search(pattern, processed, re.IGNORECASE)
 
     if full_match:
         data = full_match.groupdict()
         width_val = parse_dimension_part(data.get('width') or '')
-        # width >=25 likely liters
+        # width >=25 likely liters (guard)
         if width_val is not None and width_val > 25:
+            # if we previously captured an isolated ft.in, prefer that
             if isolated:
                 return {
                     'length_ft': isolated['ft'],
@@ -186,10 +209,13 @@ def extract_dimensions(text):
                 length_ft = int(parts[0]); length_in = int(parts[1]) if len(parts) > 1 and parts[1] else 0
             except:
                 length_ft, length_in = None, None
-        elif '.' in len_str:
-            p = len_str.split('.')
+        elif '.' in len_str or ',' in len_str:
+            # handle '5.11' or '5,11' style in the length token
+            sep = '.' if '.' in len_str else ','
+            p = len_str.split(sep)
             try:
-                length_ft = int(p[0]); length_in = int(p[1]) if len(p) > 1 else 0
+                length_ft = int(p[0])
+                length_in = int(p[1]) if p[1] else 0
             except:
                 length_ft, length_in = None, None
         else:
@@ -206,7 +232,7 @@ def extract_dimensions(text):
             'thickness_in': thickness_val
         }
 
-    # fallback to isolated length
+    # --- 3) fallback to isolated ft.in captured earlier ---
     if isolated:
         return {
             'length_ft': isolated['ft'],
@@ -215,7 +241,28 @@ def extract_dimensions(text):
             'thickness_in': None
         }
 
-    # metric match (cm x cm x cm)
+    # --- 4) feet-only patterns in ORIGINAL text (e.g. "7FT", "7 ft", "7FT.") ---
+    m_ft_only = re.search(r"\b(?P<ft>\d{1,2})\s*(?:ft|feet|foot)\b", original, re.IGNORECASE)
+    if m_ft_only:
+        try:
+            ft = int(m_ft_only.group('ft'))
+            if 4 <= ft <= 10:
+                return {'length_ft': ft, 'length_in': 0, 'width_in': None, 'thickness_in': None}
+        except:
+            pass
+
+    # also handle a bare numeric that follows a length-keyword (e.g. "misura 7", "lunghezza 6")
+    if re.search(r'\b(misur[ae]|misura|misure|lunghezza|size)\b', original, re.IGNORECASE):
+        m_num = re.search(r"\b(?P<ft>\d{1,2})\b", original)
+        if m_num:
+            try:
+                ft = int(m_num.group('ft'))
+                if 4 <= ft <= 10:
+                    return {'length_ft': ft, 'length_in': 0, 'width_in': None, 'thickness_in': None}
+            except:
+                pass
+
+    # --- 5) metric match (cm x cm x cm) ---
     metric_match = re.search(r'(\d{3,})\s*x\s+(\d{2,}(?:[.,]\d+)?)\s*x\s+(\d(?:[.,]\d+)?)', processed)
     if metric_match:
         try:
@@ -229,6 +276,7 @@ def extract_dimensions(text):
             }
         except:
             pass
+
     return None
 
 def extract_liters(text):
