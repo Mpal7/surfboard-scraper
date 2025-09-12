@@ -82,7 +82,8 @@ FRACTION_MAP = {
 POPULAR_BRANDS = [
     'lost', 'mayhem', 'channel islands', 'al merrick', 'pyzel', 'firewire',
     'slater designs', 'js industries', 'hayden shapes', 'pukas', 'nsp', 'bic',
-    'sic', 'torq', 'hayden', 'hs', 'channel islands'
+    'sic', 'torq', 'hayden', 'hs', 'channel islands', 'victory', 'BOB', 'BoB', 'bob',
+    'olaian'
 ]
 
 def find_brand(text):
@@ -151,6 +152,7 @@ def extract_dimensions(text):
      - decimal ft.in patterns followed immediately by letters (e.g. '6.0pollici'),
      - uppercase/lowercase 'FT' (e.g. '7FT') as a feet-only fallback,
      - keeps earlier full-dimension and metric parsing logic.
+     - Handles feet-only apostrophe (e.g. 8') and Italian 'piedi'.
     """
     if not text:
         return None
@@ -160,15 +162,19 @@ def extract_dimensions(text):
     # --- 1) Try isolated ft'in or ft.in patterns on ORIGINAL text (more permissive) ---
     isolated = None
 
-    # a) feet + apostrophe + inches: 6'0, 5’6, etc.
-    m = re.search(r"\b(?P<ft>\d{1,2})\s*(?:'|’|′)\s*(?P<in>\d{1,2})\b", original)
+    # a) feet + apostrophe + (optional) inches: 8', 6'0, 5’6, etc.
+    # <--- CHANGE: Removed the trailing `\b` which failed on patterns like `8' `.
+    m = re.search(r"\b(?P<ft>\d{1,2})\s*(?:'|’|′)\s*(?P<in>\d{1,2})?", original)
     # b) decimal-style ft.in or ft,in allowing letters immediately after (e.g. "6.0pollici")
     if not m:
         m = re.search(r"\b(?P<ft>\d{1,2})[.,](?P<in>\d{1,2})(?=\D|$)", original)
 
     if m:
         try:
-            ft = int(m.group('ft')); inch = int(m.group('in'))
+            ft = int(m.group('ft'))
+            # Handle the case where the 'in' group is not found (is None)
+            inch_str = m.group('in')
+            inch = int(inch_str) if inch_str else 0
             if 4 <= ft <= 10 and 0 <= inch <= 11:
                 isolated = {'ft': ft, 'in': inch}
         except Exception:
@@ -241,8 +247,9 @@ def extract_dimensions(text):
             'thickness_in': None
         }
 
-    # --- 4) feet-only patterns in ORIGINAL text (e.g. "7FT", "7 ft", "7FT.") ---
-    m_ft_only = re.search(r"\b(?P<ft>\d{1,2})\s*(?:ft|feet|foot)\b", original, re.IGNORECASE)
+    # --- 4) feet-only patterns in ORIGINAL text (e.g. "7FT", "8 piedi") ---
+    # Added 'piedi' to the list of recognized words for feet.
+    m_ft_only = re.search(r"\b(?P<ft>\d{1,2})\s*(?:ft|feet|foot|piedi)\b", original, re.IGNORECASE)
     if m_ft_only:
         try:
             ft = int(m_ft_only.group('ft'))
@@ -253,7 +260,8 @@ def extract_dimensions(text):
 
     # also handle a bare numeric that follows a length-keyword (e.g. "misura 7", "lunghezza 6")
     if re.search(r'\b(misur[ae]|misura|misure|lunghezza|size)\b', original, re.IGNORECASE):
-        m_num = re.search(r"\b(?P<ft>\d{1,2})\b", original)
+        # A more specific search to avoid grabbing prices or other numbers
+        m_num = re.search(r"\b(misur[ae]|misura|misure|lunghezza|size)\s*[:]?\s*(?P<ft>\d{1,2})\b", original, re.IGNORECASE)
         if m_num:
             try:
                 ft = int(m_num.group('ft'))
@@ -278,7 +286,7 @@ def extract_dimensions(text):
             pass
 
     return None
-
+    
 def extract_liters(text):
     match = re.search(r'(\d{1,3}(?:[.,]\d{1,2})?)\s*(?:l\b|lt\b|ltr\b|liters\b|litres\b|litri\b)', text, re.IGNORECASE)
     if match:
@@ -370,7 +378,13 @@ def scrape_and_store(db: Session):
                                 ad_data["liters"] = extract_liters(full_desc_text)
                                 dims = extract_dimensions(full_desc_text)
                                 if dims: ad_data.update(dims)
-                                
+                                # --- Only insert if at least one length component is present ---
+                                if ad_data.get("length_ft") is not None or ad_data.get("length_in") is not None:
+                                    ad = Ad(**ad_data)
+                                    db.add(ad)
+                                    ads_added.append(ad)
+                                else:
+                                    logger.info(f"Skipping ad {link}: no length information found.")
                                 logger.info(f"  > Scraped Data for Ad:")
                                 for key, value in ad_data.items():
                                     logger.info(f"    - {key.ljust(15)}: {value}")
