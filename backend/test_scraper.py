@@ -86,7 +86,32 @@ test_cases = {
         "expected": {
             "length_ft": 7, "length_in": 0,
         }      
-    }
+    },
+    "Caso 13 8 piedi": {
+        "text": "Vendo tavola da surf da 8 piedi soft della Victory",
+        "expected": {
+            "length_ft": 8, "length_in": 0,
+            "brand": "Victory"
+        }
+    },
+    "caso 14 8'":{
+        "text": "Tavola da surf soft 8' ",
+        "expected": {
+            "length_ft": 8, "length_in": 0,
+        }
+    },
+    "caso 15 8' piedi (8' seguito da spazio e parola)": {
+        "text": "Tavola da surf soft 8' piedi ",
+        "expected": {
+            "length_ft": 8, "length_in": 0,
+        }
+    },
+    "caso Tavola da surf circa ‘9":{
+        "text": "Tavola da surf circa ‘9",
+        "expected": {
+            "length_ft": 9, "length_in": 0,
+        }
+    },
 }
 
 @pytest.mark.parametrize("name,case", test_cases.items())
