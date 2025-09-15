@@ -2,7 +2,7 @@ import pytest
 from scraper import extract_dimensions, extract_liters, extract_price, find_brand
 
 test_cases = {
-    "Caso 1 (Il tuo bug)": {
+    "Il tuo bug": {
         "text": "Tavola da surf Firewire Seaside misure 5.6 x 21 1/4 x 2 1/2 x 32.7 litri. Prezzo 430€",
         "expected": {
             "length_ft": 5, "length_in": 6,
@@ -10,14 +10,14 @@ test_cases = {
             "liters": 32.7, "price": 430.0, "brand": "Firewire"
         }
     },
-    "Caso 2 (Punto decimale)": {
+    "Punto decimale": {
         "text": "Tavola Surf Pukas Hyperlink 5.11 - 32 Litri Roma",
         "expected": {
             "length_ft": 5, "length_in": 11,
             "liters": 32.0, "brand": "Pukas"
         }
     },
-    "Caso 3 (Standard)": {
+    "Standard": {
         "text": "Vendo 6'0\"x21\"x2 1/2\" shortboard usata poco, marca Lost",
         "expected": {
             "length_ft": 6, "length_in": 0,
@@ -25,7 +25,7 @@ test_cases = {
             "brand": "Lost"
         }
     },
-    "Caso 4 (Unità esplicite)": {
+    "Unità esplicite": {
         "text": "Misure 6ft x 21.25in x 2.5in, volume 34L. Vendo a 250€.",
         "expected": {
             "length_ft": 6, "length_in": 0,
@@ -33,20 +33,20 @@ test_cases = {
             "liters": 34.0, "price": 250.0
         }
     },
-    "Caso 5 (Metrico)": {
+    "Metrico": {
         "text": "Tavola 183cm x 53.5cm x 6.5cm, marca Channel Islands",
         "expected": {
             "brand": "Channel Islands"
         }
     },
-    "Caso 6 (Lunghezza isolata)": {
+    "Lunghezza isolata": {
         "text": "Vendo tavola surf morbida Hayden Shapes modello Loot. Misura 5’6 - 36 litri",
         "expected": {
             "length_ft": 5, "length_in": 6,
             "liters": 36.0
         }
     },
-    "Caso 7 (Senza spazi)": {
+    "Senza spazi": {
         "text": "Vendo 6x21x2.5 Firewire, 300 euro",
         "expected": {
             "length_ft": 6, "length_in": 0,
@@ -54,64 +54,84 @@ test_cases = {
             "brand": "Firewire", "price": 300.0
         }
     },
-    "Caso 8 (Simboli frazione)": {
+    "Simboli frazione": {
         "text": "Misure 6’0’’x21¼x2½",
         "expected": {
             "length_ft": 6, "length_in": 0,
             "width_in": 21.25, "thickness_in": 2.5
         }
     },
-    "Caso 9 (Solo litri)": {
+    "Solo litri": {
         "text": "Tavola da surf 30L, marca NSP, prezzo 200€",
         "expected": {
             "liters": 30.0, "brand": "Nsp", "price": 200.0
         }
     },
-    "Caso 10 (parziale)": {
+    "parziale": {
         "text": "Misura 5’6 - 36 litri",
         "expected": {
             "length_ft": 5, "length_in": 6,
             "liters": 36.0
         }
     },
-    "Caso 11 pollici": {
+    "pollici": {
         "text": "6.0pollici",
         "expected": {
             "length_ft": 6, "length_in": 0,
 
         }
     },
-    "Caso 12 7ft/7FT": {
+    "7ft/7FT": {
         "text": "7FT",
         "expected": {
             "length_ft": 7, "length_in": 0,
         }      
     },
-    "Caso 13 8 piedi": {
+    "8 piedi": {
         "text": "Vendo tavola da surf da 8 piedi soft della Victory",
         "expected": {
             "length_ft": 8, "length_in": 0,
             "brand": "Victory"
         }
     },
-    "caso 14 8'":{
+    "8'":{
         "text": "Tavola da surf soft 8' ",
         "expected": {
             "length_ft": 8, "length_in": 0,
         }
     },
-    "caso 15 8' piedi (8' seguito da spazio e parola)": {
+    "8' piedi (8' seguito da spazio e parola)": {
         "text": "Tavola da surf soft 8' piedi ",
         "expected": {
             "length_ft": 8, "length_in": 0,
         }
     },
-    "caso Tavola da surf circa ‘9":{
+    "Tavola da surf circa ‘9":{
         "text": "Tavola da surf circa ‘9",
         "expected": {
             "length_ft": 9, "length_in": 0,
         }
     },
+    "Tavola da surf 7/ 11”":{
+        "text": "Tavola da surf 7/ 11”",
+        "expected": {
+            "length_ft": 7, "length_in": 11,
+        }
+    },
+    "182cm":{
+        "text": "le misure non si leggono benissimo ma l'altezza totale è di 182cm, tavola",
+        "expected": { 
+            "length_ft": 6, "length_in": 0,
+        }
+    },
+    "Dimensioni: 4’6” (140 cm) x 20” (60 cm) x 2 3/8” (20 cm). Volume approx 28L": {
+        "text": "Dimensioni: 4’6” (140 cm) x 20” (60 cm) x 2 3/8” (20 cm). Volume approx 28L",
+        "expected": {
+            "length_ft": 4, "length_in": 6,
+            "width_in": 20.0, "thickness_in": 2.375,
+            "liters": 28.0
+        }
+    }
 }
 
 @pytest.mark.parametrize("name,case", test_cases.items())
