@@ -51,3 +51,6 @@ coverage.xml
 
 #db
 ads.db
+
+#diff
+diff.txt

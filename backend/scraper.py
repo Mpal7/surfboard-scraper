@@ -285,6 +285,40 @@ def extract_dimensions(text):
         except:
             pass
 
+    # --- 6) bare apostrophe before a number (e.g. "circa ‘9", "‘8") ---
+    m_apost = re.search(r"[‘’']\s*(?P<ft>\d{1,2})(?!\d)", original)
+    if m_apost:
+        try:
+            ft = int(m_apost.group('ft'))
+            if 4 <= ft <= 10:
+                return {'length_ft': ft, 'length_in': 0, 'width_in': None, 'thickness_in': None}
+        except:
+            pass
+    
+    # --- 7) ft/in written with slash (e.g. "7/ 11", "6/4") ---
+    m_slash = re.search(r"(?P<ft>\d{1,2})\s*/\s*(?P<in>\d{1,2})", original)
+    if m_slash:
+        try:
+            ft = int(m_slash.group('ft'))
+            inch = int(m_slash.group('in'))
+            if 4 <= ft <= 10 and 0 <= inch < 12:
+                return {'length_ft': ft, 'length_in': inch, 'width_in': None, 'thickness_in': None}
+        except:
+            pass
+
+    # --- 8) pure centimeters (e.g. "182cm", " 200 cm") ---
+    m_cm = re.search(r"(?P<cm>\d{2,3})\s*cm", original)
+    if m_cm:
+        try:
+            cm = int(m_cm.group('cm'))
+            if 120 <= cm <= 300:  # range plausibile per tavole
+                total_inches = round(cm / 2.54)
+                ft = total_inches // 12
+                inch = total_inches % 12
+                return {'length_ft': ft, 'length_in': inch, 'width_in': None, 'thickness_in': None}
+        except:
+            pass
+
     return None
     
 def extract_liters(text):
@@ -379,7 +413,7 @@ def scrape_and_store(db: Session):
                                 dims = extract_dimensions(full_desc_text)
                                 if dims: ad_data.update(dims)
                                 # --- Only insert if at least one length component is present ---
-                                if ad_data.get("length_ft") is not None or ad_data.get("length_in") is not None:
+                                if ad_data.get("length_ft") not in (None, "") or ad_data.get("length_in") not in (None, ""):
                                     ad = Ad(**ad_data)
                                     db.add(ad)
                                     ads_added.append(ad)
