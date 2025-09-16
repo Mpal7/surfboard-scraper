@@ -17,7 +17,7 @@ def startup():
 
 @app.get("/ads")
 def list_ads(page: int = Query(1, ge=1), page_size: int = Query(20, ge=1), db: Session = Depends(get_db)):
-    ads = db.query(Ad)..filter(Ad.is_active == True).offset((page - 1) * page_size).limit(page_size).all()
+    ads = db.query(Ad).filter(Ad.is_active == True).offset((page - 1) * page_size).limit(page_size).all()
     return [ad.to_dict() for ad in ads]
 
 @app.get("/ads/filter")
