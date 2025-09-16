@@ -131,6 +131,13 @@ test_cases = {
             "width_in": 20.0, "thickness_in": 2.375,
             "liters": 28.0
         }
+    },
+    "Tavola Surf Pukas Hyperlink 5.11 - 32 Litri Roma": {
+        "text": "Tavola Surf Pukas Hyperlink 5.11 - 32 Litri Roma",
+        "expected": {
+            "length_ft": 5, "length_in": 11,
+            "liters": 32.0, "brand": "Pukas"
+        }
     }
 }
 

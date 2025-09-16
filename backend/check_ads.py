@@ -69,7 +69,6 @@ def check_ad_status(db: Session):
             except Exception as e:
                 logger.error(f"An unexpected error occurred for Ad ID {ad.id}: {e}")
             
-            # Be polite to the server
             time.sleep(random.uniform(1, 3))
 
     if deactivated_count > 0:

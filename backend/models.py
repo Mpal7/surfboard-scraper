@@ -62,7 +62,7 @@ class Ad(Base):
     thickness_in = Column(Float, nullable=True)
     liters = Column(Float, nullable=True)
 
-    is_active = Column(Boolean, default=True)
+    is_active = Column(Boolean, default=True, nullable=False, index=True)
 
     @hybrid_property
     def length_total_inches(self):
@@ -71,17 +71,13 @@ class Ad(Base):
         if self.length_in: total += self.length_in
         return total if total > 0 else None
 
-    # Formattazione per l'output dell'API
     def to_dict(self):
         length_formatted = None
         if self.length_ft is not None and self.length_in is not None:
             length_formatted = f"{self.length_ft}'{int(round(self.length_in))}\""
 
-        # --- MODIFIED LINES ---
-        # Use our new helper function to format width and thickness
         width_formatted = f'{decimal_to_fraction_str(self.width_in)}"' if self.width_in is not None else None
         thickness_formatted = f'{decimal_to_fraction_str(self.thickness_in)}"' if self.thickness_in is not None else None
-        # --- END OF MODIFIED LINES ---
 
         return {
             "id": self.id,

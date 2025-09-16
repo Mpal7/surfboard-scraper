@@ -7,17 +7,14 @@ from models import Ad
 from sqlalchemy.orm import Session
 import logging
 from datetime import datetime
-import os  # <-- Added missing import for os.makedirs
+import os  
 
 # --- 1. Logging Configuration ---
 
-# Define the directory where logs will be saved
 LOG_DIR = "scraping_logs"
 
-# Ensure the log directory exists
 os.makedirs(LOG_DIR, exist_ok=True)
 
-# Create a logger instance for this scraper module
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
@@ -64,9 +61,6 @@ SEARCH_URLS = [
     "https://www.subito.it/annunci-lazio/vendita/usato/roma/roma/?q=surfboard",
 ]
 
-
-# --- 3. New Merged Extraction Logic ---
-
 # Constants
 FRACTION_SYMBOLS = {
     'Â¼': ' 1/4', 'Â½': ' 1/2', 'Â¾': ' 3/4',
@@ -80,17 +74,67 @@ FRACTION_MAP = {
 }
 
 POPULAR_BRANDS = [
-    'lost', 'mayhem', 'channel islands', 'al merrick', 'pyzel', 'firewire',
-    'slater designs', 'js industries', 'hayden shapes', 'pukas', 'nsp', 'bic',
-    'sic', 'torq', 'hayden', 'hs', 'channel islands', 'victory', 'BOB', 'BoB', 'bob',
-    'olaian'
+    'slater designs', 'hayden shapes', 'channel islands', 'al merrick',
+    'js industries', 'bruce hansel', 'luke studer', 'stefan steinberger',
+    'catch surf', 'prescription', 'x surfboard', 'log machine', 'lightning bolt',
+    'channel island', 'steinberger', 'sharpeye', 'jetsurf', 'surftech',
+    'firewire', 'bradley', 'outride', 'victory', 'mayhem', 'olaian',
+    'pukas', 'steve lis', 'stefan', 'hayden', 'lost', 'pyzel', 'rrd',
+    'torq', 'mccoy', 'dhd', 'bic', 'sic', 'nsp', 'bob', 'hs', 'js', 'rt',
+    'cj nelson', 'shaper x', 'ocean earth', 'Ocean&Earth', 'redz'
 ]
 
+# 2. Create a map for correct capitalization.
+BRAND_MAP = {brand.lower(): ' '.join([w.capitalize() for w in brand.split()]) for brand in POPULAR_BRANDS}
+# Manual override for brands with special capitalization
+BRAND_MAP['js'] = 'JS'
+BRAND_MAP['hs'] = 'HS'
+BRAND_MAP['bob'] = 'BOB'
+BRAND_MAP['rt'] = 'RT'
+BRAND_MAP['rrd'] = 'RRD'
+BRAND_MAP['cj nelson'] = 'CJ Nelson'
+BRAND_MAP['shaper x'] = 'X Surfboard'
+BRAND_MAP['ocean earth'] = 'Ocean & Earth'
+
+
+# Build a single, efficient, case-insensitive regex from the brand list.
+def create_brand_pattern(brand_key):
+    """
+    Takes a brand name like "channel islands" and returns a regex pattern
+    like "channel\\s*islands" that matches with or without spaces.
+    """
+    # 1. Split into words: "channel", "islands"
+    parts = brand_key.split(' ')
+    # 2. Escape each part to treat special characters literally
+    escaped_parts = [re.escape(part) for part in parts]
+    # 3. Join with \s* to allow zero or more spaces between words
+    return r'\s*'.join(escaped_parts)
+
+# Create a pattern for each brand in our map
+brand_patterns = (create_brand_pattern(key) for key in BRAND_MAP.keys())
+
+# Join all individual brand patterns with '|' (OR)
+BRAND_REGEX = re.compile(
+    r"\b(" + "|".join(brand_patterns) + r")\b",
+    re.IGNORECASE
+)
+
 def find_brand(text):
-    text_lower = text.lower()
-    for brand in POPULAR_BRANDS:
-        if brand in text_lower:
-            return ' '.join([w.capitalize() for w in brand.split()])
+    """
+    Finds the first matching brand in the text using a pre-compiled regex
+    that matches only whole words and handles flexible spacing for multi-word brands.
+    """
+    match = BRAND_REGEX.search(text)
+    if match:
+        # To find the correct key for BRAND_MAP, we remove all whitespace
+        # from the matched text and convert to lowercase.
+        matched_text = match.group(1)
+        normalized_key = "".join(matched_text.split()).lower()
+
+        # The BRAND_MAP keys also need to be normalized in the same way for lookup.
+        for key, value in BRAND_MAP.items():
+            if "".join(key.split()) == normalized_key:
+                return value
     return None
 
 def text_pre_processor(text):
@@ -117,6 +161,35 @@ def text_pre_processor(text):
     # Collapse repeated spaces and tidy
     text = re.sub(r'\s+', ' ', text).strip()
     return text
+
+
+def normalize_for_matching(text):
+    """
+    Lightweight normalization focused on matching numeric dimensions reliably in live HTML.
+    It purposely avoids heavy transformations that would interfere with unit words.
+    """
+    if not text:
+        return text
+    # remove common invisible / zero-width characters and NBSP
+    text = text.replace('\u00A0', ' ').replace('\u200B', '').replace('\u200C', '')
+    text = text.replace('\uFEFF', '')
+
+    # replace common dot-like unicode characters with ASCII dot
+    dot_variants = ['\u00B7', '\u2024', '\u2027', '\u22C5', '\u2219', '\u30FB', '\uFF0E', '\u2022']
+    for dv in dot_variants:
+        text = text.replace(dv, '.')
+
+    # also common visible variants
+    text = text.replace('·', '.').replace('•', '.')
+
+    # Normalize variant apostrophes and double-quotes to standard ones
+    text = re.sub(r"[’‘′`]", "'", text)
+    text = re.sub(r"[“”˝″]", '"', text)
+
+    # collapse whitespace
+    text = re.sub(r'\s+', ' ', text).strip()
+    return text
+
 
 def parse_dimension_part(part):
     """Convert a dimension piece like '21 1/4' or '2 1/2' to float inches."""
@@ -146,24 +219,20 @@ def parse_dimension_part(part):
                 pass
     return total if total != 0.0 else None
 
+
 def extract_dimensions(text):
     """Main extraction for length / width / thickness (US inches + feet).
-    Improved to handle:
-     - decimal ft.in patterns followed immediately by letters (e.g. '6.0pollici'),
-     - uppercase/lowercase 'FT' (e.g. '7FT') as a feet-only fallback,
-     - keeps earlier full-dimension and metric parsing logic.
-     - Handles feet-only apostrophe (e.g. 8') and Italian 'piedi'.
     """
     if not text:
         return None
 
-    original = text  # keep original for unit-aware heuristics
+    # Keep an original but normalized-for-matching version to catch unicode lookalikes in live HTML
+    original = normalize_for_matching(text)
 
     # --- 1) Try isolated ft'in or ft.in patterns on ORIGINAL text (more permissive) ---
     isolated = None
 
     # a) feet + apostrophe + (optional) inches: 8', 6'0, 5’6, etc.
-    # <--- CHANGE: Removed the trailing `\b` which failed on patterns like `8' `.
     m = re.search(r"\b(?P<ft>\d{1,2})\s*(?:'|’|′)\s*(?P<in>\d{1,2})?", original)
     # b) decimal-style ft.in or ft,in allowing letters immediately after (e.g. "6.0pollici")
     if not m:
@@ -197,7 +266,6 @@ def extract_dimensions(text):
         width_val = parse_dimension_part(data.get('width') or '')
         # width >=25 likely liters (guard)
         if width_val is not None and width_val > 25:
-            # if we previously captured an isolated ft.in, prefer that
             if isolated:
                 return {
                     'length_ft': isolated['ft'],
@@ -319,6 +387,17 @@ def extract_dimensions(text):
         except:
             pass
 
+    # --- 9) Final fallback: decimal-style ft.in in normalized original (catch unicode lookalikes etc.) ---
+    m_decimal_fallback = re.search(r"\b(?P<ft>\d{1,2})[.,](?P<in>\d{1,2})(?!\d)", original)
+    if m_decimal_fallback:
+        try:
+            ft = int(m_decimal_fallback.group('ft'))
+            inch = int(m_decimal_fallback.group('in'))
+            if 4 <= ft <= 10 and 0 <= inch <= 11:
+                return {'length_ft': ft, 'length_in': inch, 'width_in': None, 'thickness_in': None}
+        except:
+            pass
+
     return None
     
 def extract_liters(text):
@@ -336,26 +415,24 @@ def extract_price(text):
     return None
 
 
+
 def scrape_and_store(db: Session):
     ads_added = []
     
-    # --- Define the base URLs ---
+    # --- EFFICIENCY IMPROVEMENT: Fetch all existing links once ---
+    logger.info("Fetching existing ad links from the database...")
+    existing_links = {result[0] for result in db.query(Ad.link).all()}
+    logger.info(f"Found {len(existing_links)} existing links.")
+
     BASE_SEARCH_URLS = [
         "https://www.subito.it/annunci-lazio/vendita/usato/roma/roma/?q=tavola+da+surf",
         "https://www.subito.it/annunci-lazio/vendita/usato/roma/roma/?q=surfboard",
     ]
 
     with httpx.Client(headers=HEADERS, follow_redirects=True) as client:
-        # --- Loop through your search terms ---
         for base_url in BASE_SEARCH_URLS:
-            
-            # --- Loop through a number of pages (e.g., 1 to 5) ---
-            # Subito has about 35 ads per page, so 5 pages should be enough for 152 results.
             for page_num in range(1, 6): 
-                
-                # Construct the full URL for the current page
                 url = f"{base_url}&o={page_num}"
-                
                 logger.info(f"Scraping search results from: {url}")
                 try:
                     response = client.get(url)
@@ -364,78 +441,73 @@ def scrape_and_store(db: Session):
                         continue
                     if "Access Denied" in response.text:
                         logger.error(f"Access Denied for {url}. We are being blocked.")
-                        break # Stop trying this search term if blocked
-
+                        break
                 except httpx.RequestError as e:
                     logger.error(f"Network error while fetching {url}: {e}")
                     continue
 
                 soup = BeautifulSoup(response.text, "html.parser")
-                
                 ad_containers = soup.find_all("div", class_=lambda x: x and 'item-card' in x)
                 logger.info(f"Found {len(ad_containers)} potential ad containers on page {page_num}.")
 
-                # --- IMPORTANT: Stop if a page has no ads ---
                 if not ad_containers:
                     logger.info(f"No more ads found on page {page_num}. Moving to next search term.")
-                    break # Exit the page loop and go to the next base_url
+                    break
 
-                # (The rest of your ad processing logic remains the same)
                 for container in ad_containers:
-                    full_text = container.get_text(separator=" ", strip=True)
+                    full_text = container.get_text(" ", strip=True)
                     link_tag = container.find("a", href=True)
 
                     if "Roma" in full_text and "€" in full_text and link_tag:
                         link = link_tag['href']
-                        if not db.query(Ad).filter_by(link=link).first():
-                            # ... (your existing ad detail scraping logic) ...
-                            # This part does not need to change
-                            logger.info(f"--- Processing NEW ad: {link} ---")
                         
-                            ad_data = {
-                                "model": link_tag.find('h2').get_text(strip=True) if link_tag.find('h2') else "N/A",
-                                "price": extract_price(full_text),
-                                "location": "Roma (RM)", "link": link,
-                                "brand": find_brand(full_text), "length_ft": None, "length_in": None,
-                                "width_in": None, "thickness_in": None, "liters": None
-                            }
+                        title_tag = container.find("h2")
+                        model = title_tag.get_text(strip=True) if title_tag else "N/A"
 
-                            try:
-                                detail_resp = client.get(link)
-                                detail_soup = BeautifulSoup(detail_resp.text, "html.parser")
-                                # Use the CORRECTED selector from our previous conversation
-                                desc_div = detail_soup.find("p", class_="AdDescription_description__154FP")
-                                desc_text = desc_div.get_text(separator=" ", strip=True) if desc_div else ""
-                                full_desc_text = f"{ad_data['model']} {desc_text}"
+                        if "sacca" in model.lower():
+                            logger.info(f"Skipping ad {link}: title contains 'sacca'")
+                            continue
 
-                                ad_data["brand"] = find_brand(full_desc_text) or ad_data["brand"]
-                                ad_data["liters"] = extract_liters(full_desc_text)
-                                dims = extract_dimensions(full_desc_text)
-                                if dims: ad_data.update(dims)
-                                # --- Only insert if at least one length component is present ---
-                                if ad_data.get("length_ft") not in (None, "") or ad_data.get("length_in") not in (None, ""):
-                                    ad = Ad(**ad_data)
-                                    db.add(ad)
-                                    ads_added.append(ad)
-                                else:
-                                    logger.info(f"Skipping ad {link}: no length information found.")
-                                logger.info(f"  > Scraped Data for Ad:")
-                                for key, value in ad_data.items():
-                                    logger.info(f"    - {key.ljust(15)}: {value}")
-                                
+                        ad_data = {
+                            "model": model,
+                            "price": extract_price(full_text),
+                            "location": "Roma (RM)",
+                            "link": link,
+                            "length_ft": None,
+                            "length_in": None,
+                        }
+
+                        try:
+                            detail_resp = client.get(link)
+                            detail_soup = BeautifulSoup(detail_resp.text, "html.parser")
+                            desc_div = detail_soup.find("p", class_="AdDescription_description__154FP")
+                            desc_text = desc_div.get_text(separator=" ", strip=True) if desc_div else ""
+                            full_desc_text = f"{ad_data['model']} {desc_text}"
+
+                            ad_data["brand"] = find_brand(full_desc_text) or ad_data["brand"]
+                            ad_data["liters"] = extract_liters(full_desc_text)
+                            dims = extract_dimensions(full_desc_text)
+                            if dims: ad_data.update(dims)
+                            
+                            logger.info(f"  > Scraped Data for Ad:")
+                            for key, value in ad_data.items():
+                                logger.info(f"    - {key.ljust(15)}: {value}")
+                            length_ft = ad_data.get("length_ft")
+                            if isinstance(length_ft, (int, float)) and length_ft >= 5:
                                 ad = Ad(**ad_data)
                                 db.add(ad)
                                 ads_added.append(ad)
+                            else:
+                                logger.warning(f"  > Skipping ad (length_ft is missing or < 5'): Found value '{length_ft}'. Link: {link}")
 
-                            except Exception as e:
-                                logger.error(f"  > Could not process detail page {link}. Error: {e}")
-                            
-                            time.sleep(random.uniform(1, 3)) # Delay between processing each ad
-                
-                # --- Add a small delay between scraping pages to be polite ---
-                time.sleep(random.uniform(2, 4))
-        
-        logger.info("Committing new ads to the database...")
-        db.commit()
-        logger.info(f"Scraping session finished. Added {len(ads_added)} new ads.")
+                        except Exception as e:
+                            logger.error(f"  > Could not process detail page {link}. Error: {e}")
+                        
+                        time.sleep(random.uniform(5, 10)) 
+            
+            time.sleep(random.uniform(2, 4))
+    
+    logger.info("Committing new ads to the database...")
+    db.commit()
+    logger.info(f"Scraping session finished. Added {len(ads_added)} new ads.")
     return ads_added
