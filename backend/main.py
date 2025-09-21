@@ -17,7 +17,7 @@ def startup():
 
 @app.get("/ads")
 def list_ads(page: int = Query(1, ge=1), page_size: int = Query(20, ge=1), db: Session = Depends(get_db)):
-    ads = db.query(Ad).offset((page - 1) * page_size).limit(page_size).all()
+    ads = db.query(Ad).filter(Ad.is_active == True).offset((page - 1) * page_size).limit(page_size).all()
     return [ad.to_dict() for ad in ads]
 
 @app.get("/ads/filter")
@@ -35,7 +35,7 @@ def filter_ads(
     min_liters: float = Query(None, ge=20, le=100, description="Volume minimo in litri"),
     max_liters: float = Query(None, ge=20, le=100, description="Volume massimo in litri")
 ):
-    query = db.query(Ad)
+    query = db.query(Ad).filter(Ad.is_active == True)
     
     if brand:
         query = query.filter(Ad.brand.ilike(f"%{brand}%"))
