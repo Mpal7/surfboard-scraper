@@ -226,22 +226,19 @@ def extract_dimensions(text):
     if not text:
         return None
 
-    # Keep an original but normalized-for-matching version to catch unicode lookalikes in live HTML
     original = normalize_for_matching(text)
+    
+    text_for_parsing = re.sub(r'\s*\([^)]*\)', '', original)
 
-    # --- 1) Try isolated ft'in or ft.in patterns on ORIGINAL text (more permissive) ---
     isolated = None
 
-    # a) feet + apostrophe + (optional) inches: 8', 6'0, 5’6, etc.
-    m = re.search(r"\b(?P<ft>\d{1,2})\s*(?:'|’|′)\s*(?P<in>\d{1,2})?", original)
-    # b) decimal-style ft.in or ft,in allowing letters immediately after (e.g. "6.0pollici")
+    m = re.search(r"\b(?P<ft>\d{1,2})\s*(?:'|’|′)\s*(?P<in>\d{1,2})?", text_for_parsing)
     if not m:
-        m = re.search(r"\b(?P<ft>\d{1,2})[.,](?P<in>\d{1,2})(?=\D|$)", original)
+        m = re.search(r"\b(?P<ft>\d{1,2})[.,](?P<in>\d{1,2})(?=\D|$)", text_for_parsing)
 
     if m:
         try:
             ft = int(m.group('ft'))
-            # Handle the case where the 'in' group is not found (is None)
             inch_str = m.group('in')
             inch = int(inch_str) if inch_str else 0
             if 4 <= ft <= 10 and 0 <= inch <= 11:
@@ -249,10 +246,8 @@ def extract_dimensions(text):
         except Exception:
             isolated = None
 
-    # --- 2) normalize text for 'x' splitting and unit removal and run full-dim pattern ---
-    processed = text_pre_processor(original)
+    processed = text_pre_processor(text_for_parsing)
 
-    # Full dimensions pattern length x width x thickness
     pattern = (
         r"(?<!/)"
         r"(?P<length>\d{1,2}(?:['.]\d{1,2})?)['\"]*\s*x\s+"
@@ -264,7 +259,7 @@ def extract_dimensions(text):
     if full_match:
         data = full_match.groupdict()
         width_val = parse_dimension_part(data.get('width') or '')
-        # width >=25 likely liters (guard)
+        
         if width_val is not None and width_val > 25:
             if isolated:
                 return {
@@ -284,7 +279,6 @@ def extract_dimensions(text):
             except:
                 length_ft, length_in = None, None
         elif '.' in len_str or ',' in len_str:
-            # handle '5.11' or '5,11' style in the length token
             sep = '.' if '.' in len_str else ','
             p = len_str.split(sep)
             try:
@@ -306,7 +300,6 @@ def extract_dimensions(text):
             'thickness_in': thickness_val
         }
 
-    # --- 3) fallback to isolated ft.in captured earlier ---
     if isolated:
         return {
             'length_ft': isolated['ft'],
@@ -315,9 +308,7 @@ def extract_dimensions(text):
             'thickness_in': None
         }
 
-    # --- 4) feet-only patterns in ORIGINAL text (e.g. "7FT", "8 piedi") ---
-    # Added 'piedi' to the list of recognized words for feet.
-    m_ft_only = re.search(r"\b(?P<ft>\d{1,2})\s*(?:ft|feet|foot|piedi)\b", original, re.IGNORECASE)
+    m_ft_only = re.search(r"\b(?P<ft>\d{1,2})\s*(?:ft|feet|foot|piedi)\b", text_for_parsing, re.IGNORECASE)
     if m_ft_only:
         try:
             ft = int(m_ft_only.group('ft'))
@@ -326,10 +317,8 @@ def extract_dimensions(text):
         except:
             pass
 
-    # also handle a bare numeric that follows a length-keyword (e.g. "misura 7", "lunghezza 6")
-    if re.search(r'\b(misur[ae]|misura|misure|lunghezza|size)\b', original, re.IGNORECASE):
-        # A more specific search to avoid grabbing prices or other numbers
-        m_num = re.search(r"\b(misur[ae]|misura|misure|lunghezza|size)\s*[:]?\s*(?P<ft>\d{1,2})\b", original, re.IGNORECASE)
+    if re.search(r'\b(misur[ae]|misura|misure|lunghezza|size)\b', text_for_parsing, re.IGNORECASE):
+        m_num = re.search(r"\b(misur[ae]|misura|misure|lunghezza|size)\s*[:]?\s*(?P<ft>\d{1,2})\b", text_for_parsing, re.IGNORECASE)
         if m_num:
             try:
                 ft = int(m_num.group('ft'))
@@ -338,7 +327,6 @@ def extract_dimensions(text):
             except:
                 pass
 
-    # --- 5) metric match (cm x cm x cm) ---
     metric_match = re.search(r'(\d{3,})\s*x\s+(\d{2,}(?:[.,]\d+)?)\s*x\s+(\d(?:[.,]\d+)?)', processed)
     if metric_match:
         try:
@@ -353,8 +341,7 @@ def extract_dimensions(text):
         except:
             pass
 
-    # --- 6) bare apostrophe before a number (e.g. "circa ‘9", "‘8") ---
-    m_apost = re.search(r"[‘’']\s*(?P<ft>\d{1,2})(?!\d)", original)
+    m_apost = re.search(r"[‘’']\s*(?P<ft>\d{1,2})(?!\d)", text_for_parsing)
     if m_apost:
         try:
             ft = int(m_apost.group('ft'))
@@ -363,8 +350,7 @@ def extract_dimensions(text):
         except:
             pass
     
-    # --- 7) ft/in written with slash (e.g. "7/ 11", "6/4") ---
-    m_slash = re.search(r"(?P<ft>\d{1,2})\s*/\s*(?P<in>\d{1,2})", original)
+    m_slash = re.search(r"(?P<ft>\d{1,2})\s*/\s*(?P<in>\d{1,2})", text_for_parsing)
     if m_slash:
         try:
             ft = int(m_slash.group('ft'))
@@ -374,12 +360,11 @@ def extract_dimensions(text):
         except:
             pass
 
-    # --- 8) pure centimeters (e.g. "182cm", " 200 cm") ---
-    m_cm = re.search(r"(?P<cm>\d{2,3})\s*cm", original)
+    m_cm = re.search(r"(?P<cm>\d{2,3})\s*cm", text_for_parsing)
     if m_cm:
         try:
             cm = int(m_cm.group('cm'))
-            if 120 <= cm <= 300:  # range plausibile per tavole
+            if 120 <= cm <= 300:
                 total_inches = round(cm / 2.54)
                 ft = total_inches // 12
                 inch = total_inches % 12
@@ -387,8 +372,7 @@ def extract_dimensions(text):
         except:
             pass
 
-    # --- 9) Final fallback: decimal-style ft.in in normalized original (catch unicode lookalikes etc.) ---
-    m_decimal_fallback = re.search(r"\b(?P<ft>\d{1,2})[.,](?P<in>\d{1,2})(?!\d)", original)
+    m_decimal_fallback = re.search(r"\b(?P<ft>\d{1,2})[.,](?P<in>\d{1,2})(?!\d)", text_for_parsing)
     if m_decimal_fallback:
         try:
             ft = int(m_decimal_fallback.group('ft'))
@@ -466,6 +450,11 @@ def scrape_and_store(db: Session):
 
                         if "sacca" in model.lower():
                             logger.info(f"Skipping ad {link}: title contains 'sacca'")
+                            continue
+
+                        keywords = ["tavola", "surf", "softboard", "longboard", "shortboard"]
+                        if not any(kw in full_text.lower() for kw in keywords):
+                            logger.info(f"Skipping ad {link}: not surf-related")
                             continue
 
                         ad_data = {
