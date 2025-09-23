@@ -26,4 +26,5 @@ export interface PaginatedAds {
 export interface FilterOptions {
   brands: { name: string; count: number }[];
   lengths: { name: string; count: number }[];
+  volumes: { name: string; count: number }[];
 }
