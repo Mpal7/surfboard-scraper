@@ -66,6 +66,7 @@ def filter_ads(
     page_size: int = Query(20, ge=1, le=100),
     sort_by: str = Query(None, description="Sort by 'price_asc', 'price_desc', or 'date_desc'"),
     brand: str = None,
+    liters: str = None,
     min_price: float = Query(None, ge=0),
     max_price: float = Query(None, ge=0),
     min_length_inches: float = Query(None, ge=48, le=144, description="Minimum length in inches (e.g., 5'10\" = 70)"),
@@ -74,13 +75,23 @@ def filter_ads(
     max_width: float = Query(None, ge=17, le=24, description="Maximum width in inches"),
     min_thickness: float = Query(None, ge=2, le=4, description="Minimum thickness in inches"),
     max_thickness: float = Query(None, ge=2, le=4, description="Maximum thickness in inches"),
-    min_liters: float = Query(None, ge=20, le=100, description="Minimum volume in liters"),
-    max_liters: float = Query(None, ge=20, le=100, description="Maximum volume in liters")
 ):
     query = db.query(Ad).filter(Ad.is_active == True)
     
     if brand:
-        query = query.filter(Ad.brand.ilike(f"%{brand}%"))
+        brands = [b.strip() for b in brand.split(',') if b.strip()]
+        if brands:
+            query = query.filter(Ad.brand.in_(brands))
+
+    if liters:
+        try:
+            volume_list = [int(vol.strip()) for vol in liters.split(',') if vol.strip()]
+            if volume_list:
+                from sqlalchemy.sql import func
+                query = query.filter(func.round(Ad.liters).in_(volume_list))
+        except (ValueError, TypeError):
+            pass
+
     if min_price is not None:
         query = query.filter(Ad.price >= min_price)
     if max_price is not None:
@@ -100,17 +111,14 @@ def filter_ads(
         query = query.filter(Ad.thickness_in >= min_thickness)
     if max_thickness is not None:
         query = query.filter(Ad.thickness_in <= max_thickness)
-        
-    if min_liters is not None:
-        query = query.filter(Ad.liters >= min_liters)
-    if max_liters is not None:
-        query = query.filter(Ad.liters <= max_liters)
 
     if sort_by == "price_asc":
         query = query.order_by(Ad.price.asc())
     elif sort_by == "price_desc":
         query = query.order_by(Ad.price.desc())
-    elif sort_by == "date_desc":
+    elif sort_by == "date_asc":
+        query = query.order_by(Ad.timestamp.asc())
+    else: 
         query = query.order_by(Ad.timestamp.desc())
 
     total = query.count()
