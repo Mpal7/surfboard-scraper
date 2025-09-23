@@ -11,24 +11,29 @@ const apiClient = axios.create({
 });
 
 export const getAds = async (page: number = 1, filters: any = {}): Promise<PaginatedAds> => {
-  const params = new URLSearchParams({
-    page: page.toString(),
-    page_size: '20',
-    ...filters,
-  });
-
-  const response = await apiClient.get(`/ads/filter?${params.toString()}`);
-  return response.data;
+    const params = new URLSearchParams({
+      page: page.toString(),
+      page_size: '20',
+    });
+  
+    // Clean up filters before appending
+    Object.entries(filters).forEach(([key, value]) => {
+      if (value) { // Only add if value is not null, undefined, or empty string
+        params.append(key, String(value));
+      }
+    });
+  
+    const response = await apiClient.get(`/ads/filter?${params.toString()}`);
+    return response.data;
 };
 
-// This is a helper function to fetch all ads to generate filter options.
-// In a real-world scenario with a large dataset, this should be a dedicated backend endpoint.
 export const getFilterOptions = async (): Promise<FilterOptions> => {
-    const response = await apiClient.get<PaginatedAds>('/ads?page_size=1000');
+    const response = await apiClient.get<PaginatedAds>('/ads?page_size=10000');
     const ads = response.data.items;
 
     const brandCounts: { [key: string]: number } = {};
     const lengthCounts: { [key: string]: number } = {};
+    const volumeCounts: { [key: string]: number } = {}; // Use string key for rounded volume
 
     ads.forEach((ad: Ad) => {
         if (ad.brand) {
@@ -38,10 +43,16 @@ export const getFilterOptions = async (): Promise<FilterOptions> => {
         if (length) {
             lengthCounts[length] = (lengthCounts[length] || 0) + 1;
         }
+        if (ad.liters) {
+            // --- THIS IS THE NEW ROUNDING LOGIC ---
+            const roundedLiters = Math.round(ad.liters);
+            volumeCounts[roundedLiters] = (volumeCounts[roundedLiters] || 0) + 1;
+        }
     });
 
     return {
-        brands: Object.entries(brandCounts).map(([name, count]) => ({ name, count })),
-        lengths: Object.entries(lengthCounts).map(([name, count]) => ({ name, count })),
+        brands: Object.entries(brandCounts).map(([name, count]) => ({ name, count })).sort((a, b) => a.name.localeCompare(b.name)),
+        lengths: Object.entries(lengthCounts).map(([name, count]) => ({ name, count })).sort((a,b) => a.name.localeCompare(b.name)),
+        volumes: Object.entries(volumeCounts).map(([name, count]) => ({ name, count })).sort((a, b) => Number(a.name) - Number(b.name))
     };
 };
