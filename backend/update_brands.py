@@ -46,7 +46,7 @@ def update_missing_brands(db: Session):
 
     with httpx.Client(headers=HEADERS, follow_redirects=True, timeout=10) as client:
         for ad in ads_to_check:
-            logger.info(f"--- Checking Ad ID: {ad.id}, Link: {ad.link}")
+            logger.info(f"--- \n Checking Ad ID: {ad.id}, Link: {ad.link}")
             try:
                 response = client.get(ad.link)
 

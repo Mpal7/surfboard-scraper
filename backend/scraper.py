@@ -7,7 +7,7 @@ from models import Ad
 from sqlalchemy.orm import Session
 import logging
 from datetime import datetime
-import os  
+import os
 
 # --- 1. Logging Configuration ---
 
@@ -81,11 +81,18 @@ POPULAR_BRANDS = [
     'firewire', 'bradley', 'outride', 'victory', 'mayhem', 'olaian',
     'pukas', 'steve lis', 'stefan', 'hayden', 'lost', 'pyzel', 'rrd',
     'torq', 'mccoy', 'dhd', 'bic', 'sic', 'nsp', 'bob', 'hs', 'js', 'rt',
-    'cj nelson', 'shaper x', 'ocean earth', 'Ocean&Earth', 'redz'
+    'cj nelson', 'shaper x', 'ocean earth', 'Ocean&Earth', 'redz', 'quicksilver',
+    'tomo', 'rusti', 'chilli', 'franz', 'all merick', 'al merrick', 'al merrik',
+    'chanell island', 'full and cas', 'full & cas', 'full&cas', 'collective',
+    'reds', 'town & country', 'town&country', 'town and country', 'M.A.T',
+    'bushman', 'xd2', 'red’s', 'reds' 'duppies', 'xsurfboards', 'xsurfboard',
+    'gerry lopez', 'saints', 'peterpan', 'peter pan', 'Devil’s Tongue', 'Aztron',
+    'honu'
 ]
 
 # 2. Create a map for correct capitalization.
 BRAND_MAP = {brand.lower(): ' '.join([w.capitalize() for w in brand.split()]) for brand in POPULAR_BRANDS}
+
 # Manual override for brands with special capitalization
 BRAND_MAP['js'] = 'JS'
 BRAND_MAP['hs'] = 'HS'
@@ -95,7 +102,22 @@ BRAND_MAP['rrd'] = 'RRD'
 BRAND_MAP['cj nelson'] = 'CJ Nelson'
 BRAND_MAP['shaper x'] = 'X Surfboard'
 BRAND_MAP['ocean earth'] = 'Ocean & Earth'
-
+BRAND_MAP['lost'] = 'Lost Mayhem'  
+BRAND_MAP['mayhem'] = 'Lost Mayhem'
+BRAND_MAP['all merick'] = 'Channel Islands'
+BRAND_MAP['al merrik'] = 'Channel Islands'
+BRAND_MAP['al merrick'] = 'Channel Islands'
+BRAND_MAP['chanell island'] = 'Channel Islands'
+BRAND_MAP['full and cas'] = 'Full&Cas'
+BRAND_MAP['full & cas'] = 'Full&Cas'
+BRAND_MAP['town & country'] = 'Town&Country'
+BRAND_MAP['town and country'] = 'Town&Country'
+BRAND_MAP['XD2'] = 'X Surfboard'
+BRAND_MAP['xsurfboards'] = 'X Surfboard'
+BRAND_MAP['xsurfboard'] = 'X Surfboard'
+BRAND_MAP['Red’s'] = "Redz"
+BRAND_MAP['reds'] = "Redz"
+BRAND_MAP['Peterpan'] = "Peter Pan"
 
 # Build a single, efficient, case-insensitive regex from the brand list.
 def create_brand_pattern(brand_key):
@@ -398,23 +420,15 @@ def extract_price(text):
         except: return None
     return None
 
-
-
 def scrape_and_store(db: Session):
     ads_added = []
     
-    # --- EFFICIENCY IMPROVEMENT: Fetch all existing links once ---
     logger.info("Fetching existing ad links from the database...")
     existing_links = {result[0] for result in db.query(Ad.link).all()}
     logger.info(f"Found {len(existing_links)} existing links.")
 
-    BASE_SEARCH_URLS = [
-        "https://www.subito.it/annunci-lazio/vendita/usato/roma/roma/?q=tavola+da+surf",
-        "https://www.subito.it/annunci-lazio/vendita/usato/roma/roma/?q=surfboard",
-    ]
-
     with httpx.Client(headers=HEADERS, follow_redirects=True) as client:
-        for base_url in BASE_SEARCH_URLS:
+        for base_url in SEARCH_URLS:
             for page_num in range(1, 6): 
                 url = f"{base_url}&o={page_num}"
                 logger.info(f"Scraping search results from: {url}")
@@ -439,64 +453,86 @@ def scrape_and_store(db: Session):
                     break
 
                 for container in ad_containers:
-                    full_text = container.get_text(" ", strip=True)
                     link_tag = container.find("a", href=True)
+                    if not link_tag:
+                        continue
+                    
+                    link = link_tag['href']
+                    logger.info(f"\n Processing ad link: {link}")
+                    if link in existing_links:
+                        logger.info(f"Skipping ad, already in database: {link}")
+                        continue
 
-                    if "Roma" in full_text and "€" in full_text and link_tag:
-                        link = link_tag['href']
+                    full_text = container.get_text(" ", strip=True)
+                    if "Roma" not in full_text or "€" not in full_text:
+                        continue
                         
-                        title_tag = container.find("h2")
-                        model = title_tag.get_text(strip=True) if title_tag else "N/A"
+                    title_tag = container.find("h2")
+                    model = title_tag.get_text(strip=True) if title_tag else "N/A"
 
-                        if "sacca" in model.lower():
-                            logger.info(f"Skipping ad {link}: title contains 'sacca'")
-                            continue
+                    if "sacca" in model.lower():
+                        logger.info(f"Skipping ad {link}: title contains 'sacca'")
+                        continue
 
-                        keywords = ["tavola", "surf", "softboard", "longboard", "shortboard"]
-                        if not any(kw in full_text.lower() for kw in keywords):
-                            logger.info(f"Skipping ad {link}: not surf-related")
-                            continue
+                    keywords = ["tavola", "surf", "softboard", "longboard", "shortboard"]
+                    if not any(kw in full_text.lower() for kw in keywords):
+                        logger.info(f"Skipping ad {link}: not surf-related")
+                        continue
 
-                        ad_data = {
-                            "model": model,
-                            "price": extract_price(full_text),
-                            "location": "Roma (RM)",
-                            "link": link,
-                            "length_ft": None,
-                            "length_in": None,
-                        }
+                    ad_data = {
+                        "model": model,
+                        "price": extract_price(full_text),
+                        "location": "Roma (RM)",
+                        "link": link,
+                        "brand": None,
+                        "image_url": None
+                    }
+                    
+                    img_tag = container.find("img")
+                    if img_tag and img_tag.get('src'):
+                        ad_data["image_url"] = img_tag['src']
 
-                        try:
-                            detail_resp = client.get(link)
-                            detail_soup = BeautifulSoup(detail_resp.text, "html.parser")
-                            desc_div = detail_soup.find("p", class_="AdDescription_description__154FP")
-                            desc_text = desc_div.get_text(separator=" ", strip=True) if desc_div else ""
-                            full_desc_text = f"{ad_data['model']} {desc_text}"
-
-                            ad_data["brand"] = find_brand(full_desc_text) or ad_data["brand"]
-                            ad_data["liters"] = extract_liters(full_desc_text)
-                            dims = extract_dimensions(full_desc_text)
-                            if dims: ad_data.update(dims)
-                            
-                            logger.info(f"  > Scraped Data for Ad:")
-                            for key, value in ad_data.items():
-                                logger.info(f"    - {key.ljust(15)}: {value}")
-                            length_ft = ad_data.get("length_ft")
-                            if isinstance(length_ft, (int, float)) and length_ft >= 5:
-                                ad = Ad(**ad_data)
-                                db.add(ad)
-                                ads_added.append(ad)
-                            else:
-                                logger.warning(f"  > Skipping ad (length_ft is missing or < 5'): Found value '{length_ft}'. Link: {link}")
-
-                        except Exception as e:
-                            logger.error(f"  > Could not process detail page {link}. Error: {e}")
+                    try:
+                        time.sleep(random.uniform(1, 3))
+                        detail_resp = client.get(link)
+                        detail_soup = BeautifulSoup(detail_resp.text, "html.parser")
+                        desc_div = detail_soup.find("p", class_=lambda c: c and 'description' in c.lower())
+                        desc_text = desc_div.get_text(separator=" ", strip=True) if desc_div else ""
+                        full_desc_text = f"{ad_data['model']} {desc_text}"
                         
-                        time.sleep(random.uniform(5, 10)) 
+                        ad_data["brand"] = find_brand(full_desc_text)
+                        ad_data["liters"] = extract_liters(full_desc_text)
+                        dims = extract_dimensions(full_desc_text)
+                        if dims:
+                             ad_data.update(dims)
+                        
+                        logger.info(f"  > Scraped Data for Ad:")
+                        log_data = ad_data.copy()
+                        if dims: log_data.update(dims)
+                        for key, value in log_data.items():
+                            logger.info(f"    - {key.ljust(15)}: {value}")
+
+                        length_ft = ad_data.get("length_ft")
+                        if isinstance(length_ft, (int, float)) and length_ft >= 4:
+                            ad = Ad(**ad_data)
+                            db.add(ad)
+                            ads_added.append(ad)
+                            existing_links.add(link)
+                        else:
+                            logger.warning(f"  > Skipping ad (length_ft is missing or < 4'): Found value '{length_ft}'. Link: {link}")
+
+                    except Exception as e:
+                        logger.error(f"  > Could not process detail page {link}. Error: {e}")
+                    
+                    time.sleep(random.uniform(5, 10))
             
             time.sleep(random.uniform(2, 4))
     
-    logger.info("Committing new ads to the database...")
-    db.commit()
-    logger.info(f"Scraping session finished. Added {len(ads_added)} new ads.")
+    if ads_added:
+        logger.info(f"Committing {len(ads_added)} new ads to the database...")
+        db.commit()
+        logger.info("Commit successful.")
+    else:
+        logger.info("No new ads to add in this session.")
+        
     return ads_added
