@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Depends, Query, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 from database import get_db, init_db
@@ -8,6 +9,18 @@ import time
 import os
 
 app = FastAPI()
+
+origins = [
+    "http://localhost:3000", # The origin of your React app
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allows all headers
+)
 
 COOLDOWN_FILE = "last_refresh.txt"
 REFRESH_COOLDOWN = 10 * 60  # 10 minutes
