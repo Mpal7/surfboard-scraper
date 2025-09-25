@@ -73,7 +73,6 @@ frontend/.pnp.js
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-backend/last_refresh.txt
 
 # Environment variables
 .env*.local
@@ -89,3 +88,6 @@ diff.txt
 
 # Notes
 notes.md
+
+#refresh_time
+backend/last_refresh.txt
