@@ -7,4 +7,16 @@
   .pagination-button {
     @apply px-4 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed;
   }
+
+  .thumb {
+    @apply pointer-events-none absolute h-0 w-full outline-none z-30;
+  }
+
+  .thumb::-webkit-slider-thumb {
+    @apply pointer-events-auto h-5 w-5 bg-blue-600 rounded-full cursor-grab appearance-none;
+  }
+
+  .thumb::-moz-range-thumb {
+    @apply pointer-events-auto h-5 w-5 bg-blue-600 rounded-full cursor-grab appearance-none border-none;
+  }
 }
