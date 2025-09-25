@@ -87,7 +87,7 @@ POPULAR_BRANDS = [
     'reds', 'town & country', 'town&country', 'town and country', 'M.A.T',
     'bushman', 'xd2', 'red’s', 'reds' 'duppies', 'xsurfboards', 'xsurfboard',
     'gerry lopez', 'saints', 'peterpan', 'peter pan', 'Devil’s Tongue', 'Aztron',
-    'honu'
+    'honu', 'quiksilver', 'mckee', 'Andrea X', 'alessio fantozzi', 'indio'
 ]
 
 # 2. Create a map for correct capitalization.
@@ -101,6 +101,10 @@ BRAND_MAP['rt'] = 'RT'
 BRAND_MAP['rrd'] = 'RRD'
 BRAND_MAP['cj nelson'] = 'CJ Nelson'
 BRAND_MAP['shaper x'] = 'X Surfboard'
+BRAND_MAP['andrea x'] = "X Surfboard"
+BRAND_MAP['xsurfboards'] = 'X Surfboard'
+BRAND_MAP['xsurfboard'] = 'X Surfboard'
+BRAND_MAP['XD2'] = 'X Surfboard'
 BRAND_MAP['ocean earth'] = 'Ocean & Earth'
 BRAND_MAP['lost'] = 'Lost Mayhem'  
 BRAND_MAP['mayhem'] = 'Lost Mayhem'
@@ -112,12 +116,10 @@ BRAND_MAP['full and cas'] = 'Full&Cas'
 BRAND_MAP['full & cas'] = 'Full&Cas'
 BRAND_MAP['town & country'] = 'Town&Country'
 BRAND_MAP['town and country'] = 'Town&Country'
-BRAND_MAP['XD2'] = 'X Surfboard'
-BRAND_MAP['xsurfboards'] = 'X Surfboard'
-BRAND_MAP['xsurfboard'] = 'X Surfboard'
 BRAND_MAP['Red’s'] = "Redz"
 BRAND_MAP['reds'] = "Redz"
 BRAND_MAP['Peterpan'] = "Peter Pan"
+BRAND_MAP['quiksilver'] = "Quicksilver"
 
 # Build a single, efficient, case-insensitive regex from the brand list.
 def create_brand_pattern(brand_key):
@@ -254,6 +256,7 @@ def extract_dimensions(text):
 
     isolated = None
 
+    # Try explicit feet'inches like 5'6 or with comma/dot like 5,11 or 5.11
     m = re.search(r"\b(?P<ft>\d{1,2})\s*(?:'|’|′)\s*(?P<in>\d{1,2})?", text_for_parsing)
     if not m:
         m = re.search(r"\b(?P<ft>\d{1,2})[.,](?P<in>\d{1,2})(?=\D|$)", text_for_parsing)
@@ -272,16 +275,19 @@ def extract_dimensions(text):
 
     pattern = (
         r"(?<!/)"
-        r"(?P<length>\d{1,2}(?:['.]\d{1,2})?)['\"]*\s*x\s+"
+        r"(?P<length>\d{1,2}(?:['\".]\d{1,2})?)['\"]*\s*x\s+"
         r"(?P<width>\d{1,3}(?:[.,]\d+)?(?:\s+\d/\d)?)['\"]*"
         r"(?:\s*x\s+(?P<thickness>\d{1,2}(?:[.,]\d+)?(?:\s+\d/\d)?))?['\"]*"
     )
-    full_match = re.search(pattern, processed, re.IGNORECASE)
+
+    matches = list(re.finditer(pattern, processed, re.IGNORECASE))
+    full_match = matches[-1] if matches else None
 
     if full_match:
         data = full_match.groupdict()
         width_val = parse_dimension_part(data.get('width') or '')
         
+        # if width looks unrealistic for inches (e.g. > 25) fallback to isolated if available
         if width_val is not None and width_val > 25:
             if isolated:
                 return {
@@ -294,10 +300,11 @@ def extract_dimensions(text):
 
         len_str = (data.get('length') or '').strip()
         length_ft = None; length_in = None
-        if "'" in len_str:
-            parts = len_str.split("'")
+        if "'" in len_str or '"' in len_str:
+            parts = re.split(r'[\'"]', len_str)
             try:
-                length_ft = int(parts[0]); length_in = int(parts[1]) if len(parts) > 1 and parts[1] else 0
+                length_ft = int(parts[0])
+                length_in = int(parts[1]) if len(parts) > 1 and parts[1] else 0
             except:
                 length_ft, length_in = None, None
         elif '.' in len_str or ',' in len_str:
@@ -315,6 +322,28 @@ def extract_dimensions(text):
                 length_ft, length_in = None, None
 
         thickness_val = parse_dimension_part(data.get('thickness') or '')
+
+        # Heuristic: if full_match's parsed feet looks suspicious, prefer the isolated ft/in we detected earlier.
+        suspicious = False
+        try:
+            # outside plausible feet range for surfboards
+            if length_ft is None or not (4 <= length_ft <= 10):
+                suspicious = True
+            # if the parsed "feet" equals the isolated inches (e.g. parsed 10 or 11), it's likely the regex
+            # matched beginning on the inches token instead of the feet token.
+            if isolated and isinstance(length_ft, int) and length_ft == isolated['in']:
+                suspicious = True
+        except Exception:
+            suspicious = False
+
+        if suspicious and isolated:
+            return {
+                'length_ft': isolated['ft'],
+                'length_in': isolated['in'],
+                'width_in': width_val,
+                'thickness_in': thickness_val
+            }
+
         return {
             'length_ft': length_ft,
             'length_in': length_in,
@@ -458,9 +487,10 @@ def scrape_and_store(db: Session):
                         continue
                     
                     link = link_tag['href']
-                    logger.info(f"\n Processing ad link: {link}")
+                    logger.info(f"Processing ad link: %s", link)
+                    logger.info("-" * 60)
                     if link in existing_links:
-                        logger.info(f"Skipping ad, already in database: {link}")
+                        logger.info(f"Skipping ad, already in database: %s", link)
                         continue
 
                     full_text = container.get_text(" ", strip=True)
@@ -493,12 +523,22 @@ def scrape_and_store(db: Session):
                         ad_data["image_url"] = img_tag['src']
 
                     try:
-                        time.sleep(random.uniform(1, 3))
                         detail_resp = client.get(link)
                         detail_soup = BeautifulSoup(detail_resp.text, "html.parser")
                         desc_div = detail_soup.find("p", class_=lambda c: c and 'description' in c.lower())
                         desc_text = desc_div.get_text(separator=" ", strip=True) if desc_div else ""
                         full_desc_text = f"{ad_data['model']} {desc_text}"
+
+                        excluded_terms = ["kite", "wind", "surfskate", "foil", "sup", "surfsup", "skate",
+                        "wake", "sacca", "cover", "mutina", "muta", "Jetsurf "]
+                        skip_flag = False
+                        for term in excluded_terms:
+                            if re.search(rf"\b{re.escape(term)}\b", full_desc_text, re.IGNORECASE):
+                                logger.info(f"Skipping ad {link}: contains excluded term '{term}'")
+                                skip_flag = True
+                                break
+                        if skip_flag:
+                            continue
                         
                         ad_data["brand"] = find_brand(full_desc_text)
                         ad_data["liters"] = extract_liters(full_desc_text)
@@ -513,20 +553,24 @@ def scrape_and_store(db: Session):
                             logger.info(f"    - {key.ljust(15)}: {value}")
 
                         length_ft = ad_data.get("length_ft")
-                        if isinstance(length_ft, (int, float)) and length_ft >= 4:
+                        brand = ad_data.get("brand")
+                        price = ad_data.get("price")
+                        valid_length = isinstance(length_ft, (int, float)) and length_ft >= 4
+                        valid_brand_and_price = isinstance(brand, str) and isinstance(price, (int, float))
+                        if valid_length or valid_brand_and_price:
                             ad = Ad(**ad_data)
                             db.add(ad)
                             ads_added.append(ad)
                             existing_links.add(link)
                         else:
-                            logger.warning(f"  > Skipping ad (length_ft is missing or < 4'): Found value '{length_ft}'. Link: {link}")
+                            logger.warning(f"  > Skipping ad (length_ft is missing or < 4' and no valid brand/price): Found value 'length_ft={length_ft}', brand='{brand}', price='{price}'. Link: {link}")
 
                     except Exception as e:
                         logger.error(f"  > Could not process detail page {link}. Error: {e}")
                     
-                    time.sleep(random.uniform(5, 10))
+                    time.sleep(random.uniform(20, 40))
             
-            time.sleep(random.uniform(2, 4))
+            time.sleep(random.uniform(10, 20))
     
     if ads_added:
         logger.info(f"Committing {len(ads_added)} new ads to the database...")

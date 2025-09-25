@@ -9,7 +9,7 @@ interface AdCardProps {
 // A small sub-component for displaying each stat to keep the main return clean
 const Stat: React.FC<{ label: string; value: string | number | null }> = ({ label, value }) => (
     <div className="text-center">
-        <p className="text-xs text-gray-500 uppercase tracking-wider">{label}</p>
+        <p className="text-xs text-gray-600 uppercase tracking-wider">{label}</p>
         <p className="text-sm font-bold text-gray-800">{value ?? 'N/A'}</p>
     </div>
 );
