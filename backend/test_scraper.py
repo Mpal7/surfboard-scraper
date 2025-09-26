@@ -139,11 +139,11 @@ test_cases = {
             "liters": 32.0, "brand": "Pukas"
         }
     },
-    "test case con virgola - 5,11×21 3/4 × 2 5/8": {
-        "text": "Town & country the saint model 5,11”x 19 1/2 x 2 5/8 volume 34 litri. Tavola custom. 5,11×21 3/4 × 2 5/8 info",
+    "test case con virgola e apostrofo - 5,11”x 19 1/2 x 2 5/8.": {
+        "text": "Town & country the saint model 5,11”x 19 1/2 x 2 5/8 volume 34 litri.",
         "expected": {
             "length_ft": 5, "length_in": 11,
-            "width_in": 21.75, "thickness_in": 2.625
+            "width_in": 19.50, "thickness_in": 2.625
         }
     },
     "test case apostrofi - un taglietto 5\"10 x 19 x 2 3/2\"x 27,26 L - Carbon Wrap technology":{
@@ -153,6 +153,13 @@ test_cases = {
             "width_in": 19.0, "thickness_in": 2.375,
             "liters": 27.26, "brand": "Firewire"
         }
+    },
+    "test case , e basta - deck 5,11×21 3/4 × 2 5/8.":{
+        "text": "Tdeck 5,11×21 3/4 × 2 5/8.",
+        "expected": {
+            "length_ft": 5, "length_in": 11,
+            "width_in": 21.75, "thickness_in": 2.625
+            }
     }
 }
 
