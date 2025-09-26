@@ -487,8 +487,8 @@ def scrape_and_store(db: Session):
                         continue
                     
                     link = link_tag['href']
-                    logger.info(f"Processing ad link: %s", link)
                     logger.info("-" * 60)
+                    logger.info(f"Processing ad link: %s", link)
                     if link in existing_links:
                         logger.info(f"Skipping ad, already in database: %s", link)
                         continue
@@ -530,7 +530,9 @@ def scrape_and_store(db: Session):
                         full_desc_text = f"{ad_data['model']} {desc_text}"
 
                         excluded_terms = ["kite", "wind", "surfskate", "foil", "sup", "surfsup", "skate",
-                        "wake", "sacca", "cover", "mutina", "muta", "Jetsurf "]
+                        "wake", "sacca", "cover", "mutina", "muta", "Jetsurf","kitesurf","kitesurfing",
+                        "windsurf","windsurfing","surfskate","surfskating","wakeboard","wakeboarding",
+                        "paddle","paddleboard","paddleboarding","stand up paddle", "/kitesurf"]
                         skip_flag = False
                         for term in excluded_terms:
                             if re.search(rf"\b{re.escape(term)}\b", full_desc_text, re.IGNORECASE):
