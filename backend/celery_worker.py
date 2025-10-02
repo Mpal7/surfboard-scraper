@@ -15,6 +15,9 @@ celery_app = Celery(
     backend="redis://localhost:6379/0"
 )
 
+celery_app.conf.timezone = 'Europe/Rome'
+
+
 # --- Define the Core Logic Tasks  ---
 @celery_app.task(name="scrape_new_ads")
 def scrape_new_ads_task():
@@ -81,6 +84,3 @@ def setup_periodic_tasks(sender, **kwargs):
         schedule_randomized_scraping_task.s(),
         name='dispatch scraping and checking tasks daily at 12:30 AM',
     )
-
-# Optional: Set a timezone for your schedule
-celery_app.conf.timezone = 'Europe/Rome'

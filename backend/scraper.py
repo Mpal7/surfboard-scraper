@@ -5,6 +5,7 @@ import httpx
 from bs4 import BeautifulSoup
 from models import Ad
 from sqlalchemy.orm import Session
+from sqlalchemy.exc import IntegrityError
 import logging
 from datetime import datetime
 import os
@@ -56,9 +57,56 @@ HEADERS = {
     'Upgrade-Insecure-Requests': '1',
 }
 
-SEARCH_URLS = [
-    "https://www.subito.it/annunci-lazio/vendita/usato/roma/roma/?q=tavola+da+surf",
-    "https://www.subito.it/annunci-lazio/vendita/usato/roma/roma/?q=surfboard",
+SEARCH_CITIES = [
+    # Lazio
+    ("roma", "lazio"),
+    # Lombardia
+    ("milano", "lombardia"),
+    # Liguria
+    ("genova", "liguria"),
+    ("savona", "liguria"),
+    ("imperia", "liguria"),
+    ("la-spezia", "liguria"),
+    # Toscana
+    ("livorno", "toscana"),
+    ("lucca", "toscana"),
+    ("grosseto", "toscana"),
+    ("pisa", "toscana"),
+    # Emilia-Romagna
+    ("rimini", "emilia-romagna"),
+    ("forli-cesena", "emilia-romagna"),
+    ("ravenna", "emilia-romagna"),
+    # Veneto
+    ("venezia", "veneto"),
+    # Marche
+    ("ancona", "marche"),
+    ("pesaro-urbino", "marche"),
+    # Sardegna
+    ("cagliari", "sardegna"),
+    ("sassari", "sardegna"),
+    # Sicilia
+    ("palermo", "sicilia"),
+    ("catania", "sicilia"),
+    # Puglia
+    ("lecce", "puglia"),
+    ("bari", "puglia"),
+    # Calabria
+    ("reggio-calabria", "calabria"),
+    # Campania
+    ("napoli", "campania"),
+    ("salerno", "campania"),
+]
+
+SEARCH_TERMS = [
+    "tavola+da+surf",
+    "surfboard"
+]
+
+# This is now a global variable, making it patchable in tests.
+search_configs = [
+    (city, region, term)
+    for city, region in SEARCH_CITIES
+    for term in SEARCH_TERMS
 ]
 
 # Constants
@@ -87,7 +135,8 @@ POPULAR_BRANDS = [
     'reds', 'town & country', 'town&country', 'town and country', 'M.A.T',
     'bushman', 'xd2', 'red’s', 'reds' 'duppies', 'xsurfboards', 'xsurfboard',
     'gerry lopez', 'saints', 'peterpan', 'peter pan', 'Devil’s Tongue', 'Aztron',
-    'honu', 'quiksilver', 'mckee', 'Andrea X', 'alessio fantozzi', 'indio'
+    'honu', 'quiksilver', 'mckee', 'Andrea X', 'alessio fantozzi', 'indio', 'semente',
+    'XDII', 'LSD'
 ]
 
 # 2. Create a map for correct capitalization.
@@ -105,6 +154,7 @@ BRAND_MAP['andrea x'] = "X Surfboard"
 BRAND_MAP['xsurfboards'] = 'X Surfboard'
 BRAND_MAP['xsurfboard'] = 'X Surfboard'
 BRAND_MAP['XD2'] = 'X Surfboard'
+BRAND_MAP['XDII'] = 'X Surfboard'
 BRAND_MAP['ocean earth'] = 'Ocean & Earth'
 BRAND_MAP['lost'] = 'Lost Mayhem'  
 BRAND_MAP['mayhem'] = 'Lost Mayhem'
@@ -457,8 +507,10 @@ def scrape_and_store(db: Session):
     logger.info(f"Found {len(existing_links)} existing links.")
 
     with httpx.Client(headers=HEADERS, follow_redirects=True) as client:
-        for base_url in SEARCH_URLS:
-            for page_num in range(1, 6): 
+        # This now uses the global search_configs variable
+        for city, region, term in search_configs:
+            base_url = f"https://www.subito.it/annunci-{region}/vendita/usato/{city}/?q={term}"
+            for page_num in range(1, 6):
                 url = f"{base_url}&o={page_num}"
                 logger.info(f"Scraping search results from: {url}")
                 try:
@@ -494,7 +546,7 @@ def scrape_and_store(db: Session):
                         continue
 
                     full_text = container.get_text(" ", strip=True)
-                    if "Roma" not in full_text or "€" not in full_text:
+                    if "€" not in full_text:
                         continue
                         
                     title_tag = container.find("h2")
@@ -512,7 +564,7 @@ def scrape_and_store(db: Session):
                     ad_data = {
                         "model": model,
                         "price": extract_price(full_text),
-                        "location": "Roma (RM)",
+                        "location": city.replace('-', ' ').capitalize(),
                         "link": link,
                         "brand": None,
                         "image_url": None
@@ -532,7 +584,7 @@ def scrape_and_store(db: Session):
                         excluded_terms = ["kite", "wind", "surfskate", "foil", "sup", "surfsup", "skate",
                         "wake", "sacca", "cover", "mutina", "muta", "Jetsurf","kitesurf","kitesurfing",
                         "windsurf","windsurfing","surfskate","surfskating","wakeboard","wakeboarding",
-                        "paddle","paddleboard","paddleboarding","stand up paddle", "/kitesurf"]
+                        "paddle","paddleboard","paddleboarding","stand up paddle", "/kitesurf", "surfista", "kiteloose", "borsa"]
                         skip_flag = False
                         for term in excluded_terms:
                             if re.search(rf"\b{re.escape(term)}\b", full_desc_text, re.IGNORECASE):
@@ -575,9 +627,21 @@ def scrape_and_store(db: Session):
             time.sleep(random.uniform(10, 20))
     
     if ads_added:
-        logger.info(f"Committing {len(ads_added)} new ads to the database...")
-        db.commit()
-        logger.info("Commit successful.")
+        logger.info(f"Attempting to commit {len(ads_added)} new ads to the database...")
+        try:
+            db.commit()
+            logger.info("Commit successful. Added %d new ads.", len(ads_added))
+        except IntegrityError:
+            db.rollback()
+            logger.warning(
+                "Commit failed due to an IntegrityError. "
+                "This likely means another process added the same ad(s) concurrently. Rolling back."
+            )
+            return [] 
+        except Exception as e:
+            db.rollback()
+            logger.error(f"An unexpected error occurred during commit: {e}")
+            raise
     else:
         logger.info("No new ads to add in this session.")
         
