@@ -131,12 +131,14 @@ POPULAR_BRANDS = [
     'torq', 'mccoy', 'dhd', 'bic', 'sic', 'nsp', 'bob', 'hs', 'js', 'rt',
     'cj nelson', 'shaper x', 'ocean earth', 'Ocean&Earth', 'redz', 'quicksilver',
     'tomo', 'rusti', 'chilli', 'franz', 'all merick', 'al merrick', 'al merrik',
-    'chanell island', 'full and cas', 'full & cas', 'full&cas', 'collective',
+    'all merrik','chanell island', 'full and cas', 'full & cas', 'full&cas', 'collective',
     'reds', 'town & country', 'town&country', 'town and country', 'M.A.T',
     'bushman', 'xd2', 'red’s', 'reds' 'duppies', 'xsurfboards', 'xsurfboard',
     'gerry lopez', 'saints', 'peterpan', 'peter pan', 'Devil’s Tongue', 'Aztron',
     'honu', 'quiksilver', 'mckee', 'Andrea X', 'alessio fantozzi', 'indio', 'semente',
-    'XDII', 'LSD'
+    'XDII', 'LSD', "scott burke", "tahe", "album", "ryan lovelace", 'alibi', 'pike',
+    'webber', 'infinity','sundek', 'duppies', 'rickland', 'odysea', 'clay', 'Rusty',
+    'wave', 'wp'
 ]
 
 # 2. Create a map for correct capitalization.
@@ -158,10 +160,11 @@ BRAND_MAP['XDII'] = 'X Surfboard'
 BRAND_MAP['ocean earth'] = 'Ocean & Earth'
 BRAND_MAP['lost'] = 'Lost Mayhem'  
 BRAND_MAP['mayhem'] = 'Lost Mayhem'
-BRAND_MAP['all merick'] = 'Channel Islands'
-BRAND_MAP['al merrik'] = 'Channel Islands'
-BRAND_MAP['al merrick'] = 'Channel Islands'
-BRAND_MAP['chanell island'] = 'Channel Islands'
+BRAND_MAP['all merick'] = 'Channel Islands - Al Merrik'
+BRAND_MAP['al merrik'] = 'Channel Islands - Al Merrik'
+BRAND_MAP['al merrick'] = 'Channel Islands - Al Merrik'
+BRAND_MAP['all merrick'] = 'Channel Islands - Al Merrik'
+BRAND_MAP['chanell island'] = 'Channel Islands - Al Merrik'
 BRAND_MAP['full and cas'] = 'Full&Cas'
 BRAND_MAP['full & cas'] = 'Full&Cas'
 BRAND_MAP['town & country'] = 'Town&Country'
@@ -170,11 +173,12 @@ BRAND_MAP['Red’s'] = "Redz"
 BRAND_MAP['reds'] = "Redz"
 BRAND_MAP['Peterpan'] = "Peter Pan"
 BRAND_MAP['quiksilver'] = "Quicksilver"
+BRAND_MAP['Rusti'] = 'Rusty'
 
 # Build a single, efficient, case-insensitive regex from the brand list.
 def create_brand_pattern(brand_key):
     """
-    Takes a brand name like "channel islands" and returns a regex pattern
+    Takes a brand name like "Channel Islands - Al Merrik" and returns a regex pattern
     like "channel\\s*islands" that matches with or without spaces.
     """
     # 1. Split into words: "channel", "islands"
@@ -493,11 +497,45 @@ def extract_liters(text):
     return None
 
 def extract_price(text):
-    match = re.search(r'(\d+[.,]?\d*)\s*(?:€|euro|\u20AC)', text, re.IGNORECASE)
-    if match:
-        try: return float(match.group(1).replace(',', '.'))
-        except: return None
-    return None
+    """
+    Extract numeric price from strings like:
+      - "1500 €"
+      - "1.500 €"         (EU thousands separator)
+      - "1.500,50 €"      (EU decimal comma)
+      - "1,500.50 €"      (US style)
+      - "1 500 €"         (space thousands sep)
+    Returns float or None.
+    """
+    match = re.search(r'([\d.,]+)\s*(?:€|euro|\u20AC)', text, re.IGNORECASE)
+    if not match:
+        return None
+    s = match.group(1).strip()
+    s = re.sub(r'[^\d\.,]', '', s)
+
+    # If both dot and comma present -> decide decimal by last occurrence
+    if '.' in s and ',' in s:
+        # whichever separator appears last is the decimal separator
+        if s.rfind(',') > s.rfind('.'):
+            # comma is decimal: remove dots (thousand sep) and turn comma -> dot
+            s = s.replace('.', '').replace(',', '.')
+        else:
+            # dot is decimal: remove commas (thousand sep)
+            s = s.replace(',', '')
+    elif '.' in s:
+        # single dot: ambiguous. If dot is followed by exactly 3 digits -> treat as thousands sep
+        parts = s.split('.')
+        if len(parts) > 1 and len(parts[-1]) == 3 and all(p.isdigit() for p in parts):
+            s = s.replace('.', '')  # thousand separators
+        # else keep dot as decimal point (like "1500.50" or "1.5")
+    elif ',' in s:
+        # single comma -> decimal separator (common EU format)
+        s = s.replace(',', '.')
+    # otherwise plain integer string "1500"
+
+    try:
+        return float(s)
+    except Exception:
+        return None
 
 def scrape_and_store(db: Session):
     ads_added = []
@@ -584,7 +622,8 @@ def scrape_and_store(db: Session):
                         excluded_terms = ["kite", "wind", "surfskate", "foil", "sup", "surfsup", "skate",
                         "wake", "sacca", "cover", "mutina", "muta", "Jetsurf","kitesurf","kitesurfing",
                         "windsurf","windsurfing","surfskate","surfskating","wakeboard","wakeboarding",
-                        "paddle","paddleboard","paddleboarding","stand up paddle", "/kitesurf", "surfista", "kiteloose", "borsa"]
+                        "paddle","paddleboard","paddleboarding","stand up paddle", "/kitesurf",
+                         "surfista", "kiteloose", "borsa", "air4", "air", "pinna", "pinne", "body"]
                         skip_flag = False
                         for term in excluded_terms:
                             if re.search(rf"\b{re.escape(term)}\b", full_desc_text, re.IGNORECASE):

@@ -160,6 +160,53 @@ test_cases = {
             "length_ft": 5, "length_in": 11,
             "width_in": 21.75, "thickness_in": 2.625
             }
+    },
+    "test case over 1500€ euro":{
+        "text": "tavola 1500 € euro affare!",
+        "expected": {
+            "price": 1500
+            }
+    },
+    "Thousands dot EU": {
+        "text": "tavola 1.500 € affare!",
+        "expected": { "price": 1500.0 }
+    },
+    "Thousands dot + decimals": {
+        "text": "Vendo a 1.500,50 €",
+        "expected": { "price": 1500.50 }
+    },
+    "US-style": {
+        "text": "Prezzo 1,500.50 €",   
+        "expected": { "price": 1500.50 }
+    },
+    "Lunghezza 1,83 x 55":{
+        "text": "Tavola da surf 60 nsp new project con 3 pinne. Lunghezza 1,83x 55",
+        "expected": {
+            "length_ft": 6, "length_in": 0,
+            "width_in": 21.65
+        }
+    },
+    "Misure lunghezza 5.8 , larghezza 21 1/2 , spessore 2 3/4 , volume litri 37.3":{
+        "text": "Misure lunghezza 5.8 , larghezza 21 1/2 , spessore 2 3/4 , volume litri 37.3",
+        "expected": {
+            "length_ft": 5, "length_in": 8,
+            "width_in": 21.5, "thickness_in": 2.75,
+            "liters": 37.3
+        }
+    },
+    "Vendo bellissimo biscuit bonzer lunghezza 5.4 31.6 litri usato poco e tenuto molto bene":{
+        "text": "Vendo bellissimo biscuit bonzer lunghezza 5.4 31.6 litri usato poco e tenuto molto bene",
+        "expected": {
+            "length_ft": 5, "length_in": 4,
+            "liters": 31.6
+        }
+    },
+    "Vendo DHD DX1 Phase 3 misure 5.11x19/14x2 1/2 \n italia":{
+        "text": "Vendo DHD DX1 Phase 3 misure 5.11x19/14x2 1/2 \n italia",
+        "expected": {
+            "length_ft": 5, "length_in": 11,
+            "width_in": 19.25, "thickness_in": 2.5
+        }
     }
 }
 
