@@ -23,7 +23,7 @@ app.add_middleware(
 )
 
 COOLDOWN_FILE = "last_refresh.txt"
-REFRESH_COOLDOWN = 10 * 60  # 10 minutes
+REFRESH_COOLDOWN = 10 * 1  # 10 minutes
 
 def get_last_refresh_time():
     if not os.path.exists(COOLDOWN_FILE):

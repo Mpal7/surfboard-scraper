@@ -3,5 +3,5 @@ uvicorn
 sqlalchemy
 aiosqlite
 beautifulsoup4
-httpx
-pytest
+httpx[http2]
+pytest-mock 
