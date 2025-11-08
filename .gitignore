@@ -97,3 +97,4 @@ backend/celerybeat-schedule
 
 #utility
 backend/utility
+backend/venv
