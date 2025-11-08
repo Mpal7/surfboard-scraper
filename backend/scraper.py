@@ -1,6 +1,8 @@
 import re
 import random
 import time
+import json
+from html import escape
 import httpx
 from bs4 import BeautifulSoup
 from models import Ad
@@ -56,6 +58,121 @@ HEADERS = {
     'Sec-Fetch-User': '?1',
     'Upgrade-Insecure-Requests': '1',
 }
+
+USER_AGENT_POOL = [
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.6261.183 Safari/537.36',
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 13_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Safari/605.1.15',
+    'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.6167.160 Safari/537.36',
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Edg/120.0.0.0 Safari/537.36'
+]
+
+SEC_CH_UA_POOL = [
+    '"Not.A/Brand";v="8", "Chromium";v="122", "Google Chrome";v="122"',
+    '"Chromium";v="121", "Not.A/Brand";v="8", "Microsoft Edge";v="121"',
+    '"Not?A_Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"'
+]
+
+ACCEPT_LANGUAGE_POOL = [
+    'it-IT,it;q=0.9,en-US;q=0.7,en;q=0.6',
+    'en-GB,en;q=0.9,it-IT;q=0.8,it;q=0.7',
+    'it-IT,it;q=0.9,en;q=0.8'
+]
+
+REQUEST_TIMEOUT = httpx.Timeout(connect=10.0, read=30.0, write=10.0, pool=30.0)
+
+
+def build_headers(referrer=None):
+    """Assemble per-request headers with mild randomisation to reduce fingerprinting."""
+    headers = HEADERS.copy()
+    ua_choice = random.choice(USER_AGENT_POOL)
+    headers['User-Agent'] = ua_choice
+    headers['Sec-Ch-Ua'] = random.choice(SEC_CH_UA_POOL)
+    headers['Accept-Language'] = random.choice(ACCEPT_LANGUAGE_POOL)
+    headers['Referer'] = referrer or HEADERS['Referer']
+    headers['Cache-Control'] = 'max-age=0'
+    headers['Pragma'] = 'no-cache'
+    headers['Dnt'] = '1'
+
+    if 'Macintosh' in ua_choice:
+        headers['Sec-Ch-Ua-Platform'] = '"macOS"'
+    elif 'Linux' in ua_choice:
+        headers['Sec-Ch-Ua-Platform'] = '"Linux"'
+    else:
+        headers['Sec-Ch-Ua-Platform'] = '"Windows"'
+
+    return headers
+
+
+def _price_text_from_features(features):
+    price_block = (features or {}).get('/price') or {}
+    values = price_block.get('values') or []
+    if not values:
+        return ""
+    return values[0].get('value') or ""
+
+
+def _build_fallback_cards_from_next_data(soup):
+    script_tag = soup.find("script", id="__NEXT_DATA__")
+    if not script_tag or not script_tag.string:
+        return []
+    try:
+        payload = json.loads(script_tag.string)
+    except json.JSONDecodeError:
+        logger.warning("Could not decode __NEXT_DATA__ JSON payload; skipping fallback.")
+        return []
+
+    items = (
+        payload.get('props', {})
+        .get('pageProps', {})
+        .get('initialState', {})
+        .get('items', {})
+        .get('list', [])
+    )
+    if not items:
+        return []
+
+    fragments = []
+    for entry in items:
+        item = entry.get('item') or {}
+        url = (item.get('urls') or {}).get('default')
+        if not url:
+            continue
+
+        subject = item.get('subject') or "N/A"
+        location = (
+            (item.get('geo') or {}).get('town') or {}
+        ).get('value') or (
+            (item.get('geo') or {}).get('city') or {}
+        ).get('value') or ""
+        price_text = _price_text_from_features(item.get('features'))
+        body = item.get('body') or ""
+        image_candidates = item.get('images') or []
+        image_url = image_candidates[0].get('cdnBaseUrl') if image_candidates else ""
+
+        fragment_parts = [
+            "<div class='item-card item-card--fallback'>",
+            f"<a href=\"{escape(url, quote=True)}\">",
+            f"<h2>{escape(subject)}</h2>",
+            f"<span class='price'>{escape(price_text)}</span>",
+            f"<span class='location'>{escape(location)}</span>",
+            "</a>",
+        ]
+
+        if image_url:
+            fragment_parts.append(
+                f"<img src=\"{escape(image_url, quote=True)}\" alt=\"{escape(subject)}\" />"
+            )
+
+        description_text = " ".join(part for part in (subject, price_text, location, body) if part)
+        fragment_parts.append(f"<p>{escape(description_text)}</p>")
+        fragment_parts.append("</div>")
+        fragments.append("".join(fragment_parts))
+
+    if not fragments:
+        return []
+
+    fallback_soup = BeautifulSoup("\n".join(fragments), "html.parser")
+    return fallback_soup.find_all("div", class_="item-card item-card--fallback")
 
 SEARCH_CITIES = [
     # Lazio
@@ -546,15 +663,66 @@ def scrape_and_store(db: Session):
     existing_links = {result[0] for result in db.query(Ad.link).all()}
     logger.info(f"Found {len(existing_links)} existing links.")
 
-    with httpx.Client(headers=HEADERS, follow_redirects=True) as client:
+    configs = list(search_configs)
+    random.shuffle(configs)
+
+    with httpx.Client(follow_redirects=True, http2=True, timeout=REQUEST_TIMEOUT) as client:
+        def fetch_with_resilience(target_url, referrer=None, max_attempts=3):
+            """Retry fetches on soft-block signals with cooldowns and header rotation."""
+            for attempt in range(1, max_attempts + 1):
+                try:
+                    response = client.get(
+                        target_url,
+                        headers=build_headers(referrer=referrer),
+                    )
+                except httpx.RequestError as exc:
+                    logger.error(f"Network error while fetching {target_url}: {exc}")
+                    time.sleep(random.uniform(5, 12))
+                    continue
+
+                if response.status_code == 403:
+                    cooldown = random.uniform(45, 90) * attempt
+                    logger.warning(
+                        "Received 403 for %s on attempt %d. Cooling down for %.1f seconds.",
+                        target_url,
+                        attempt,
+                        cooldown,
+                    )
+                    client.cookies.clear()
+                    time.sleep(cooldown)
+                    continue
+
+                if response.status_code in (429, 503):
+                    cooldown = random.uniform(30, 60) * attempt
+                    logger.warning(
+                        "Received %d for %s. Cooling down for %.1f seconds before retrying.",
+                        response.status_code,
+                        target_url,
+                        cooldown,
+                    )
+                    time.sleep(cooldown)
+                    continue
+
+                return response
+
+            logger.error("Exceeded retry attempts for %s", target_url)
+            return None
+
         # This now uses the global search_configs variable
-        for city, region, term in search_configs:
+        for city, region, term in configs:
             base_url = f"https://www.subito.it/annunci-{region}/vendita/usato/{city}/?q={term}"
             for page_num in range(1, 6):
                 url = f"{base_url}&o={page_num}"
                 logger.info(f"Scraping search results from: {url}")
+                time.sleep(random.uniform(2, 5))
                 try:
-                    response = client.get(url)
+                    response = fetch_with_resilience(
+                        url,
+                        referrer=base_url if page_num == 1 else f"{base_url}&o={page_num - 1}",
+                    )
+                    if response is None:
+                        logger.error(f"Failed to fetch {url} after retries. Skipping page.")
+                        break
                     if response.status_code != 200:
                         logger.error(f"Failed to fetch {url}. Status: {response.status_code}")
                         continue
@@ -567,6 +735,14 @@ def scrape_and_store(db: Session):
 
                 soup = BeautifulSoup(response.text, "html.parser")
                 ad_containers = soup.find_all("div", class_=lambda x: x and 'item-card' in x)
+                if not ad_containers:
+                    ad_containers = _build_fallback_cards_from_next_data(soup)
+                    if ad_containers:
+                        logger.info(
+                            "Fallback extracted %d ad cards from __NEXT_DATA__ on page %d.",
+                            len(ad_containers),
+                            page_num,
+                        )
                 logger.info(f"Found {len(ad_containers)} potential ad containers on page {page_num}.")
 
                 if not ad_containers:
@@ -615,7 +791,10 @@ def scrape_and_store(db: Session):
                         ad_data["image_url"] = img_tag['src']
 
                     try:
-                        detail_resp = client.get(link)
+                        detail_resp = fetch_with_resilience(link, referrer=url, max_attempts=2)
+                        if detail_resp is None:
+                            logger.error(f"  > Could not fetch detail page after retries: {link}")
+                            continue
                         detail_soup = BeautifulSoup(detail_resp.text, "html.parser")
                         desc_div = detail_soup.find("p", class_=lambda c: c and 'description' in c.lower())
                         desc_text = desc_div.get_text(separator=" ", strip=True) if desc_div else ""
