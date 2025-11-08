@@ -59,6 +59,8 @@ const CustomPriceSlider: React.FC<PriceFilterProps> = ({ allAds, onPriceChange }
     
     if (isNaN(numValue)) numValue = type === 'min' ? minVal : maxVal;
     
+    numValue = Math.max(MIN, Math.min(MAX, numValue)); // Clamp to MIN/MAX
+    
     if (type === 'min') {
         const newMin = Math.min(numValue, maxVal); // Ensure min doesn't cross max
         setMinVal(newMin);

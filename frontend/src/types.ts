@@ -27,4 +27,5 @@ export interface FilterOptions {
   brands: { name: string; count: number }[];
   lengths: { name: string; count: number }[];
   volumes: { name: string; count: number }[];
+  locations: { name: string; count: number }[];
 }
