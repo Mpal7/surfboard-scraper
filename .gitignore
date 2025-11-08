@@ -91,3 +91,9 @@ notes.md
 
 #refresh_time
 backend/last_refresh.txt
+
+#celery
+backend/celerybeat-schedule
+
+#utility
+backend/utility

@@ -95,6 +95,8 @@ SEARCH_CITIES = [
     # Campania
     ("napoli", "campania"),
     ("salerno", "campania"),
+    # Veneto
+    ("padova", "veneto")
 ]
 
 SEARCH_TERMS = [

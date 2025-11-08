@@ -53,6 +53,7 @@ export const getFilterOptions = async (): Promise<FilterOptions> => {
     return {
         brands: Object.entries(brandCounts).map(([name, count]) => ({ name, count })).sort((a, b) => a.name.localeCompare(b.name)),
         lengths: Object.entries(lengthCounts).map(([name, count]) => ({ name, count })).sort((a,b) => a.name.localeCompare(b.name)),
-        volumes: Object.entries(volumeCounts).map(([name, count]) => ({ name, count })).sort((a, b) => Number(a.name) - Number(b.name))
+        volumes: Object.entries(volumeCounts).map(([name, count]) => ({ name, count })).sort((a, b) => Number(a.name) - Number(b.name)),
+        locations: Object.entries(lengthCounts).map(([name, count]) => ({ name, count })).sort((a,b) => a.name.localeCompare(b.name)),
     };
 };
