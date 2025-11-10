@@ -2,7 +2,6 @@ import re
 import random
 import time
 import json
-from html import escape
 import httpx
 from bs4 import BeautifulSoup
 from models import Ad
@@ -111,7 +110,7 @@ def _price_text_from_features(features):
     return values[0].get('value') or ""
 
 
-def _build_fallback_cards_from_next_data(soup):
+def _extract_listings_from_next_data(soup):
     script_tag = soup.find("script", id="__NEXT_DATA__")
     if not script_tag or not script_tag.string:
         return []
@@ -131,9 +130,21 @@ def _build_fallback_cards_from_next_data(soup):
     if not items:
         return []
 
-    fragments = []
+    if not items:
+        return []
+
+    listings = []
     for entry in items:
         item = entry.get('item') or {}
+        if (item.get('kind') or '').lower() != 'aditem':
+            continue
+        category_id = str((item.get('category') or {}).get('id', '')).strip()
+        if category_id and category_id not in ALLOWED_CATEGORY_IDS:
+            continue
+        listing_type = (item.get('type') or {}).get('key')
+        if listing_type and listing_type.lower() != 's':
+            continue
+
         url = (item.get('urls') or {}).get('default')
         if not url:
             continue
@@ -147,32 +158,54 @@ def _build_fallback_cards_from_next_data(soup):
         price_text = _price_text_from_features(item.get('features'))
         body = item.get('body') or ""
         image_candidates = item.get('images') or []
-        image_url = image_candidates[0].get('cdnBaseUrl') if image_candidates else ""
+        image_url = image_candidates[0].get('cdnBaseUrl') if image_candidates else None
 
-        fragment_parts = [
-            "<div class='item-card item-card--fallback'>",
-            f"<a href=\"{escape(url, quote=True)}\">",
-            f"<h2>{escape(subject)}</h2>",
-            f"<span class='price'>{escape(price_text)}</span>",
-            f"<span class='location'>{escape(location)}</span>",
-            "</a>",
-        ]
+        combined_text = " ".join(
+            part for part in (subject, price_text, location, body)
+            if part
+        )
 
-        if image_url:
-            fragment_parts.append(
-                f"<img src=\"{escape(image_url, quote=True)}\" alt=\"{escape(subject)}\" />"
-            )
+        listings.append(
+            {
+                'source': 'json',
+                'link': url,
+                'model': subject,
+                'full_text': combined_text,
+                'image_url': image_url,
+                'location_text': location,
+            }
+        )
 
-        description_text = " ".join(part for part in (subject, price_text, location, body) if part)
-        fragment_parts.append(f"<p>{escape(description_text)}</p>")
-        fragment_parts.append("</div>")
-        fragments.append("".join(fragment_parts))
+    return listings
 
-    if not fragments:
-        return []
 
-    fallback_soup = BeautifulSoup("\n".join(fragments), "html.parser")
-    return fallback_soup.find_all("div", class_="item-card item-card--fallback")
+def _extract_listings_from_html(soup):
+    containers = soup.find_all("div", class_=lambda x: x and 'item-card' in x)
+    listings = []
+    for container in containers:
+        link_tag = container.find("a", href=True)
+        if not link_tag:
+            continue
+        link = link_tag['href']
+        title_tag = container.find("h2")
+        model = title_tag.get_text(strip=True) if title_tag else "N/A"
+        full_text = container.get_text(" ", strip=True)
+        image_url = None
+        img_tag = container.find("img")
+        if img_tag and img_tag.get('src'):
+            image_url = img_tag['src']
+
+        listings.append(
+            {
+                'source': 'html',
+                'link': link,
+                'model': model,
+                'full_text': full_text,
+                'image_url': image_url,
+                'location_text': None,
+            }
+        )
+    return listings
 
 SEARCH_CITIES = [
     # Lazio
@@ -293,6 +326,8 @@ BRAND_MAP['reds'] = "Redz"
 BRAND_MAP['Peterpan'] = "Peter Pan"
 BRAND_MAP['quiksilver'] = "Quicksilver"
 BRAND_MAP['Rusti'] = 'Rusty'
+
+ALLOWED_CATEGORY_IDS = {"20"}
 
 # Build a single, efficient, case-insensitive regex from the brand list.
 def create_brand_pattern(brand_key):
@@ -734,39 +769,41 @@ def scrape_and_store(db: Session):
                     continue
 
                 soup = BeautifulSoup(response.text, "html.parser")
-                ad_containers = soup.find_all("div", class_=lambda x: x and 'item-card' in x)
-                if not ad_containers:
-                    ad_containers = _build_fallback_cards_from_next_data(soup)
-                    if ad_containers:
-                        logger.info(
-                            "Fallback extracted %d ad cards from __NEXT_DATA__ on page %d.",
-                            len(ad_containers),
-                            page_num,
-                        )
-                logger.info(f"Found {len(ad_containers)} potential ad containers on page {page_num}.")
+                listings = _extract_listings_from_next_data(soup)
+                listings_source = "json" if listings else "html"
+                if not listings:
+                    listings = _extract_listings_from_html(soup)
+                logger.info(
+                    "Found %d potential ad listings on page %d using %s path.",
+                    len(listings),
+                    page_num,
+                    listings_source,
+                )
 
-                if not ad_containers:
+                if not listings:
                     logger.info(f"No more ads found on page {page_num}. Moving to next search term.")
                     break
 
-                for container in ad_containers:
-                    link_tag = container.find("a", href=True)
-                    if not link_tag:
+                for listing in listings:
+                    link = listing.get('link')
+                    if not link:
                         continue
-                    
-                    link = link_tag['href']
+
                     logger.info("-" * 60)
-                    logger.info(f"Processing ad link: %s", link)
+                    logger.info(
+                        "Processing ad link: %s (source=%s)",
+                        link,
+                        listing.get('source'),
+                    )
                     if link in existing_links:
                         logger.info(f"Skipping ad, already in database: %s", link)
                         continue
 
-                    full_text = container.get_text(" ", strip=True)
+                    full_text = listing.get('full_text') or ""
                     if "€" not in full_text:
                         continue
-                        
-                    title_tag = container.find("h2")
-                    model = title_tag.get_text(strip=True) if title_tag else "N/A"
+
+                    model = listing.get('model') or "N/A"
 
                     if "sacca" in model.lower():
                         logger.info(f"Skipping ad {link}: title contains 'sacca'")
@@ -780,15 +817,11 @@ def scrape_and_store(db: Session):
                     ad_data = {
                         "model": model,
                         "price": extract_price(full_text),
-                        "location": city.replace('-', ' ').capitalize(),
+                        "location": (listing.get('location_text') or city.replace('-', ' ').capitalize()),
                         "link": link,
                         "brand": None,
-                        "image_url": None
+                        "image_url": listing.get('image_url'),
                     }
-                    
-                    img_tag = container.find("img")
-                    if img_tag and img_tag.get('src'):
-                        ad_data["image_url"] = img_tag['src']
 
                     try:
                         detail_resp = fetch_with_resilience(link, referrer=url, max_attempts=2)
