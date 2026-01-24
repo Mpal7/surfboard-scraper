@@ -1,36 +1,61 @@
-import httpx
-import time
-import random
 import logging
-import os
-from datetime import datetime
+import random
+import time
+
+import httpx
+from httpx import URL
 from sqlalchemy.orm import Session
-from database import SessionLocal, init_db
+
+from config.settings import MAINTENANCE_LOG_DIR, REQUEST_TIMEOUT, build_headers
+from database import SessionLocal
 from models import Ad
-from sqlalchemy import select
+from utils.logger import get_logger
 
-# --- 1. Logging Configuration ---
-LOG_DIR = "maintenance_logs"
-os.makedirs(LOG_DIR, exist_ok=True)
+logger = get_logger(__name__, MAINTENANCE_LOG_DIR)
 
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
+MISSING_ANNOUNCEMENT_PHRASES = [
+    "questo annuncio non esiste più",
+    "questo annuncio non esiste piu",
+]
 
-if not logger.handlers:
-    log_filename = os.path.join(LOG_DIR, f"check_{datetime.now().strftime('%Y-%m-%d')}.log")
-    file_handler = logging.FileHandler(log_filename, mode='a', encoding='utf-8')
-    console_handler = logging.StreamHandler()
-    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
-    file_handler.setFormatter(formatter)
-    console_handler.setFormatter(formatter)
-    logger.addHandler(file_handler)
-    logger.addHandler(console_handler)
 
-# Use the same headers as the scraper to appear consistent
-HEADERS = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36',
-    'Accept-Language': 'en-US,en;q=0.9,it;q=0.8',
-}
+def _is_homepage(url: URL | str) -> bool:
+    """Return True if the given URL points to Subito's homepage."""
+    try:
+        target = URL(url) if not isinstance(url, URL) else url
+    except Exception:
+        return False
+
+    if target.host != "www.subito.it":
+        return False
+
+    # Normalize path and ignore query params/fragments.
+    path = target.path.rstrip("/")
+    return path == "" or path == "/"
+
+
+def response_indicates_removed(response: httpx.Response) -> bool:
+    """Return True when the upstream response points to a removed listing."""
+    if response.status_code in (404, 410):
+        return True
+
+    # Subito frequently responds with 403 for removed ads; check body to be sure.
+    if response.status_code == 403:
+        body = (response.text or "").lower()
+        return any(phrase in body for phrase in MISSING_ANNOUNCEMENT_PHRASES)
+
+    if response.is_redirect:
+        target = response.headers.get("location", "")
+        if _is_homepage(target):
+            return True
+
+    # Some stacks follow redirects automatically; check the final URL as well.
+    if _is_homepage(response.url):
+        return True
+
+    body = (response.text or "").lower()
+    return any(phrase in body for phrase in MISSING_ANNOUNCEMENT_PHRASES)
+
 
 def check_ad_status(db: Session):
     """
@@ -45,22 +70,24 @@ def check_ad_status(db: Session):
     logger.info(f"Starting check for {len(ads_to_check)} active ads.")
     deactivated_count = 0
 
-    with httpx.Client(headers=HEADERS, follow_redirects=True, timeout=10) as client:
+    # Use HTTP/2 and randomized headers to look more like a browser and reduce 403s.
+    with httpx.Client(
+        http2=True,
+        headers=build_headers(),
+        follow_redirects=True,
+        timeout=REQUEST_TIMEOUT,
+    ) as client:
         for ad in ads_to_check:
             try:
-                # Use a HEAD request for efficiency - we only need the status code
-                response = client.head(ad.link)
+                headers = build_headers(referrer=ad.link)
+                response = client.get(ad.link, headers=headers)
 
-                # 404 Not Found or 410 Gone means the ad is deleted
-                if response.status_code in [404, 410]:
-                    logger.warning(f"Ad ID {ad.id} is GONE ({response.status_code}). Deactivating: {ad.link}")
+                if response_indicates_removed(response):
+                    logger.warning(
+                        f"Ad ID {ad.id} considered gone (status {response.status_code}). Deactivating: {ad.link}"
+                    )
                     ad.is_active = False
                     deactivated_count += 1
-                # Check for redirects to the homepage (another sign of a deleted ad)
-                elif response.is_redirect and response.headers.get('location') == 'https://www.subito.it/':
-                     logger.warning(f"Ad ID {ad.id} REDIRECTS to homepage. Deactivating: {ad.link}")
-                     ad.is_active = False
-                     deactivated_count += 1
                 else:
                     logger.info(f"Ad ID {ad.id} is still ACTIVE ({response.status_code}).")
 
@@ -68,8 +95,8 @@ def check_ad_status(db: Session):
                 logger.error(f"Network error checking Ad ID {ad.id}: {e}")
             except Exception as e:
                 logger.error(f"An unexpected error occurred for Ad ID {ad.id}: {e}")
-            
-            time.sleep(random.uniform(1, 3))
+
+            time.sleep(random.uniform(10, 20))  # Polite delay between requests
 
     if deactivated_count > 0:
         db.commit()

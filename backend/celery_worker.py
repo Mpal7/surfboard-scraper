@@ -1,19 +1,19 @@
-import random
 import logging
+import random
+
 from celery import Celery
 from celery.schedules import crontab
-from database import SessionLocal
-import scraper
-import check_ads
 
-logger = logging.getLogger(__name__)
+import check_ads
+import scraper
+from config.settings import REDIS_URL, SCRAPING_LOG_DIR
+from database import SessionLocal
+from utils.logger import get_logger
+
+logger = get_logger(__name__, SCRAPING_LOG_DIR)
 
 # --- Celery App Initialization ---
-celery_app = Celery(
-    "tasks",
-    broker="redis://localhost:6379/0",
-    backend="redis://localhost:6379/0"
-)
+celery_app = Celery("tasks", broker=REDIS_URL, backend=REDIS_URL)
 
 celery_app.conf.timezone = 'Europe/Rome'
 
