@@ -1,105 +1,88 @@
-import re
-import random
-import time
 import json
+import random
+import re
+import time
+from datetime import datetime
+
 import httpx
 from bs4 import BeautifulSoup
-from models import Ad
-from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
-import logging
-from datetime import datetime
-import os
+from sqlalchemy.orm import Session
 
-# --- 1. Logging Configuration ---
+from config.settings import (
+    ALLOWED_CATEGORY_IDS,
+    DEFAULT_IMAGE_RULE,
+    DETAIL_IMAGE_RULE,
+    EXCLUDED_TERMS,
+    REQUEST_TIMEOUT as SETTINGS_TIMEOUT,
+    SCRAPING_LOG_DIR,
+    SEARCH_CONFIGS,
+    build_headers as settings_build_headers,
+)
+from models import Ad
+from utils.logger import get_logger
 
-LOG_DIR = "scraping_logs"
+logger = get_logger(__name__, SCRAPING_LOG_DIR)
 
-os.makedirs(LOG_DIR, exist_ok=True)
-
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-
-# Prevent handlers from being added multiple times if the script is re-imported
-if not logger.handlers:
-    # Create a file handler that logs to a file named with the current date
-    log_filename = os.path.join(LOG_DIR, f"scraping_{datetime.now().strftime('%Y-%m-%d')}.log")
-    file_handler = logging.FileHandler(log_filename, mode='a', encoding='utf-8')
-    file_handler.setLevel(logging.INFO)
-
-    # Create a console handler to also print logs to the terminal
-    console_handler = logging.StreamHandler()
-    console_handler.setLevel(logging.INFO)
-
-    # Create a formatter and set it for both handlers
-    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
-    file_handler.setFormatter(formatter)
-    console_handler.setFormatter(formatter)
-
-    # Add the handlers to the logger
-    logger.addHandler(file_handler)
-    logger.addHandler(console_handler)
-
-
-# --- 2. Headers and Search Constants ---
-HEADERS = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36',
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-    'Accept-Encoding': 'gzip, deflate, br',
-    'Accept-Language': 'en-US,en;q=0.9,it;q=0.8',
-    'Referer': 'https://www.subito.it/',
-    'Sec-Ch-Ua': '"Not?A_Brand";v="8", "Chromium";v="108", "Google Chrome";v="108"',
-    'Sec-Ch-Ua-Mobile': '?0',
-    'Sec-Ch-Ua-Platform': '"Windows"',
-    'Sec-Fetch-Dest': 'document',
-    'Sec-Fetch-Mode': 'navigate',
-    'Sec-Fetch-Site': 'same-origin',
-    'Sec-Fetch-User': '?1',
-    'Upgrade-Insecure-Requests': '1',
-}
-
-USER_AGENT_POOL = [
-    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.6261.183 Safari/537.36',
-    'Mozilla/5.0 (Macintosh; Intel Mac OS X 13_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Safari/605.1.15',
-    'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.6167.160 Safari/537.36',
-    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Edg/120.0.0.0 Safari/537.36'
-]
-
-SEC_CH_UA_POOL = [
-    '"Not.A/Brand";v="8", "Chromium";v="122", "Google Chrome";v="122"',
-    '"Chromium";v="121", "Not.A/Brand";v="8", "Microsoft Edge";v="121"',
-    '"Not?A_Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"'
-]
-
-ACCEPT_LANGUAGE_POOL = [
-    'it-IT,it;q=0.9,en-US;q=0.7,en;q=0.6',
-    'en-GB,en;q=0.9,it-IT;q=0.8,it;q=0.7',
-    'it-IT,it;q=0.9,en;q=0.8'
-]
-
-REQUEST_TIMEOUT = httpx.Timeout(connect=10.0, read=30.0, write=10.0, pool=30.0)
+REQUEST_TIMEOUT = SETTINGS_TIMEOUT
 
 
 def build_headers(referrer=None):
-    """Assemble per-request headers with mild randomisation to reduce fingerprinting."""
-    headers = HEADERS.copy()
-    ua_choice = random.choice(USER_AGENT_POOL)
-    headers['User-Agent'] = ua_choice
-    headers['Sec-Ch-Ua'] = random.choice(SEC_CH_UA_POOL)
-    headers['Accept-Language'] = random.choice(ACCEPT_LANGUAGE_POOL)
-    headers['Referer'] = referrer or HEADERS['Referer']
-    headers['Cache-Control'] = 'max-age=0'
-    headers['Pragma'] = 'no-cache'
-    headers['Dnt'] = '1'
+    """Expose header builder while delegating to settings module."""
+    return settings_build_headers(referrer=referrer)
 
-    if 'Macintosh' in ua_choice:
-        headers['Sec-Ch-Ua-Platform'] = '"macOS"'
-    elif 'Linux' in ua_choice:
-        headers['Sec-Ch-Ua-Platform'] = '"Linux"'
-    else:
-        headers['Sec-Ch-Ua-Platform'] = '"Windows"'
 
-    return headers
+def _build_image_url(base_url, rule=DEFAULT_IMAGE_RULE):
+    """Append the expected Subito image rule to bare CDN URLs when needed."""
+    if not base_url:
+        return None
+    base_url = base_url.strip()
+    if not base_url:
+        return None
+    if base_url.startswith("//"):
+        base_url = "https:" + base_url
+    if not rule or "rule=" in base_url:
+        return base_url
+    separator = "&" if "?" in base_url else "?"
+    return f"{base_url}{separator}rule={rule}"
+
+
+def _extract_image_from_entry(image_entry, rule=DEFAULT_IMAGE_RULE):
+    """Return the first usable image URL from a Subito image entry."""
+    if isinstance(image_entry, str):
+        return _build_image_url(image_entry, rule=rule)
+    if not isinstance(image_entry, dict):
+        return None
+
+    # Subito image entries often have full/preview keys; prefer the best available.
+    candidates = [
+        image_entry.get('full'),
+        image_entry.get('preview'),
+        image_entry.get('thumbnail'),
+    ]
+    for candidate in candidates:
+        if candidate:
+            return _build_image_url(candidate, rule=rule)
+    return None
+
+
+def _ensure_image_url(existing_url, detail_soup):
+    """Prefer a fully-qualified image URL, falling back to the detail page metadata."""
+    image_url = existing_url or None
+    if image_url and "rule=" not in image_url:
+        image_url = _build_image_url(image_url, rule=DEFAULT_IMAGE_RULE)
+    if image_url:
+        return image_url
+
+    if not detail_soup:
+        return None
+
+    og_image = detail_soup.find("meta", attrs={"property": "og:image"})
+    if og_image and og_image.get("content"):
+        candidate = og_image["content"].strip()
+        if candidate:
+            return _build_image_url(candidate, rule=DETAIL_IMAGE_RULE)
+    return None
 
 
 def _price_text_from_features(features):
@@ -111,6 +94,7 @@ def _price_text_from_features(features):
 
 
 def _extract_listings_from_next_data(soup):
+    """Parse Subito's Next.js payload; tolerate layout changes by merging list variants."""
     script_tag = soup.find("script", id="__NEXT_DATA__")
     if not script_tag or not script_tag.string:
         return []
@@ -120,22 +104,25 @@ def _extract_listings_from_next_data(soup):
         logger.warning("Could not decode __NEXT_DATA__ JSON payload; skipping fallback.")
         return []
 
-    items = (
-        payload.get('props', {})
-        .get('pageProps', {})
-        .get('initialState', {})
-        .get('items', {})
-        .get('list', [])
-    )
-    if not items:
-        return []
+    page_props = payload.get('props', {}).get('pageProps', {})
+    initial_state = page_props.get('initialState', {}) or {}
+    items_state = (initial_state.get('items') or {})
+    entity_items = (initial_state.get('entities') or {}).get('items') or {}
 
-    if not items:
+    # Some responses now populate rankedList/galleryList while list can be empty.
+    raw_entries = []
+    for key in ('list', 'rankedList', 'galleryList', 'originalList'):
+        entries = items_state.get(key) or []
+        if isinstance(entries, list):
+            raw_entries.extend(entries)
+
+    if not raw_entries:
         return []
 
     listings = []
-    for entry in items:
-        item = entry.get('item') or {}
+    seen_links = set()
+    for entry in raw_entries:
+        item = entry.get('item') or entity_items.get(entry.get('urn')) or {}
         if (item.get('kind') or '').lower() != 'aditem':
             continue
         category_id = str((item.get('category') or {}).get('id', '')).strip()
@@ -146,8 +133,9 @@ def _extract_listings_from_next_data(soup):
             continue
 
         url = (item.get('urls') or {}).get('default')
-        if not url:
+        if not url or url in seen_links:
             continue
+        seen_links.add(url)
 
         subject = item.get('subject') or "N/A"
         location = (
@@ -158,7 +146,7 @@ def _extract_listings_from_next_data(soup):
         price_text = _price_text_from_features(item.get('features'))
         body = item.get('body') or ""
         image_candidates = item.get('images') or []
-        image_url = image_candidates[0].get('cdnBaseUrl') if image_candidates else None
+        image_url = _extract_image_from_entry(image_candidates[0], rule=DEFAULT_IMAGE_RULE) if image_candidates else None
 
         combined_text = " ".join(
             part for part in (subject, price_text, location, body)
@@ -180,14 +168,21 @@ def _extract_listings_from_next_data(soup):
 
 
 def _extract_listings_from_html(soup):
-    containers = soup.find_all("div", class_=lambda x: x and 'item-card' in x)
+    # New markup uses <article> cards with generated class names (no more item-card divs).
+    containers = soup.find_all(
+        "article",
+        class_=lambda cls: cls and 'aditem' in cls.lower() if isinstance(cls, str) else (cls and any('aditem' in c.lower() for c in cls)),
+    )
+    # Fallback for legacy fixtures/tests using div.item-card
+    if not containers:
+        containers = soup.find_all("div", class_="item-card")
     listings = []
     for container in containers:
         link_tag = container.find("a", href=True)
         if not link_tag:
             continue
         link = link_tag['href']
-        title_tag = container.find("h2")
+        title_tag = container.find(["h3", "h2"])
         model = title_tag.get_text(strip=True) if title_tag else "N/A"
         full_text = container.get_text(" ", strip=True)
         image_url = None
@@ -207,59 +202,7 @@ def _extract_listings_from_html(soup):
         )
     return listings
 
-SEARCH_CITIES = [
-    # Lazio
-    ("roma", "lazio"),
-    # Lombardia
-    ("milano", "lombardia"),
-    # Liguria
-    ("genova", "liguria"),
-    ("savona", "liguria"),
-    ("imperia", "liguria"),
-    ("la-spezia", "liguria"),
-    # Toscana
-    ("livorno", "toscana"),
-    ("lucca", "toscana"),
-    ("grosseto", "toscana"),
-    ("pisa", "toscana"),
-    # Emilia-Romagna
-    ("rimini", "emilia-romagna"),
-    ("forli-cesena", "emilia-romagna"),
-    ("ravenna", "emilia-romagna"),
-    # Veneto
-    ("venezia", "veneto"),
-    # Marche
-    ("ancona", "marche"),
-    ("pesaro-urbino", "marche"),
-    # Sardegna
-    ("cagliari", "sardegna"),
-    ("sassari", "sardegna"),
-    # Sicilia
-    ("palermo", "sicilia"),
-    ("catania", "sicilia"),
-    # Puglia
-    ("lecce", "puglia"),
-    ("bari", "puglia"),
-    # Calabria
-    ("reggio-calabria", "calabria"),
-    # Campania
-    ("napoli", "campania"),
-    ("salerno", "campania"),
-    # Veneto
-    ("padova", "veneto")
-]
-
-SEARCH_TERMS = [
-    "tavola+da+surf",
-    "surfboard"
-]
-
-# This is now a global variable, making it patchable in tests.
-search_configs = [
-    (city, region, term)
-    for city, region in SEARCH_CITIES
-    for term in SEARCH_TERMS
-]
+search_configs = list(SEARCH_CONFIGS)
 
 # Constants
 FRACTION_SYMBOLS = {
@@ -289,8 +232,8 @@ POPULAR_BRANDS = [
     'gerry lopez', 'saints', 'peterpan', 'peter pan', 'Devil’s Tongue', 'Aztron',
     'honu', 'quiksilver', 'mckee', 'Andrea X', 'alessio fantozzi', 'indio', 'semente',
     'XDII', 'LSD', "scott burke", "tahe", "album", "ryan lovelace", 'alibi', 'pike',
-    'webber', 'infinity','sundek', 'duppies', 'rickland', 'odysea', 'clay', 'Rusty',
-    'wave', 'wp'
+    'webber', 'infinity','sundek', 'duppies', 'rickland', 'odysea', 'clay','clayton', 'Rusty',
+    'wave', 'wp', 'spider'
 ]
 
 # 2. Create a map for correct capitalization.
@@ -326,8 +269,7 @@ BRAND_MAP['reds'] = "Redz"
 BRAND_MAP['Peterpan'] = "Peter Pan"
 BRAND_MAP['quiksilver'] = "Quicksilver"
 BRAND_MAP['Rusti'] = 'Rusty'
-
-ALLOWED_CATEGORY_IDS = {"20"}
+BRAND_MAP['Clay'] = 'Clayton'
 
 # Build a single, efficient, case-insensitive regex from the brand list.
 def create_brand_pattern(brand_key):
@@ -429,6 +371,14 @@ def parse_dimension_part(part):
         return None
     part = part.strip()
     total = 0.0
+
+    # Handle compact forms like '19/14' which often mean 19 + 1/4.
+    compact = re.match(r"^(?P<int>\d{1,2})/(?P<frac>1?4)$", part)
+    if compact:
+        total += float(compact.group("int"))
+        total += 0.25
+        return total
+
     # fraction like '1/4'
     fraction_match = re.search(r'(\d/\d)', part)
     if fraction_match:
@@ -483,9 +433,9 @@ def extract_dimensions(text):
 
     pattern = (
         r"(?<!/)"
-        r"(?P<length>\d{1,2}(?:['\".]\d{1,2})?)['\"]*\s*x\s+"
-        r"(?P<width>\d{1,3}(?:[.,]\d+)?(?:\s+\d/\d)?)['\"]*"
-        r"(?:\s*x\s+(?P<thickness>\d{1,2}(?:[.,]\d+)?(?:\s+\d/\d)?))?['\"]*"
+        r"(?P<length>\d{1,2}(?:['\".,]\d{1,2})?)['\"]*\s*x\s+"
+        r"(?P<width>\d{1,3}(?:[.,]\d+)?(?:\s+\d/\d|/\d{1,2})?)['\"]*"
+        r"(?:\s*x\s+(?P<thickness>\d{1,2}(?:[.,]\d+)?(?:\s+\d/\d|/\d{1,2})?))?['\"]*"
     )
 
     matches = list(re.finditer(pattern, processed, re.IGNORECASE))
@@ -493,10 +443,24 @@ def extract_dimensions(text):
 
     if full_match:
         data = full_match.groupdict()
+        len_str = (data.get('length') or '').strip()
+        thickness_val = parse_dimension_part(data.get('thickness') or '')
         width_val = parse_dimension_part(data.get('width') or '')
         
-        # if width looks unrealistic for inches (e.g. > 25) fallback to isolated if available
+        # if width looks unrealistic for inches (e.g. > 25) try to interpret as metric fallback
         if width_val is not None and width_val > 25:
+            if len_str and ("," in len_str or "." in len_str):
+                try:
+                    meters_val = float(len_str.replace(',', '.'))
+                    length_in_total = meters_val * 39.3701
+                    return {
+                        'length_ft': int(length_in_total // 12),
+                        'length_in': int(round(length_in_total % 12)),
+                        'width_in': round(width_val * 0.393701, 2),
+                        'thickness_in': thickness_val,
+                    }
+                except Exception:
+                    pass
             if isolated:
                 return {
                     'length_ft': isolated['ft'],
@@ -506,7 +470,6 @@ def extract_dimensions(text):
                 }
             return None
 
-        len_str = (data.get('length') or '').strip()
         length_ft = None; length_in = None
         if "'" in len_str or '"' in len_str:
             parts = re.split(r'[\'"]', len_str)
@@ -528,8 +491,6 @@ def extract_dimensions(text):
                 length_ft = int(float(len_str)) if len_str else None; length_in = 0
             except:
                 length_ft, length_in = None, None
-
-        thickness_val = parse_dimension_part(data.get('thickness') or '')
 
         # Heuristic: if full_match's parsed feet looks suspicious, prefer the isolated ft/in we detected earlier.
         suspicious = False
@@ -557,6 +518,60 @@ def extract_dimensions(text):
             'length_in': length_in,
             'width_in': width_val,
             'thickness_in': thickness_val
+        }
+
+    # Metric-like pattern such as "1,83 x 55" (meters x cm)
+    metric_m_cm = re.search(r"(?P<m>\d{1},\d{1,2})\s*x\s*(?P<cm>\d{2,3})(?!\d)", processed)
+    if metric_m_cm:
+        try:
+            meters = float(metric_m_cm.group('m').replace(',', '.'))
+            cm_width = float(metric_m_cm.group('cm'))
+            length_in_total = meters * 39.3701
+            return {
+                'length_ft': int(length_in_total // 12),
+                'length_in': int(round(length_in_total % 12)),
+                'width_in': round(cm_width * 0.393701, 2),
+                'thickness_in': None,
+            }
+        except Exception:
+            pass
+
+    # Named Italian fields: lunghezza / larghezza / spessore without x separators.
+    m_lung = re.search(r"lunghezza\s*(?P<len>\d{1,2}(?:[.,]\d{1,2})?)", text_for_parsing, re.IGNORECASE)
+    m_larg = re.search(r"larghezza\s*(?P<wid>\d{1,2}(?:\s+\d/\d|/\d{1,2}|[.,]\d{1,2})?)", text_for_parsing, re.IGNORECASE)
+    m_spess = re.search(r"spessore\s*(?P<thk>\d{1,2}(?:\s+\d/\d|/\d{1,2}|[.,]\d{1,2})?)", text_for_parsing, re.IGNORECASE)
+    if m_lung:
+        len_token = m_lung.group('len')
+        length_ft, length_in = None, None
+        if '.' in len_token or ',' in len_token:
+            sep = '.' if '.' in len_token else ','
+            parts = len_token.split(sep)
+            try:
+                length_ft = int(parts[0]); length_in = int(parts[1]) if parts[1] else 0
+            except Exception:
+                length_ft, length_in = None, None
+        else:
+            try:
+                length_ft = int(len_token); length_in = 0
+            except Exception:
+                length_ft, length_in = None, None
+
+        width_in = parse_dimension_part(m_larg.group('wid')) if m_larg else None
+        thickness_in = parse_dimension_part(m_spess.group('thk')) if m_spess else None
+
+        if isolated:
+            return {
+                'length_ft': isolated['ft'],
+                'length_in': isolated['in'],
+                'width_in': width_in,
+                'thickness_in': thickness_in,
+            }
+
+        return {
+            'length_ft': length_ft,
+            'length_in': length_in,
+            'width_in': width_in,
+            'thickness_in': thickness_in,
         }
 
     if isolated:
@@ -644,11 +659,20 @@ def extract_dimensions(text):
     return None
     
 def extract_liters(text):
-    match = re.search(r'(\d{1,3}(?:[.,]\d{1,2})?)\s*(?:l\b|lt\b|ltr\b|liters\b|litres\b|litri\b)', text, re.IGNORECASE)
-    if match:
-        try: return float(match.group(1).replace(',', '.'))
-        except: return None
-    return None
+    pattern = re.compile(
+        r"(?:\b(?:volume|vol)\b\s*)?"
+        r"(?:(?P<num1>\d{1,3}(?:[.,]\d{1,2})?)\s*(?:l\b|lt\b|ltr\b|liters?\b|litres?\b|litri\b)"
+        r"|(?:l\b|lt\b|ltr\b|liters?\b|litres?\b|litri\b)\s*(?P<num2>\d{1,3}(?:[.,]\d{1,2})?))",
+        re.IGNORECASE,
+    )
+    match = pattern.search(text)
+    if not match:
+        return None
+    value = match.group('num1') or match.group('num2')
+    try:
+        return float(value.replace(',', '.'))
+    except Exception:
+        return None
 
 def extract_price(text):
     """
@@ -809,7 +833,9 @@ def scrape_and_store(db: Session):
                         logger.info(f"Skipping ad {link}: title contains 'sacca'")
                         continue
 
-                    keywords = ["tavola", "surf", "softboard", "longboard", "shortboard"]
+                    keywords = ["tavola", "surf", "softboard", "longboard", 
+                                "shortboard", "wingfoil", "windsurf", "foil",
+                                  "skateboard", "bodyboard", "paddle", "paddleboard", "snowboard"]
                     if not any(kw in full_text.lower() for kw in keywords):
                         logger.info(f"Skipping ad {link}: not surf-related")
                         continue
@@ -829,48 +855,55 @@ def scrape_and_store(db: Session):
                             logger.error(f"  > Could not fetch detail page after retries: {link}")
                             continue
                         detail_soup = BeautifulSoup(detail_resp.text, "html.parser")
+                        detail_image = _ensure_image_url(ad_data.get('image_url'), detail_soup)
+                        if detail_image:
+                            ad_data['image_url'] = detail_image
                         desc_div = detail_soup.find("p", class_=lambda c: c and 'description' in c.lower())
                         desc_text = desc_div.get_text(separator=" ", strip=True) if desc_div else ""
                         full_desc_text = f"{ad_data['model']} {desc_text}"
 
-                        excluded_terms = ["kite", "wind", "surfskate", "foil", "sup", "surfsup", "skate",
-                        "wake", "sacca", "cover", "mutina", "muta", "Jetsurf","kitesurf","kitesurfing",
-                        "windsurf","windsurfing","surfskate","surfskating","wakeboard","wakeboarding",
-                        "paddle","paddleboard","paddleboarding","stand up paddle", "/kitesurf",
-                         "surfista", "kiteloose", "borsa", "air4", "air", "pinna", "pinne", "body"]
-                        skip_flag = False
-                        for term in excluded_terms:
-                            if re.search(rf"\b{re.escape(term)}\b", full_desc_text, re.IGNORECASE):
-                                logger.info(f"Skipping ad {link}: contains excluded term '{term}'")
-                                skip_flag = True
-                                break
-                        if skip_flag:
-                            continue
-                        
+                        # Extract brand and dimensions first
                         ad_data["brand"] = find_brand(full_desc_text)
                         ad_data["liters"] = extract_liters(full_desc_text)
                         dims = extract_dimensions(full_desc_text)
                         if dims:
                              ad_data.update(dims)
                         
-                        logger.info(f"  > Scraped Data for Ad:")
+                        # Check if ad should be visible based on criteria
+                        is_visible = True
+                        
+                        # Check for excluded terms
+                        excluded_terms = EXCLUDED_TERMS
+                        for term in excluded_terms:
+                            if re.search(rf"\b{re.escape(term)}\b", full_desc_text, re.IGNORECASE):
+                                logger.info(f"Marking ad as not visible {link}: contains excluded term '{term}'")
+                                is_visible = False
+                                break
+                        
+                        # Check for valid dimensions or brand
+                        if is_visible:
+                            length_ft = ad_data.get("length_ft")
+                            brand = ad_data.get("brand")
+                            price = ad_data.get("price")
+                            valid_length = isinstance(length_ft, (int, float)) and length_ft >= 4
+                            valid_brand = isinstance(brand, str) and brand.strip()
+                            if not (valid_length or valid_brand):
+                                logger.warning(f"  > Marking ad as not visible (length_ft is missing or < 4' and no valid brand): Found value 'length_ft={length_ft}', brand='{brand}', price='{price}'. Link: {link}")
+                                is_visible = False
+                        
+                        ad_data["is_visible"] = is_visible
+                        
+                        logger.info(f"  > Scraped Data for Ad (is_visible={is_visible}):")
                         log_data = ad_data.copy()
                         if dims: log_data.update(dims)
                         for key, value in log_data.items():
                             logger.info(f"    - {key.ljust(15)}: {value}")
 
-                        length_ft = ad_data.get("length_ft")
-                        brand = ad_data.get("brand")
-                        price = ad_data.get("price")
-                        valid_length = isinstance(length_ft, (int, float)) and length_ft >= 4
-                        valid_brand_and_price = isinstance(brand, str) and isinstance(price, (int, float))
-                        if valid_length or valid_brand_and_price:
-                            ad = Ad(**ad_data)
-                            db.add(ad)
-                            ads_added.append(ad)
-                            existing_links.add(link)
-                        else:
-                            logger.warning(f"  > Skipping ad (length_ft is missing or < 4' and no valid brand/price): Found value 'length_ft={length_ft}', brand='{brand}', price='{price}'. Link: {link}")
+                        # Add all ads to database regardless of visibility
+                        ad = Ad(**ad_data)
+                        db.add(ad)
+                        ads_added.append(ad)
+                        existing_links.add(link)
 
                     except Exception as e:
                         logger.error(f"  > Could not process detail page {link}. Error: {e}")

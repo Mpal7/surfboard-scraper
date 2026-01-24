@@ -1,12 +1,14 @@
-from fastapi import FastAPI, Depends, Query, HTTPException
+import os
+import time
+
+from fastapi import Depends, FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
+
+import scraper
+from config.settings import COOLDOWN_FILE, REFRESH_COOLDOWN_SECONDS
 from database import get_db, init_db
 from models import Ad
-import scraper
-import time
-import os
 
 app = FastAPI()
 
@@ -21,9 +23,6 @@ app.add_middleware(
     allow_methods=["*"],  # Allows all methods (GET, POST, etc.)
     allow_headers=["*"],  # Allows all headers
 )
-
-COOLDOWN_FILE = "last_refresh.txt"
-REFRESH_COOLDOWN = 10 * 1  # 10 minutes
 
 def get_last_refresh_time():
     if not os.path.exists(COOLDOWN_FILE):
@@ -48,7 +47,7 @@ def list_ads(
     page_size: int = Query(20, ge=1),
     db: Session = Depends(get_db)
 ):
-    query = db.query(Ad).filter(Ad.is_active == True)
+    query = db.query(Ad).filter(Ad.is_active == True, Ad.is_visible == True)
     total = query.count()
     ads = query.offset((page - 1) * page_size).limit(page_size).all()
     
@@ -76,7 +75,7 @@ def filter_ads(
     min_thickness: float = Query(None, ge=2, le=4, description="Minimum thickness in inches"),
     max_thickness: float = Query(None, ge=2, le=4, description="Maximum thickness in inches"),
 ):
-    query = db.query(Ad).filter(Ad.is_active == True)
+    query = db.query(Ad).filter(Ad.is_active == True, Ad.is_visible == True)
     
     if brand:
         brands = [b.strip() for b in brand.split(',') if b.strip()]
@@ -136,8 +135,11 @@ def refresh_ads(db: Session = Depends(get_db)):
     last_refresh_time = get_last_refresh_time()
     now = time.time()
 
-    if now - last_refresh_time < REFRESH_COOLDOWN:
-        raise HTTPException(status_code=429, detail=f"Refresh allowed only every {REFRESH_COOLDOWN//60} minutes.")
+    if now - last_refresh_time < REFRESH_COOLDOWN_SECONDS:
+        raise HTTPException(
+            status_code=429,
+            detail=f"Refresh allowed only every {REFRESH_COOLDOWN_SECONDS//60} minutes.",
+        )
     
     set_last_refresh_time(now)
     new_ads = scraper.scrape_and_store(db) 

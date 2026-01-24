@@ -22,6 +22,7 @@ class Ad(Base):
     liters = Column(Float, nullable=True)
 
     is_active = Column(Boolean, default=True, nullable=False, index=True)
+    is_visible = Column(Boolean, default=True, nullable=False, index=True)
 
     @hybrid_property
     def length_total_inches(self):
