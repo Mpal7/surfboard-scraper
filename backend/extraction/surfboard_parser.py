@@ -10,7 +10,7 @@ from __future__ import annotations
 from typing import Any
 
 # Re-export individual extractors so existing callers keep working.
-from extraction import (
+from extraction.extraction import (
     BRAND_MAP,
     BRAND_REGEX,
     FRACTION_MAP,

@@ -1,6 +1,6 @@
 from unittest.mock import MagicMock, call
 import httpx
-from scraper import scrape_and_store, Ad
+from src.scraper import scrape_and_store, Ad
 
 # It's better to define mock responses once, outside the test functions
 # This avoids redefining them in every test
@@ -67,8 +67,8 @@ def test_scrape_and_store_happy_path(mocker):
     mock_client.__enter__.return_value = mock_client
     mock_client.get.side_effect = mock_get_router
     
-    mocker.patch('scraper.httpx.Client', return_value=mock_client)
-    mocker.patch('scraper.time.sleep')
+    mocker.patch('src.scraper.httpx.Client', return_value=mock_client)
+    mocker.patch('src.scraper.time.sleep')
 
     # 2. Execute the function
     ads_added = scrape_and_store(mock_db)
@@ -101,7 +101,7 @@ def test_scrape_and_store_access_denied(mocker):
     
     # We will patch the search_configs to limit the scope of the test.
     # This prevents the scraper from looping 50 times.
-    mocker.patch('scraper.search_configs', [('roma', 'lazio', 'tavola+da+surf')])
+    mocker.patch('src.scraper.search_configs', [('roma', 'lazio', 'tavola+da+surf')])
     
     access_denied_html = "<html><body><h1>Access Denied</h1></body></html>"
     mock_response_denied = httpx.Response(200, html=access_denied_html)
@@ -110,8 +110,8 @@ def test_scrape_and_store_access_denied(mocker):
     mock_client.__enter__.return_value = mock_client
     mock_client.get.return_value = mock_response_denied
     
-    mocker.patch('scraper.httpx.Client', return_value=mock_client)
-    mocker.patch('scraper.time.sleep')
+    mocker.patch('src.scraper.httpx.Client', return_value=mock_client)
+    mocker.patch('src.scraper.time.sleep')
 
     # 2. Execute
     ads_added = scrape_and_store(mock_db)
@@ -129,7 +129,7 @@ def test_scrape_and_store_http_error(mocker):
     mock_db.query.return_value.all.return_value = []
     
     # Also limit the scope here for a faster, more focused test.
-    mocker.patch('scraper.search_configs', [('roma', 'lazio', 'tavola+da+surf')])
+    mocker.patch('src.scraper.search_configs', [('roma', 'lazio', 'tavola+da+surf')])
     
     mock_response_error = httpx.Response(500, html="Internal Server Error")
     
@@ -137,8 +137,8 @@ def test_scrape_and_store_http_error(mocker):
     mock_client.__enter__.return_value = mock_client
     mock_client.get.return_value = mock_response_error
     
-    mocker.patch('scraper.httpx.Client', return_value=mock_client)
-    mocker.patch('scraper.time.sleep')
+    mocker.patch('src.scraper.httpx.Client', return_value=mock_client)
+    mocker.patch('src.scraper.time.sleep')
 
     # 2. Execute
     ads_added = scrape_and_store(mock_db)

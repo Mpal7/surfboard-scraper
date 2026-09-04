@@ -19,9 +19,9 @@ from config.settings import (
     SEARCH_CONFIGS,
     build_headers as settings_build_headers,
 )
-from models import Ad
-from surfboard_parser import parse_listing
-from extraction import (
+from src.models import Ad
+from extraction.surfboard_parser import parse_listing
+from extraction.extraction import (
     BRAND_MAP,
     BRAND_REGEX,
     FRACTION_MAP,
@@ -36,7 +36,6 @@ from extraction import (
     parse_dimension_part,
     text_pre_processor,
 )
-from surfboard_parser import parse_listing
 from utils.logger import get_logger
 
 logger = get_logger(__name__, SCRAPING_LOG_DIR)

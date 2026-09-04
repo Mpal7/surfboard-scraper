@@ -7,8 +7,8 @@ from httpx import URL
 from sqlalchemy.orm import Session
 
 from config.settings import MAINTENANCE_LOG_DIR, REQUEST_TIMEOUT, build_headers
-from database import SessionLocal
-from models import Ad
+from src.database import SessionLocal
+from src.models import Ad
 from utils.logger import get_logger
 
 logger = get_logger(__name__, MAINTENANCE_LOG_DIR)

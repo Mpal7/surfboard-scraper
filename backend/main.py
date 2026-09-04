@@ -144,3 +144,5 @@ def refresh_ads(db: Session = Depends(get_db)):
     set_last_refresh_time(now)
     new_ads = scraper.scrape_and_store(db) 
     return {"message": "Refresh completed.", "new_ads_added": len(new_ads)}
+
+

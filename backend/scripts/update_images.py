@@ -12,9 +12,9 @@ import httpx
 from bs4 import BeautifulSoup
 from sqlalchemy import or_
 
-from database import SessionLocal
-from models import Ad
-from scraper import (
+from src.database import SessionLocal
+from src.models import Ad
+from src.scraper import (
     DEFAULT_IMAGE_RULE,
     REQUEST_TIMEOUT,
     _build_image_url,

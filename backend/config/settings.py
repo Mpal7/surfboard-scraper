@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from pathlib import Path
 import random
 from typing import Iterable
@@ -8,7 +9,7 @@ import httpx
 
 # Base paths
 BASE_DIR = Path(__file__).resolve().parent.parent
-DATA_DIR = BASE_DIR
+DATA_DIR = BASE_DIR / "data"
 
 # Storage / persistence
 DATABASE_PATH = DATA_DIR / "ads.db"
@@ -17,13 +18,17 @@ DATABASE_URL = f"sqlite:///{DATABASE_PATH.as_posix()}"
 # Task queue
 REDIS_URL = "redis://localhost:6379/0"
 
+# env
+GMAIL_ADDRESS = os.getenv("GMAIL_ADDRESS", "")
+GMAIL_APP_PASSWORD = os.getenv("GMAIL_APP_PASSWORD", "")
+
 # API refresh throttling
 COOLDOWN_FILE = DATA_DIR / "last_refresh.txt"
 REFRESH_COOLDOWN_SECONDS = 1 * 60
 
 # Logging
-SCRAPING_LOG_DIR = BASE_DIR / "scraping_logs"
-MAINTENANCE_LOG_DIR = BASE_DIR / "maintenance_logs"
+SCRAPING_LOG_DIR = BASE_DIR / "logs"
+MAINTENANCE_LOG_DIR = BASE_DIR / "logs"
 
 # HTTP behaviour
 DEFAULT_HEADERS = {

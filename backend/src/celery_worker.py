@@ -4,10 +4,10 @@ import random
 from celery import Celery
 from celery.schedules import crontab
 
-import check_ads
-import scraper
+import scripts.check_ads as check_ads
+import src.scraper as scraper
 from config.settings import REDIS_URL, SCRAPING_LOG_DIR
-from database import SessionLocal
+from src.database import SessionLocal
 from utils.logger import get_logger
 
 logger = get_logger(__name__, SCRAPING_LOG_DIR)

@@ -7,6 +7,8 @@
 # Python Backend
 # --------------------
 backend/__pycache__/
+backend/*/__pycache__/
+backend/*/*/__pycache__/
 *.py[cod]
 *$py.class
 
@@ -54,7 +56,7 @@ backend/*.cover
 backend/*.py,cov*
 
 # Database
-backend/ads.db
+backend/data/ads.db
 
 # --------------------
 # Frontend / Node.js
@@ -90,7 +92,7 @@ diff.txt
 notes.md
 
 #refresh_time
-backend/last_refresh.txt
+backend/data/last_refresh.txt
 
 #celery
 backend/celerybeat-schedule

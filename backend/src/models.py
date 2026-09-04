@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Float, DateTime, Boolean
 from sqlalchemy.ext.hybrid import hybrid_property
-from database import Base
+from src.database import Base
 from datetime import datetime
 import math
 
@@ -21,6 +21,7 @@ class Ad(Base):
     thickness_in = Column(Float, nullable=True)
     liters = Column(Float, nullable=True)
 
+    is_mail_sent = Column(Boolean, default=False, nullable=False, index=True)
     is_active = Column(Boolean, default=True, nullable=False, index=True)
     is_visible = Column(Boolean, default=True, nullable=False, index=True)
 
@@ -46,4 +47,5 @@ class Ad(Base):
             "width_in": self.width_in,
             "thickness_in": self.thickness_in,
             "liters": self.liters,
+            "is_mail_sent": self.is_mail_sent,
         }

@@ -1,5 +1,5 @@
 import pytest
-from scraper import extract_dimensions, extract_liters, extract_price, find_brand
+from src.scraper import extract_dimensions, extract_liters, extract_price, find_brand
 
 test_cases = {
     "Il tuo bug": {
