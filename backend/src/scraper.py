@@ -551,7 +551,12 @@ def scrape_and_store(db: Session):
                     if link in existing_links:
                         existing_ad = existing_ads.get(link)
                         if existing_ad is not None:
-                            existing_ads_changed = _reconcile_existing_ad(existing_ad, full_text) or existing_ads_changed
+                            existing_ads_changed = (
+                                _reconcile_existing_ad(
+                                    existing_ad, listing.get('full_text') or ""
+                                )
+                                or existing_ads_changed
+                            )
                         logger.info(f"Skipping ad, already in database: %s", link)
                         continue
 

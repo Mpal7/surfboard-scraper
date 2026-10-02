@@ -171,3 +171,56 @@ def test_extract_current_subito_article_cards():
     assert len(listings) == 1
     assert listings[0]["model"] == "ala wingfoil safe 6 mq"
     assert listings[0]["location_text"] == "Calasetta"
+
+
+def test_scrape_and_store_reconciles_when_first_ad_already_in_db(mocker):
+    """Regression: a Refresh whose first listing is already stored must not crash.
+
+    Previously the scraper referenced ``full_text`` before assigning it, raising
+    ``UnboundLocalError`` as soon as the first scraped link was already in the DB
+    (the normal steady state for a re-scrape).
+    """
+    existing_ad = Ad(
+        model="Tavola da surf 5'11 Firewire",
+        link="https://www.subito.it/sport/valid-surfboard-ad-1.htm",
+        is_visible=False,
+    )
+
+    mock_db = MagicMock()
+    mock_db.query.return_value.all.return_value = [existing_ad]
+
+    single_card_response = httpx.Response(
+        200,
+        html="""
+        <html><body>
+            <div class="item-card">
+                <a href="https://www.subito.it/sport/valid-surfboard-ad-1.htm"></a>
+                <h2>Tavola da surf 5'11 Firewire - 450€</h2>
+                <img src="https://example.com/image1.jpg"/>
+                <p>Milano</p>
+            </div>
+        </body></html>
+        """,
+    )
+
+    def mock_get_router(url, **kwargs):
+        if "roma/?q=tavola+da+surf&o=1" in url:
+            return single_card_response
+        return mock_response_empty
+
+    mock_client = MagicMock()
+    mock_client.__enter__.return_value = mock_client
+    mock_client.get.side_effect = mock_get_router
+
+    mocker.patch('src.scraper.httpx.Client', return_value=mock_client)
+    mocker.patch('src.scraper.time.sleep')
+    mocker.patch('src.scraper.search_configs', [('roma', 'lazio', 'tavola+da+surf')])
+
+    ads_added = scrape_and_store(mock_db)
+
+    assert ads_added == []
+    mock_db.add.assert_not_called()
+    # The existing Ad was re-evaluated instead of crashing the Refresh.
+    assert existing_ad.is_visible is True
+    assert existing_ad.brand == "Firewire"
+    assert existing_ad.length_ft == 5
