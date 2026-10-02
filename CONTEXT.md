@@ -5,8 +5,12 @@ A system that scrapes surfboard listings from Subito.it, stores them in a databa
 ## Language
 
 **Ad**:
-A surfboard listing scraped from Subito.it. Has physical attributes (brand, model, dimensions, liters, price), location, a source link, and state flags (is_active, is_visible, is_mail_sent).
+A surfboard listing scraped from Subito.it or Vinted. Has physical attributes (brand, model, dimensions, liters, price), location, a source link, a Source, and state flags (is_active, is_visible, is_mail_sent).
 _Avoid_: Listing, post, entry
+
+**Source**:
+The marketplace an Ad came from, stored as `source` (`subito` or `vinted`). Subito is the primary source; Vinted is an opt-in second source.
+_Avoid_: Site, origin
 
 **Active Ad**:
 An Ad whose source link is still live on Subito.it (`is_active=True`). Checked periodically by the maintenance script.
@@ -25,8 +29,12 @@ A set of criteria (brand, price range, dimensions, liters range) applied to Ads 
 _Avoid_: Criteria, preferences, query
 
 **Refresh**:
-The act of re-scraping Subito.it for new listings. Triggered via POST /refresh. Has a cooldown period to avoid excessive requests.
+The act of re-scraping marketplaces for new listings. Triggered via POST /refresh, which queues a Job and returns immediately. Has a cooldown period to avoid excessive requests.
 _Avoid_: Scrape, update, sync
+
+**Job**:
+A tracked background run (`JobRun`) of type `scrape` or `check_ads`, created by a Refresh or the nightly schedule. Its status is polled via `GET /jobs/{id}`.
+_Avoid_: Task, process, run
 
 **Mail Sent**:
 The state of an Ad (`is_mail_sent=True`) indicating at least one Recipient has been notified about it. Prevents duplicate notifications unless a Recipient opts in via `include_sent`.

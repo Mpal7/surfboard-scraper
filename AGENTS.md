@@ -4,7 +4,7 @@ Guidance for AI agents working in this repository. Read this before making any c
 
 ## What this project is
 
-Surfboard Scraper scrapes surfboard Ads from Subito.it, stores them in SQLite, and notifies Recipients by email when new boards matching their Filters appear.
+Surfboard Scraper scrapes surfboard Ads from Subito.it (with an opt-in Vinted second source), stores them in SQLite, and notifies Recipients by email when new boards matching their Filters appear.
 
 - `backend/` — Python / FastAPI: scraping, extraction, storage, email notifications, Celery/Redis scheduling.
 - `frontend/` — React 19 + TypeScript + Tailwind (Create React App): read-only marketplace UI.
@@ -23,18 +23,25 @@ The active FastAPI app is `backend/src/main.py` (module `src.main`). `backend/ma
 
 | Path | Role |
 |---|---|
-| `backend/src/scraper.py` | Scraping engine: fetch with retries, parse `__NEXT_DATA__`/HTML, filter, store Ads |
+| `backend/src/scraper.py` | Scraping engine: fetch with retries, parse `__NEXT_DATA__`/HTML, filter, store Ads (Subito + opt-in Vinted) |
+| `backend/src/vinted.py` | Vinted-specific catalog/detail DOM parsing and price stripping |
+| `backend/src/vinted_cleanup.py` | Heuristics that hide suspicious Vinted Ads (price-as-length, non-board titles) |
 | `backend/extraction/extraction.py` | Pure parsing logic: dimensions, liters, price, brand (no HTTP) |
 | `backend/extraction/surfboard_parser.py` | Facade over `extraction.py` (`parse_listing`) — import from here |
-| `backend/src/models.py` | The `Ad` SQLAlchemy model (single table `ads`) |
+| `backend/src/models.py` | The `Ad` and `JobRun` SQLAlchemy models |
 | `backend/src/database.py` | Engine, `SessionLocal`, `init_db()`, `get_db()` |
-| `backend/src/main.py` | Active FastAPI app: `/ads`, `/ads/filter`, `/refresh`, `/email-config`, `/send_email` |
+| `backend/src/main.py` | Active FastAPI app: `/ads`, `/ads/filter`, `/refresh`, `/jobs`, `/email-config`, `/send_email` |
+| `backend/src/refresh_service.py` | Manual-refresh cooldown, Job creation and dispatch |
+| `backend/src/job_service.py` | `JobRun` lifecycle persistence |
+| `backend/src/job_runner.py` | Executes scrape/check jobs on a fresh session (incl. post-refresh emails) |
+| `backend/src/task_dispatcher.py` | Enqueues jobs on Celery with a local-thread fallback |
 | `backend/src/sender.py` | Gmail SMTP sending (`send_email`) |
 | `backend/src/email_config.py` | Recipient/Filter persistence in `data/email_config.json` |
 | `backend/src/email_template.py` | HTML email rendering |
 | `backend/src/celery_worker.py` | Celery tasks + beat schedule (randomized nightly scrape, ad-status check) |
 | `backend/scripts/check_ads.py` | Marks Ads inactive when their Subito link dies |
 | `backend/scripts/update_images.py` | CLI backfill of Ad image URLs |
+| `backend/scripts/cleanup_vinted_ads.py` | CLI that hides suspicious Vinted Ads (`--dry-run` supported) |
 | `backend/config/settings.py` | Single source of configuration — see below |
 | `docs/adr/` | Architecture Decision Records |
 
@@ -72,7 +79,7 @@ There is no separate lint tooling configured for either side.
 
 ## Configuration
 
-`backend/config/settings.py` is the single source of configuration: paths, refresh cooldown, HTTP headers/timeouts, search cities/terms, `ALLOWED_CATEGORY_IDS`, `EXCLUDED_TERMS`, image CDN rules, `REDIS_URL`. Make config changes there, never by scattering constants into other modules.
+`backend/config/settings.py` is the single source of configuration: paths, refresh cooldown, HTTP headers/timeouts, search cities/terms, `ALLOWED_CATEGORY_IDS`, `EXCLUDED_TERMS`, image CDN rules, `REDIS_URL`, Vinted source settings (`ENABLE_VINTED_SOURCE`, `VINTED_BASE_URL`, `VINTED_SEARCH_TERMS`, `VINTED_MAX_PAGES_PER_SEARCH`), and `JOB_RESULT_PREVIEW_LIMIT`. Make config changes there, never by scattering constants into other modules.
 
 ## Runtime state — do not commit, do not hand-edit casually
 

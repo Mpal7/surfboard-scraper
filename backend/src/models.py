@@ -1,8 +1,10 @@
-from sqlalchemy import Column, Integer, String, Float, DateTime, Boolean
+from sqlalchemy import Column, Integer, String, Float, DateTime, Boolean, Text
 from sqlalchemy.ext.hybrid import hybrid_property
 from src.database import Base
-from datetime import datetime
+from datetime import datetime, timezone
+import json
 import math
+import uuid
 
 class Ad(Base):
     __tablename__ = "ads"
@@ -66,4 +68,49 @@ class Ad(Base):
             "board_width_cm": self.board_width_cm,
             "equipment_type": self.equipment_type,
             "is_mail_sent": self.is_mail_sent,
+        }
+
+
+def _job_utcnow():
+    return datetime.now(timezone.utc).replace(tzinfo=None)
+
+
+class JobRun(Base):
+    """A tracked unit of background work (scrape or ad-status check)."""
+
+    __tablename__ = "job_runs"
+
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    job_type = Column(String, nullable=False, index=True)
+    trigger_source = Column(String, nullable=False, default="manual")
+    status = Column(String, nullable=False, default="queued", index=True)
+    worker_type = Column(String, nullable=True)
+    celery_task_id = Column(String, nullable=True, index=True)
+    result_json = Column(Text, nullable=True)
+    error_message = Column(Text, nullable=True)
+    created_at = Column(DateTime, default=_job_utcnow, nullable=False, index=True)
+    started_at = Column(DateTime, nullable=True)
+    finished_at = Column(DateTime, nullable=True)
+
+    def result_payload(self):
+        if not self.result_json:
+            return None
+        try:
+            return json.loads(self.result_json)
+        except (TypeError, ValueError):
+            return {"raw": self.result_json}
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "job_type": self.job_type,
+            "trigger_source": self.trigger_source,
+            "status": self.status,
+            "worker_type": self.worker_type,
+            "celery_task_id": self.celery_task_id,
+            "error_message": self.error_message,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
+            "started_at": self.started_at.isoformat() if self.started_at else None,
+            "finished_at": self.finished_at.isoformat() if self.finished_at else None,
+            "result": self.result_payload(),
         }

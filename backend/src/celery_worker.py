@@ -4,10 +4,10 @@ import random
 from celery import Celery
 from celery.schedules import crontab
 
-import scripts.check_ads as check_ads
-import src.scraper as scraper
 from config.settings import REDIS_URL, SCRAPING_LOG_DIR
 from src.database import SessionLocal
+from src.job_runner import run_check_ads_job, run_scrape_job
+from src.job_service import create_job
 from utils.logger import get_logger
 
 logger = get_logger(__name__, SCRAPING_LOG_DIR)
@@ -20,30 +20,25 @@ celery_app.conf.timezone = 'Europe/Rome'
 
 # --- Define the Core Logic Tasks  ---
 @celery_app.task(name="scrape_new_ads")
-def scrape_new_ads_task():
+def scrape_new_ads_task(job_id=None, trigger_source="schedule"):
     """
     Celery task to scrape new ads.
     """
-    db = SessionLocal()
-    try:
-        logger.info("Executing scrape_new_ads_task...")
-        scraper.scrape_and_store(db)
-        logger.info("Finished scrape_new_ads_task.")
-    finally:
-        db.close()
+    logger.info("Executing scrape_new_ads_task...")
+    result = run_scrape_job(job_id, trigger_source=trigger_source, worker_type="celery")
+    logger.info("Finished scrape_new_ads_task.")
+    return result
+
 
 @celery_app.task(name="check_existing_ads")
-def check_existing_ads_task():
+def check_existing_ads_task(job_id=None, trigger_source="schedule"):
     """
     Celery task to check the status of existing ads.
     """
-    db = SessionLocal()
-    try:
-        logger.info("Executing check_existing_ads_task...")
-        check_ads.check_ad_status(db)
-        logger.info("Finished check_existing_ads_task.")
-    finally:
-        db.close()
+    logger.info("Executing check_existing_ads_task...")
+    result = run_check_ads_job(job_id, trigger_source=trigger_source, worker_type="celery")
+    logger.info("Finished check_existing_ads_task.")
+    return result
 
 # --- The Randomized Dispatcher Task ---
 @celery_app.task(name="schedule_randomized_scraping")
@@ -67,8 +62,22 @@ def schedule_randomized_scraping_task():
     )
     
     # Schedule the actual tasks using 'apply_async' with a 'countdown'.
-    scrape_new_ads_task.apply_async(countdown=random_delay)
-    check_existing_ads_task.apply_async(countdown=check_task_delay)
+    # Create tracked JobRun rows up front so the API can report their status.
+    db = SessionLocal()
+    try:
+        scrape_job = create_job(db, job_type="scrape", trigger_source="schedule")
+        check_job = create_job(db, job_type="check_ads", trigger_source="schedule")
+    finally:
+        db.close()
+
+    scrape_new_ads_task.apply_async(
+        kwargs={"job_id": scrape_job.id, "trigger_source": "schedule"},
+        countdown=random_delay,
+    )
+    check_existing_ads_task.apply_async(
+        kwargs={"job_id": check_job.id, "trigger_source": "schedule"},
+        countdown=check_task_delay,
+    )
 
 
 # --- Configure the Schedule to use the Dispatcher ---

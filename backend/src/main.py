@@ -1,5 +1,3 @@
-import os
-import time
 from typing import Optional
 
 from fastapi import Depends, FastAPI, HTTPException, Query, status
@@ -8,8 +6,6 @@ from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from sqlalchemy.sql import func
 
-import src.scraper as scraper
-from config.settings import COOLDOWN_FILE, REFRESH_COOLDOWN_SECONDS
 from src.database import get_db, init_db
 from src.auth import authenticate_admin, create_access_token, require_admin
 from src.email_config import (
@@ -22,7 +18,9 @@ from src.email_config import (
     update_recipient,
 )
 from src.email_template import build_full_email
+from src.job_service import get_job, list_jobs
 from src.models import Ad
+from src.refresh_service import schedule_manual_refresh
 from src.sender import send_email_with_diagnostics
 
 app = FastAPI()
@@ -41,21 +39,6 @@ app.add_middleware(
 
 
 # ── Helpers ──────────────────────────────────────────────────────────────────
-
-
-def get_last_refresh_time():
-    if not os.path.exists(COOLDOWN_FILE):
-        return 0
-    with open(COOLDOWN_FILE, "r") as f:
-        try:
-            return float(f.read().strip())
-        except (ValueError, TypeError):
-            return 0
-
-
-def set_last_refresh_time(timestamp: float):
-    with open(COOLDOWN_FILE, "w") as f:
-        f.write(str(timestamp))
 
 
 def apply_filters(query, filters: dict, include_sent: bool = False):
@@ -399,34 +382,40 @@ def send_email_endpoint(
 # ── Refresh endpoint ─────────────────────────────────────────────────────────
 
 
-@app.post("/refresh", status_code=200, dependencies=[Depends(require_admin)])
+@app.post("/refresh", status_code=202, dependencies=[Depends(require_admin)])
 def refresh_ads(db: Session = Depends(get_db)):
-    last_refresh_time = get_last_refresh_time()
-    now = time.time()
+    result = schedule_manual_refresh(db)
+    if not result["scheduled"]:
+        raise HTTPException(status_code=429, detail=result["message"])
+    return {
+        "message": result["message"],
+        "job_id": result["job_id"],
+        "status": result["status"],
+        "worker": result["worker"],
+        "task_id": result["task_id"],
+        "status_url": result["status_url"],
+    }
 
-    if now - last_refresh_time < REFRESH_COOLDOWN_SECONDS:
-        raise HTTPException(
-            status_code=429,
-            detail=f"Refresh allowed only every {REFRESH_COOLDOWN_SECONDS // 60} minutes.",
-        )
 
-    set_last_refresh_time(now)
-    new_ads = scraper.scrape_and_store(db)
+# ── Jobs endpoints ───────────────────────────────────────────────────────────
 
-    result = {"message": "Refresh completed.", "new_ads_added": len(new_ads)}
 
-    if get_auto_send_after_refresh():
-        recipients = [r for r in get_recipients() if r.get("auto_send", True)]
-        if recipients:
-            sent = []
-            failed = []
-            for recipient in recipients:
-                email_result = _send_to_recipient(recipient, db)
-                if email_result["status"] == "sent":
-                    sent.append({"email": email_result["email"], "ads_count": email_result["ads_count"]})
-                else:
-                    failed.append({"email": email_result["email"], "error": email_result.get("error", "Unknown error")})
-            result["email_sent"] = sent
-            result["email_failed"] = failed
+@app.get("/jobs", dependencies=[Depends(require_admin)])
+def list_job_statuses(
+    db: Session = Depends(get_db),
+    job_type: str = Query(None),
+    limit: int = Query(20, ge=1, le=100),
+):
+    jobs = list_jobs(db, job_type=job_type, limit=limit)
+    return {
+        "items": [job.to_dict() for job in jobs],
+        "total_items": len(jobs),
+    }
 
-    return result
+
+@app.get("/jobs/{job_id}", dependencies=[Depends(require_admin)])
+def get_job_status(job_id: str, db: Session = Depends(get_db)):
+    job = get_job(db, job_id)
+    if not job:
+        raise HTTPException(status_code=404, detail="Job not found.")
+    return job.to_dict()
