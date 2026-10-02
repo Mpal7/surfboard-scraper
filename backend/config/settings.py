@@ -312,9 +312,10 @@ SKIP_ADS_TERMS = [
     "hydro foil",
 ]
 
-# Secondary terms that hide a stored ad from the UI (primary filter is SKIP_ADS_TERMS).
-# These are accessories / passing mentions (e.g. "con sacca inclusa") that should
-# not hard-skip a real surfboard listing.
+# Secondary terms that hide a stored Ad from the UI (primary filter is SKIP_ADS_TERMS).
+# They only disqualify a surf Ad when they appear in its title (the Ad itself is
+# the accessory). A description mention of included extras ("completa di pinne",
+# "sacca inclusa") must not hide a real surfboard listing.
 EXCLUDED_TERMS = [
     "sacca",
     "borsa",

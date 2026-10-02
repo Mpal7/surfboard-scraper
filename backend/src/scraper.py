@@ -279,7 +279,12 @@ def classify_equipment_type(text, model=None):
 
 def _reconcile_existing_ad(ad, text):
     """Re-evaluate an existing Ad after classification or visibility rules change."""
-    combined_text = f"{ad.model or ''} {text or ''}".strip()
+    card_text = text or ""
+    if ad.source == "vinted":
+        # Vinted catalog titles embed the price ("..., 10,00 €"). Left as-is,
+        # the parser reads it as a board length and corrupts the Ad.
+        card_text = vinted_source.strip_price_mentions(card_text)
+    combined_text = f"{ad.model or ''} {card_text}".strip()
     parsed = parse_listing(combined_text)
     board_type = classify_board_type(combined_text)
     equipment_type = classify_equipment_type(combined_text, ad.model)
@@ -289,10 +294,15 @@ def _reconcile_existing_ad(ad, text):
     elif board_type in {"foil", "kite"}:
         is_visible = _is_relevant_equipment_ad(combined_text, ad.model or "", board_type, parsed)
     else:
-        has_excluded_term = _contains_any_term(combined_text, EXCLUDED_TERMS)
+        # Accessory terms only disqualify a surf Ad when they describe the Ad
+        # itself, i.e. appear in its title. Descriptions of real boards
+        # routinely mention included extras ("completa di pinne e pad",
+        # "sacca inclusa"), which must not hide a board with its own
+        # length/brand identity.
+        title_has_excluded_term = _contains_any_term(ad.model or "", EXCLUDED_TERMS)
         length_ft = parsed.get("length_ft") or ad.length_ft
         brand = parsed.get("brand") or ad.brand
-        is_visible = not has_excluded_term and (
+        is_visible = not title_has_excluded_term and (
             (isinstance(length_ft, (int, float)) and length_ft >= 4)
             or bool(isinstance(brand, str) and brand.strip())
         )
@@ -560,7 +570,12 @@ def _ingest_listing(
         # most ads can be captured without a detail-page round-trip. This
         # keeps the request footprint low and reduces the chance of being
         # blocked.
-        parsed = parse_listing(full_text)
+        parse_text = full_text
+        if marketplace == "vinted":
+            # Vinted catalog titles embed the price ("..., 10,00 €"); strip it
+            # so a price token is never read as a board length.
+            parse_text = vinted_source.strip_price_mentions(parse_text)
+        parsed = parse_listing(parse_text)
         for key in _PARSED_ATTRIBUTE_KEYS:
             ad_data[key] = parsed[key]
 
@@ -607,18 +622,22 @@ def _ingest_listing(
         # Check if ad should be visible based on criteria
         is_visible = True
 
-        # Accessory mentions hide surf Ads, but complete foil/kite packages
-        # commonly include a bag or wetsuit.
+        # Accessory terms only disqualify a surf Ad when they appear in its
+        # title, i.e. the Ad itself is the accessory. Descriptions of real
+        # boards routinely mention included extras ("completa di pinne e pad",
+        # "sacca inclusa") and must not hide them.
         if ad_data["board_type"] == "surf":
-            for term in EXCLUDED_TERMS:
-                if re.search(rf"\b{re.escape(term)}\b", full_desc_text, re.IGNORECASE):
-                    logger.info(
-                        "Marking ad as not visible %s: contains excluded term '%s'",
-                        link,
-                        term,
-                    )
-                    is_visible = False
-                    break
+            excluded_title_term = next(
+                (term for term in EXCLUDED_TERMS if _contains_term(model, term)),
+                None,
+            )
+            if excluded_title_term:
+                logger.info(
+                    "Marking ad as not visible %s: title contains excluded term '%s'",
+                    link,
+                    excluded_title_term,
+                )
+                is_visible = False
 
         # Apply a sport-specific gate. Surf Ads retain the established
         # length/brand rule; foil and kite Ads need an equipment component,
