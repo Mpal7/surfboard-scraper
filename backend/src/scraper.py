@@ -3,6 +3,7 @@ import random
 import re
 import time
 from datetime import datetime
+from urllib.parse import quote_plus
 
 import httpx
 from bs4 import BeautifulSoup
@@ -13,6 +14,7 @@ from config.settings import (
     ALLOWED_CATEGORY_IDS,
     DEFAULT_IMAGE_RULE,
     DETAIL_IMAGE_RULE,
+    ENABLE_VINTED_SOURCE,
     EQUIPMENT_ACCESSORY_TERMS,
     EXCLUDED_TERMS,
     FOIL_ITEM_TERMS,
@@ -24,8 +26,12 @@ from config.settings import (
     SCRAPING_LOG_DIR,
     SEARCH_CONFIGS,
     SKIP_ADS_TERMS,
+    VINTED_BASE_URL,
+    VINTED_MAX_PAGES_PER_SEARCH,
+    VINTED_SEARCH_TERMS,
     build_headers as settings_build_headers,
 )
+from src import vinted as vinted_source
 from src.models import Ad
 from extraction.surfboard_parser import parse_listing
 from extraction.extraction import (
@@ -434,9 +440,308 @@ def _extract_listings_from_html(soup):
 
 search_configs = list(SEARCH_CONFIGS)
 
+_PARSED_ATTRIBUTE_KEYS = (
+    "brand",
+    "liters",
+    "length_ft",
+    "length_in",
+    "width_in",
+    "thickness_in",
+    "foil_area_cm2",
+    "mast_length_cm",
+    "foil_wingspan_cm",
+    "wing_area_m2",
+    "board_length_cm",
+    "board_width_cm",
+)
+
+_SURF_KEYWORDS = [
+    "tavola", "surf", "softboard", "longboard",
+    "shortboard", "wingfoil", "foil", "kite",
+    "kitesurf", "kiteboard", "surfboard", "parakite", "parawing", "lowwing",
+]
+
+
+def _detail_image_url(marketplace, seed_url, detail_soup):
+    """Resolve the best image URL from a detail page, per marketplace."""
+    if marketplace == "vinted":
+        if seed_url:
+            return seed_url
+        og_image = detail_soup.find("meta", attrs={"property": "og:image"})
+        if og_image and og_image.get("content"):
+            candidate = og_image["content"].strip()
+            return candidate or None
+        return None
+    return _ensure_image_url(seed_url, detail_soup)
+
+
+def _ingest_listing(
+    db,
+    listing,
+    *,
+    referrer_url,
+    location_fallback,
+    existing_links,
+    existing_ads,
+    fetch_detail,
+):
+    """Filter, parse and store a single raw listing.
+
+    Shared by the Subito and Vinted passes so both sources follow the same
+    classification, visibility-storage and reconciliation rules.
+
+    Returns ``(new_ad_or_None, existing_ad_changed)``.
+    """
+    link = listing.get("link")
+    if not link:
+        return None, False
+
+    logger.info("-" * 60)
+    logger.info(
+        "Processing ad link: %s (source=%s)",
+        link,
+        listing.get("source"),
+    )
+
+    if link in existing_links:
+        existing_ad = existing_ads.get(link)
+        changed = False
+        if existing_ad is not None:
+            changed = _reconcile_existing_ad(
+                existing_ad, listing.get("full_text") or ""
+            )
+        logger.info("Skipping ad, already in database: %s", link)
+        return None, changed
+
+    full_text = listing.get("full_text") or ""
+    model = listing.get("model") or "N/A"
+    marketplace = listing.get("marketplace") or "subito"
+
+    # Hard-skip: board categories the user does not want at all
+    # (snowboard, windsurf, SUP, skate, wake, bodyboard, ...).
+    skipped_category = next(
+        (
+            term
+            for term in SKIP_ADS_TERMS
+            if re.search(rf"\b{re.escape(term)}\b", full_text, re.IGNORECASE)
+        ),
+        None,
+    )
+    if skipped_category:
+        logger.info(
+            "Skipping ad %s: belongs to skipped category '%s'",
+            link,
+            skipped_category,
+        )
+        return None, False
+
+    if "sacca" in model.lower():
+        logger.info("Skipping ad %s: title contains 'sacca'", link)
+        return None, False
+
+    if not any(kw in full_text.lower() for kw in _SURF_KEYWORDS):
+        logger.info("Skipping ad %s: not surf/foil/kite-related", link)
+        return None, False
+
+    ad_data = {
+        "source": marketplace,
+        "model": model,
+        "price": extract_price(full_text),
+        "location": listing.get("location_text") or location_fallback,
+        "link": link,
+        "brand": None,
+        "image_url": listing.get("image_url"),
+    }
+
+    needs_detail = False
+    try:
+        # Parse attributes straight from the search listing text first.
+        # Subito's __NEXT_DATA__ payload already embeds the full ad body, so
+        # most ads can be captured without a detail-page round-trip. This
+        # keeps the request footprint low and reduces the chance of being
+        # blocked.
+        parsed = parse_listing(full_text)
+        for key in _PARSED_ATTRIBUTE_KEYS:
+            ad_data[key] = parsed[key]
+
+        needs_detail = not _listing_is_complete(parsed)
+        desc_text = ""
+        if needs_detail:
+            detail_resp = fetch_detail(link, referrer=referrer_url, max_attempts=2)
+            if detail_resp is None:
+                logger.error("  > Could not fetch detail page after retries: %s", link)
+            else:
+                detail_soup = BeautifulSoup(detail_resp.text, "html.parser")
+                detail_image = _detail_image_url(
+                    marketplace, ad_data.get("image_url"), detail_soup
+                )
+                if detail_image:
+                    ad_data["image_url"] = detail_image
+
+                if marketplace == "vinted":
+                    desc_text = vinted_source.strip_price_mentions(
+                        vinted_source.extract_detail_description(detail_soup)
+                    )
+                else:
+                    desc_div = detail_soup.find(
+                        "p", class_=lambda c: c and "description" in c.lower()
+                    )
+                    desc_text = (
+                        desc_div.get_text(separator=" ", strip=True) if desc_div else ""
+                    )
+
+                if desc_text:
+                    full_desc_text = f"{ad_data['model']} {desc_text}"
+                    parsed = parse_listing(full_desc_text)
+                    for key in _PARSED_ATTRIBUTE_KEYS:
+                        ad_data[key] = parsed[key]
+
+        full_desc_text = (
+            f"{ad_data['model']} {desc_text}".strip() if desc_text else full_text
+        ) or ad_data["model"]
+
+        # Classify the board type: kite, foil, or surf.
+        ad_data["board_type"] = classify_board_type(full_desc_text)
+        ad_data["equipment_type"] = classify_equipment_type(full_desc_text, model)
+
+        # Check if ad should be visible based on criteria
+        is_visible = True
+
+        # Accessory mentions hide surf Ads, but complete foil/kite packages
+        # commonly include a bag or wetsuit.
+        if ad_data["board_type"] == "surf":
+            for term in EXCLUDED_TERMS:
+                if re.search(rf"\b{re.escape(term)}\b", full_desc_text, re.IGNORECASE):
+                    logger.info(
+                        "Marking ad as not visible %s: contains excluded term '%s'",
+                        link,
+                        term,
+                    )
+                    is_visible = False
+                    break
+
+        # Apply a sport-specific gate. Surf Ads retain the established
+        # length/brand rule; foil and kite Ads need an equipment component,
+        # known brand, or metric.
+        if is_visible:
+            if ad_data["board_type"] in {"foil", "kite"}:
+                if not _is_relevant_equipment_ad(
+                    full_desc_text,
+                    model,
+                    ad_data["board_type"],
+                    ad_data,
+                ):
+                    logger.warning(
+                        "  > Marking %s Ad as not visible: no equipment signal found",
+                        link,
+                    )
+                    is_visible = False
+            else:
+                length_ft = ad_data.get("length_ft")
+                brand = ad_data.get("brand")
+                price = ad_data.get("price")
+                valid_length = isinstance(length_ft, (int, float)) and length_ft >= 4
+                valid_brand = isinstance(brand, str) and brand.strip()
+                if not (valid_length or valid_brand):
+                    logger.warning(
+                        "  > Marking ad as not visible (length_ft is missing or < 4' "
+                        "and no valid brand): Found value 'length_ft=%s', brand='%s', "
+                        "price='%s'. Link: %s",
+                        length_ft,
+                        brand,
+                        price,
+                        link,
+                    )
+                    is_visible = False
+
+        ad_data["is_visible"] = is_visible
+
+        logger.info("  > Scraped Data for Ad (is_visible=%s):", is_visible)
+        log_data = ad_data.copy()
+        for key, value in log_data.items():
+            logger.info("    - %s: %s", key.ljust(15), value)
+
+        # Add all ads to database regardless of visibility.
+        ad = Ad(**ad_data)
+        db.add(ad)
+        existing_links.add(link)
+        return ad, False
+
+    except Exception as e:
+        logger.error("  > Could not process detail page %s. Error: %s", link, e)
+        return None, False
+    finally:
+        # Deeper politeness pause after an actual detail-page request.
+        if needs_detail:
+            time.sleep(random.uniform(20, 40))
+        else:
+            time.sleep(random.uniform(4, 8))
+
+
+def _scrape_vinted(
+    db,
+    *,
+    fetch_with_resilience,
+    existing_links,
+    existing_ads,
+):
+    """Scrape the opt-in Vinted source and ingest its listings."""
+    ads_added = []
+    existing_ads_changed = False
+
+    for term in VINTED_SEARCH_TERMS:
+        base_url = f"{VINTED_BASE_URL}?search_text={quote_plus(term)}"
+        for page_num in range(1, VINTED_MAX_PAGES_PER_SEARCH + 1):
+            url = f"{base_url}&page={page_num}"
+            logger.info(f"Scraping Vinted search results from: {url}")
+            time.sleep(random.uniform(2, 5))
+
+            response = fetch_with_resilience(
+                url,
+                referrer=base_url if page_num == 1 else f"{base_url}&page={page_num - 1}",
+            )
+            if response is None:
+                logger.error(f"Failed to fetch {url} after retries. Skipping page.")
+                break
+            if response.status_code != 200:
+                logger.error(f"Failed to fetch {url}. Status: {response.status_code}")
+                continue
+
+            soup = BeautifulSoup(response.text, "html.parser")
+            listings = vinted_source.extract_listings_from_html(soup)
+            logger.info(
+                "Found %d potential Vinted ad listings on page %d.",
+                len(listings),
+                page_num,
+            )
+            if not listings:
+                logger.info(
+                    f"No more Vinted ads found on page {page_num}. Moving to next search term."
+                )
+                break
+
+            for listing in listings:
+                ad, changed = _ingest_listing(
+                    db,
+                    listing,
+                    referrer_url=url,
+                    location_fallback="Italy",
+                    existing_links=existing_links,
+                    existing_ads=existing_ads,
+                    fetch_detail=fetch_with_resilience,
+                )
+                if ad is not None:
+                    ads_added.append(ad)
+                existing_ads_changed = existing_ads_changed or changed
+
+        time.sleep(random.uniform(10, 20))
+
+    return ads_added, existing_ads_changed
+
+
 def scrape_and_store(db: Session):
     ads_added = []
-    
+
     logger.info("Fetching existing ad links from the database...")
     existing_rows = db.query(Ad).all()
     existing_links = {
@@ -538,170 +843,32 @@ def scrape_and_store(db: Session):
                     break
 
                 for listing in listings:
-                    link = listing.get('link')
-                    if not link:
-                        continue
-
-                    logger.info("-" * 60)
-                    logger.info(
-                        "Processing ad link: %s (source=%s)",
-                        link,
-                        listing.get('source'),
+                    ad, changed = _ingest_listing(
+                        db,
+                        listing,
+                        referrer_url=url,
+                        location_fallback=city.replace("-", " ").capitalize(),
+                        existing_links=existing_links,
+                        existing_ads=existing_ads,
+                        fetch_detail=fetch_with_resilience,
                     )
-                    if link in existing_links:
-                        existing_ad = existing_ads.get(link)
-                        if existing_ad is not None:
-                            existing_ads_changed = (
-                                _reconcile_existing_ad(
-                                    existing_ad, listing.get('full_text') or ""
-                                )
-                                or existing_ads_changed
-                            )
-                        logger.info(f"Skipping ad, already in database: %s", link)
-                        continue
-
-                    full_text = listing.get('full_text') or ""
-                    model = listing.get('model') or "N/A"
-
-                    # Hard-skip: board categories the user does not want at all
-                    # (snowboard, windsurf, SUP, skate, wake, bodyboard, ...).
-                    skipped_category = next(
-                        (term for term in SKIP_ADS_TERMS
-                         if re.search(rf"\b{re.escape(term)}\b", full_text, re.IGNORECASE)),
-                        None,
-                    )
-                    if skipped_category:
-                        logger.info(f"Skipping ad {link}: belongs to skipped category '{skipped_category}'")
-                        continue
-
-                    if "sacca" in model.lower():
-                        logger.info(f"Skipping ad {link}: title contains 'sacca'")
-                        continue
-
-                    keywords = ["tavola", "surf", "softboard", "longboard", 
-                                "shortboard", "wingfoil", "foil", "kite",
-                                "kitesurf", "kiteboard", "surfboard", "parakite", "parawing", "lowwing"]
-                    if not any(kw in full_text.lower() for kw in keywords):
-                        logger.info(f"Skipping ad {link}: not surf/foil/kite-related")
-                        continue
-
-                    ad_data = {
-                        "model": model,
-                        "price": extract_price(full_text),
-                        "location": (listing.get('location_text') or city.replace('-', ' ').capitalize()),
-                        "link": link,
-                        "brand": None,
-                        "image_url": listing.get('image_url'),
-                    }
-
-                    try:
-                        # Parse attributes straight from the search listing text first.
-                        # The __NEXT_DATA__ payload already embeds the full ad body, so most
-                        # ads can be captured without a detail-page round-trip. This keeps the
-                        # request footprint low and reduces the chance of being blocked.
-                        parsed = parse_listing(full_text)
-                        for key in (
-                            "brand", "liters", "length_ft", "length_in", "width_in", "thickness_in",
-                            "foil_area_cm2", "mast_length_cm", "foil_wingspan_cm", "wing_area_m2",
-                            "board_length_cm", "board_width_cm",
-                        ):
-                            ad_data[key] = parsed[key]
-
-                        needs_detail = not _listing_is_complete(parsed)
-                        desc_text = ""
-                        if needs_detail:
-                            detail_resp = fetch_with_resilience(link, referrer=url, max_attempts=2)
-                            if detail_resp is None:
-                                logger.error(f"  > Could not fetch detail page after retries: {link}")
-                            else:
-                                detail_soup = BeautifulSoup(detail_resp.text, "html.parser")
-                                detail_image = _ensure_image_url(ad_data.get('image_url'), detail_soup)
-                                if detail_image:
-                                    ad_data['image_url'] = detail_image
-                                desc_div = detail_soup.find("p", class_=lambda c: c and 'description' in c.lower())
-                                desc_text = desc_div.get_text(separator=" ", strip=True) if desc_div else ""
-                                if desc_text:
-                                    full_desc_text = f"{ad_data['model']} {desc_text}"
-                                    parsed = parse_listing(full_desc_text)
-                                    for key in (
-                                        "brand", "liters", "length_ft", "length_in", "width_in", "thickness_in",
-                                        "foil_area_cm2", "mast_length_cm", "foil_wingspan_cm", "wing_area_m2",
-                                        "board_length_cm", "board_width_cm",
-                                    ):
-                                        ad_data[key] = parsed[key]
-
-                        full_desc_text = (
-                            f"{ad_data['model']} {desc_text}".strip()
-                            if desc_text
-                            else full_text
-                        ) or ad_data["model"]
-
-                        # Classify the board type: kite, foil, or surf.
-                        ad_data["board_type"] = classify_board_type(full_desc_text)
-                        ad_data["equipment_type"] = classify_equipment_type(full_desc_text, model)
-
-                        # Check if ad should be visible based on criteria
-                        is_visible = True
-
-                        # Accessory mentions hide surf Ads, but complete
-                        # foil/kite packages commonly include a bag or wetsuit.
-                        if ad_data["board_type"] == "surf":
-                            for term in EXCLUDED_TERMS:
-                                if re.search(rf"\b{re.escape(term)}\b", full_desc_text, re.IGNORECASE):
-                                    logger.info(f"Marking ad as not visible {link}: contains excluded term '{term}'")
-                                    is_visible = False
-                                    break
-
-                        # Apply a sport-specific gate. Surf Ads retain the
-                        # established length/brand rule; foil and kite Ads
-                        # need an equipment component, known brand, or metric.
-                        if is_visible:
-                            if ad_data["board_type"] in {"foil", "kite"}:
-                                if not _is_relevant_equipment_ad(
-                                    full_desc_text,
-                                    model,
-                                    ad_data["board_type"],
-                                    ad_data,
-                                ):
-                                    logger.warning(
-                                        "  > Marking %s Ad as not visible: no equipment signal found",
-                                        link,
-                                    )
-                                    is_visible = False
-                            else:
-                                length_ft = ad_data.get("length_ft")
-                                brand = ad_data.get("brand")
-                                price = ad_data.get("price")
-                                valid_length = isinstance(length_ft, (int, float)) and length_ft >= 4
-                                valid_brand = isinstance(brand, str) and brand.strip()
-                                if not (valid_length or valid_brand):
-                                    logger.warning(f"  > Marking ad as not visible (length_ft is missing or < 4' and no valid brand): Found value 'length_ft={length_ft}', brand='{brand}', price='{price}'. Link: {link}")
-                                    is_visible = False
-
-                        ad_data["is_visible"] = is_visible
-
-                        logger.info(f"  > Scraped Data for Ad (is_visible={is_visible}):")
-                        log_data = ad_data.copy()
-                        for key, value in log_data.items():
-                            logger.info(f"    - {key.ljust(15)}: {value}")
-
-                        # Add all ads to database regardless of visibility
-                        ad = Ad(**ad_data)
-                        db.add(ad)
+                    if ad is not None:
                         ads_added.append(ad)
-                        existing_links.add(link)
+                    existing_ads_changed = existing_ads_changed or changed
 
-                    except Exception as e:
-                        logger.error(f"  > Could not process detail page {link}. Error: {e}")
-
-                    # Deeper politeness pause after an actual detail-page request.
-                    if needs_detail:
-                        time.sleep(random.uniform(20, 40))
-                    else:
-                        time.sleep(random.uniform(4, 8))
-            
             time.sleep(random.uniform(10, 20))
-    
+
+        # Opt-in Vinted pass, sharing the same ingestion pipeline.
+        if ENABLE_VINTED_SOURCE:
+            vinted_ads, vinted_changed = _scrape_vinted(
+                db,
+                fetch_with_resilience=fetch_with_resilience,
+                existing_links=existing_links,
+                existing_ads=existing_ads,
+            )
+            ads_added.extend(vinted_ads)
+            existing_ads_changed = existing_ads_changed or vinted_changed
+
     if ads_added or existing_ads_changed:
         logger.info(
             "Attempting to commit %d new Ads and existing-Ad updates to the database...",

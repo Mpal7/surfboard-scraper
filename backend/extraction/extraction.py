@@ -693,12 +693,17 @@ def extract_price(text):
       - "1.500,50 €"      (EU decimal comma)
       - "1,500.50 €"      (US style)
       - "1 500 €"         (space thousands sep)
+      - "€8.00"           (leading symbol, common on Vinted)
     Returns float or None.
     """
-    match = re.search(r'([\d.,]+)\s*(?:€|euro|\u20AC)', text, re.IGNORECASE)
+    match = re.search(
+        r'(?:€|euro)\s*(\d[\d.,]*\d|\d)|(\d[\d.,]*\d|\d)\s*(?:€|euro)',
+        text,
+        re.IGNORECASE,
+    )
     if not match:
         return None
-    s = match.group(1).strip()
+    s = (match.group(1) or match.group(2)).strip()
     s = re.sub(r'[^\d\.,]', '', s)
 
     # If both dot and comma present -> decide decimal by last occurrence

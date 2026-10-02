@@ -266,3 +266,17 @@ def test_scraper(name, case):
 
     for key, expected_value in expected.items():
         assert result[key] == expected_value, f"{name}: Expected {key}={expected_value}, got {result[key]}"
+
+
+@pytest.mark.parametrize(
+    "text,expected",
+    [
+        ("Vendo tavola a €8.00", 8.0),
+        ("Vendo tavola a €1.500,50", 1500.5),
+        ("Vendo tavola a € 450", 450.0),
+        ("Vendo tavola 450 €", 450.0),
+    ],
+)
+def test_extract_price_handles_leading_symbol(text, expected):
+    # Vinted listing titles put the symbol before the amount ("€8.00").
+    assert extract_price(text) == expected

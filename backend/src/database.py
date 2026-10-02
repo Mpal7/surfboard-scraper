@@ -23,10 +23,13 @@ def init_db():
             "board_length_cm": "FLOAT",
             "board_width_cm": "FLOAT",
             "equipment_type": "VARCHAR",
+            "source": "VARCHAR",
         }
         for column, column_type in column_types.items():
             if column not in existing_columns:
                 connection.exec_driver_sql(f"ALTER TABLE ads ADD COLUMN {column} {column_type}")
+        # Pre-Vinted Ads have no source; they all came from Subito.
+        connection.exec_driver_sql("UPDATE ads SET source = 'subito' WHERE source IS NULL")
 
 def get_db():
     db = SessionLocal()

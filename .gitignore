@@ -61,6 +61,10 @@ backend/data/auth.json
 backend/data/auth.json.tmp
 backend/data/email_config.json
 
+# Legacy runtime state from the pre-`data/` layout (never commit)
+backend/*.db
+backend/last_refresh.txt
+
 # --------------------
 # Frontend / Node.js
 # --------------------

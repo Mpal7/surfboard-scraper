@@ -26,6 +26,9 @@ DATABASE_URL = f"sqlite:///{DATABASE_PATH.as_posix()}"
 # Task queue
 REDIS_URL = "redis://localhost:6379/0"
 
+# Job tracking
+JOB_RESULT_PREVIEW_LIMIT = 50
+
 # env
 GMAIL_ADDRESS = os.getenv("GMAIL_ADDRESS", "")
 GMAIL_APP_PASSWORD = os.getenv("GMAIL_APP_PASSWORD", "")
@@ -124,6 +127,13 @@ SEARCH_CONFIGS = [
     for city, region in SEARCH_CITIES
     for term in SEARCH_TERMS
 ]
+
+# Vinted (second marketplace). Subito stays the primary source; Vinted is opt-in
+# because its catalog HTML is less stable and its listings need extra cleanup.
+ENABLE_VINTED_SOURCE = os.getenv("ENABLE_VINTED_SOURCE", "false").lower() == "true"
+VINTED_BASE_URL = "https://www.vinted.it/catalog"
+VINTED_SEARCH_TERMS = [term.replace("+", " ") for term in SEARCH_TERMS]
+VINTED_MAX_PAGES_PER_SEARCH = int(os.getenv("VINTED_MAX_PAGES_PER_SEARCH", "2"))
 
 ALLOWED_CATEGORY_IDS = {"20"}
 

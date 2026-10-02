@@ -7,6 +7,7 @@ import math
 class Ad(Base):
     __tablename__ = "ads"
     id = Column(Integer, primary_key=True, index=True)
+    source = Column(String, nullable=False, default="subito", index=True)
     model = Column(String, index=True)
     brand = Column(String, nullable=True)
     board_type = Column(String, nullable=True, index=True, default="surf")
@@ -43,6 +44,7 @@ class Ad(Base):
     def to_dict(self):
         return {
             "id": self.id,
+            "source": self.source,
             "model": self.model,
             "brand": self.brand,
             "board_type": self.board_type,
