@@ -1,4 +1,4 @@
-import { PaginatedAds, FilterOptions, Ad } from '../types';
+import { PaginatedAds, FilterOptions, Ad, JobRun, RefreshJobResponse } from '../types';
 
 export const AUTH_TOKEN_KEY = 'surfboard_admin_token';
 export const AUTH_LOGOUT_EVENT = 'surfboard-auth-logout';
@@ -98,3 +98,11 @@ export const getFilterOptions = async (): Promise<FilterOptions> => {
     locations: Object.entries(counts.locations).map(([name, count]) => ({ name, count })).sort((a, b) => a.name.localeCompare(b.name)),
   };
 };
+
+export const triggerRefresh = (): Promise<RefreshJobResponse> =>
+  request<RefreshJobResponse>('/refresh', { method: 'POST' });
+
+export const getJob = (jobId: string): Promise<JobRun> => request<JobRun>(`/jobs/${jobId}`);
+
+export const getJobs = (limit: number = 20): Promise<{ items: JobRun[]; total_items: number }> =>
+  request<{ items: JobRun[]; total_items: number }>(`/jobs?limit=${limit}`);

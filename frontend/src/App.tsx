@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useCallback, useEffect, useState, useMemo } from 'react';
 import AdCard from './components/AdCard';
 import FilterModal from './components/FilterModal';
 import MeasurementFilterModal from './components/MeasurementFilterModal';
 import CustomPriceSlider from './components/CustomPriceSlider';
 import Login from './components/Login';
-import { AUTH_LOGOUT_EVENT, getAllAds, getCurrentAdmin, hasAuthToken, logout } from './services/api';
+import { AUTH_LOGOUT_EVENT, getAllAds, getCurrentAdmin, getJob, hasAuthToken, logout, triggerRefresh } from './services/api';
 import { Ad, FilterOptions, MeasurementFilters, MeasurementKey, NumericRange } from './types';
 
 type ActiveModal = 'boardType' | 'equipmentType' | 'brand' | 'length' | 'volume' | 'measurements' | 'price' | 'location' | null;
@@ -63,6 +63,8 @@ const App: React.FC = () => {
   const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState<{min?: number, max?: number}>({});
   const [sortBy, setSortBy] = useState<string>('date_desc');
+  const [refreshing, setRefreshing] = useState<boolean>(false);
+  const [refreshMessage, setRefreshMessage] = useState<string | null>(null);
   
   const [currentPage, setCurrentPage] = useState<number>(1);
   const ADS_PER_PAGE = 20;
@@ -90,22 +92,22 @@ const App: React.FC = () => {
       });
   }, []);
 
+  const fetchAllAds = useCallback(async () => {
+    setLoading(true);
+    try {
+      const data = await getAllAds();
+      setAllAds(data.items || []);
+    } catch (error) {
+      console.error("Failed to fetch ads:", error);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
   useEffect(() => {
     if (authState !== 'authenticated') return;
-
-    const fetchAllData = async () => {
-      setLoading(true);
-      try {
-        const data = await getAllAds();
-        setAllAds(data.items || []);
-      } catch (error) {
-        console.error("Failed to fetch ads:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchAllData();
-  }, [authState]);
+    fetchAllAds();
+  }, [authState, fetchAllAds]);
 
   const filteredAds = useMemo(() => {
     let ads = [...allAds];
@@ -201,6 +203,32 @@ const App: React.FC = () => {
   
   const isAnyFilterActive = selectedBoardTypes.length > 0 || selectedEquipmentTypes.length > 0 || selectedBrands.length > 0 || selectedLengths.length > 0 || selectedVolumes.length > 0 || hasMeasurementFilters(measurementFilters) || selectedLocations.length > 0 || Object.keys(priceRange).length > 0;
 
+  const REFRESH_POLL_INTERVAL_MS = 2000;
+
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    setRefreshMessage('Starting refresh…');
+    try {
+      const started = await triggerRefresh();
+      let job = await getJob(started.job_id);
+      while (job.status === 'queued' || job.status === 'running') {
+        await new Promise(resolve => setTimeout(resolve, REFRESH_POLL_INTERVAL_MS));
+        job = await getJob(started.job_id);
+      }
+      if (job.status === 'completed') {
+        const added = job.result?.new_ads_added ?? 0;
+        setRefreshMessage(`Refresh complete — ${added} new ${added === 1 ? 'ad' : 'ads'}.`);
+        await fetchAllAds();
+      } else {
+        setRefreshMessage(`Refresh failed${job.error_message ? `: ${job.error_message}` : '.'}`);
+      }
+    } catch (error) {
+      setRefreshMessage(error instanceof Error ? error.message : 'Refresh failed.');
+    } finally {
+      setRefreshing(false);
+    }
+  };
+
   const renderModal = () => {
     if (!activeModal) return null;
     const modalProps = { onClose: () => setActiveModal(null) };
@@ -237,10 +265,22 @@ const App: React.FC = () => {
       <header className="bg-white shadow-sm sticky top-0 z-10">
         <div className="container mx-auto flex items-center justify-between gap-4 px-4 py-4">
           <div><h1 className="text-3xl font-extrabold text-gray-800 tracking-tight">Surfboard Marketplace</h1><p className="text-gray-500">Find your next secondhand surfboard</p></div>
-          <button onClick={() => { logout(); setAdminUsername(''); setAuthState('unauthenticated'); }} className="rounded-lg border border-gray-200 px-3 py-2 text-sm font-semibold text-gray-600 transition hover:border-gray-400 hover:text-gray-900">Sign out{adminUsername && ` (${adminUsername})`}</button>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={handleRefresh}
+              disabled={refreshing}
+              className="rounded-lg bg-blue-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {refreshing ? 'Refreshing…' : 'Refresh'}
+            </button>
+            <button onClick={() => { logout(); setAdminUsername(''); setAuthState('unauthenticated'); }} className="rounded-lg border border-gray-200 px-3 py-2 text-sm font-semibold text-gray-600 transition hover:border-gray-400 hover:text-gray-900">Sign out{adminUsername && ` (${adminUsername})`}</button>
+          </div>
         </div>
       </header>
       <main className="container mx-auto px-4 py-6">
+        {refreshMessage && (
+          <div className="mb-4 rounded-lg bg-blue-50 px-4 py-2 text-sm text-blue-800">{refreshMessage}</div>
+        )}
         <div className="bg-white p-4 rounded-lg shadow mb-6">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center space-x-6">

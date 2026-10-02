@@ -2,6 +2,7 @@
 
 export interface Ad {
   id: number;
+  source: string;
   model: string;
   brand: string | null;
   board_type: string | null;
@@ -29,6 +30,38 @@ export interface PaginatedAds {
   page: number;
   page_size: number;
   items: Ad[];
+}
+
+export interface RefreshJobResponse {
+  message: string;
+  job_id: string;
+  status: string;
+  worker: string;
+  task_id: string | null;
+  status_url: string;
+}
+
+export interface JobRunResult {
+  new_ads_added?: number;
+  added_links?: string[];
+  added_links_truncated?: number;
+  email_sent?: { email: string; ads_count: number }[];
+  email_failed?: { email: string; error: string }[];
+  [key: string]: unknown;
+}
+
+export interface JobRun {
+  id: string;
+  job_type: string;
+  trigger_source: string;
+  status: string;
+  worker_type: string | null;
+  celery_task_id: string | null;
+  error_message: string | null;
+  created_at: string | null;
+  started_at: string | null;
+  finished_at: string | null;
+  result: JobRunResult | null;
 }
 
 export interface FilterOptions {

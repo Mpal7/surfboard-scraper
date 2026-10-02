@@ -64,9 +64,14 @@ const AdCard: React.FC<AdCardProps> = ({ ad }) => {
       <div className="p-4 flex flex-col flex-grow">
         {/* Title and Price */}
         <h3 className="text-lg font-bold text-gray-900 truncate" title={ad.model}>{ad.model}</h3>
-        {ad.board_type && (
-          <span className="inline-block mt-1 mb-1 px-2 py-0.5 text-xs font-semibold uppercase tracking-wide bg-blue-100 text-blue-700 rounded-full self-start">{ad.board_type}</span>
-        )}
+        <div className="flex flex-wrap items-center gap-1 mt-1 mb-1">
+          {ad.board_type && (
+            <span className="inline-block px-2 py-0.5 text-xs font-semibold uppercase tracking-wide bg-blue-100 text-blue-700 rounded-full">{ad.board_type}</span>
+          )}
+          {ad.source && (
+            <span className={`inline-block px-2 py-0.5 text-xs font-semibold uppercase tracking-wide rounded-full ${ad.source === 'vinted' ? 'bg-teal-100 text-teal-700' : 'bg-amber-100 text-amber-700'}`}>{ad.source}</span>
+          )}
+        </div>
         <p className="text-2xl font-extrabold text-blue-600 mt-1 mb-4">{ad.price ? `€${ad.price}` : 'Contact for Price'}</p>
         
         {/* Stats Grid */}
