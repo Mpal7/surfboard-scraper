@@ -4,7 +4,8 @@ sqlalchemy
 aiosqlite
 beautifulsoup4
 httpx[http2]
+python-dotenv
 celery
 redis
 pytest
-pytest-mock 
+pytest-mock

@@ -57,6 +57,9 @@ backend/*.py,cov*
 
 # Database
 backend/data/ads.db
+backend/data/auth.json
+backend/data/auth.json.tmp
+backend/data/email_config.json
 
 # --------------------
 # Frontend / Node.js

@@ -13,10 +13,17 @@ from config.settings import (
     ALLOWED_CATEGORY_IDS,
     DEFAULT_IMAGE_RULE,
     DETAIL_IMAGE_RULE,
+    EQUIPMENT_ACCESSORY_TERMS,
     EXCLUDED_TERMS,
+    FOIL_ITEM_TERMS,
+    FOIL_PRODUCT_TERMS,
+    KITE_HARNESS_TERMS,
+    KITE_ITEM_TERMS,
+    KITE_PRODUCT_TERMS,
     REQUEST_TIMEOUT as SETTINGS_TIMEOUT,
     SCRAPING_LOG_DIR,
     SEARCH_CONFIGS,
+    SKIP_ADS_TERMS,
     build_headers as settings_build_headers,
 )
 from src.models import Ad
@@ -28,9 +35,14 @@ from extraction.extraction import (
     FRACTION_SYMBOLS,
     POPULAR_BRANDS,
     create_brand_pattern,
+    extract_board_dimensions_cm,
     extract_dimensions,
+    extract_foil_area_cm2,
+    extract_foil_wingspan_cm,
     extract_liters,
+    extract_mast_length_cm,
     extract_price,
+    extract_wing_area_m2,
     find_brand,
     normalize_for_matching,
     parse_dimension_part,
@@ -71,6 +83,10 @@ def _extract_image_from_entry(image_entry, rule=DEFAULT_IMAGE_RULE):
         return None
 
     # Subito image entries often have full/preview keys; prefer the best available.
+    # Newer payloads expose a bare 'cdnBaseUrl' that needs the rule appended.
+    if image_entry.get('cdnBaseUrl'):
+        return _build_image_url(image_entry['cdnBaseUrl'], rule=rule)
+
     candidates = [
         image_entry.get('full'),
         image_entry.get('preview'),
@@ -106,7 +122,198 @@ def _price_text_from_features(features):
     values = price_block.get('values') or []
     if not values:
         return ""
-    return values[0].get('value') or ""
+    value = values[0].get('value')
+    return str(value) if value is not None else ""
+
+
+def _listing_is_complete(parsed):
+    """Return True when the parsed listing already carries enough data to skip the detail page."""
+    has_identity = bool(parsed.get("brand")) or isinstance(parsed.get("length_ft"), (int, float)) or any(
+        parsed.get(key) is not None
+        for key in (
+            "foil_area_cm2", "mast_length_cm", "foil_wingspan_cm", "wing_area_m2",
+            "board_length_cm", "board_width_cm",
+        )
+    )
+    has_metrics = any(
+        parsed.get(key) is not None
+        for key in (
+            "liters",
+            "width_in",
+            "thickness_in",
+            "foil_area_cm2",
+            "mast_length_cm",
+            "foil_wingspan_cm",
+            "wing_area_m2",
+            "board_length_cm",
+            "board_width_cm",
+        )
+    )
+    return has_identity and has_metrics
+
+
+def classify_board_type(text):
+    """Classify an ad as 'kite', 'foil' or 'surf' based on its text."""
+    if not text:
+        return "surf"
+    lowered = text.lower()
+    if re.search(r"(?<!\w)(?:kite|kitesurf|kiteboard|kitefoil|parakite|parawing|lowwing)(?!\w)", lowered):
+        return "kite"
+    if re.search(
+        r"(?<!\w)(?:e[- ]?foil|wing[- ]?foil|hydrofoil|windfoil|surf foil|foilboard|foil)(?!\w)",
+        lowered,
+    ):
+        return "foil"
+    return "surf"
+
+
+def _contains_term(text, term):
+    return bool(re.search(rf"(?<!\w){re.escape(term)}(?!\w)", text, re.IGNORECASE))
+
+
+def _contains_any_term(text, terms):
+    return any(_contains_term(text, term) for term in terms)
+
+
+def _model_is_accessory_only(model, board_type):
+    """Reject Ads whose title is an accessory, not the requested equipment."""
+    if not _contains_any_term(model, EQUIPMENT_ACCESSORY_TERMS):
+        return False
+
+    if board_type == "kite" and _contains_any_term(model, KITE_HARNESS_TERMS):
+        return False
+
+    if board_type == "foil":
+        component_terms = (
+            "front wing", "frontwing", "rear wing", "tail wing", "ala anteriore",
+            "ala front", "ala posteriore", "stabilizzatore", "stabilizer",
+            "fusoliera", "piantone", "mast", "tavola", "board", "set", "kit", "attrezzatura",
+        )
+        return not _contains_any_term(model, component_terms)
+
+    component_terms = (
+        "tavola", "board", "kiteboard", "twintip", "twin tip", "ala", "vela",
+        "set", "kit", "attrezzatura", "surfino", "kite",
+    )
+    return not _contains_any_term(model, component_terms)
+
+
+def _is_relevant_equipment_ad(text, model, board_type, parsed):
+    """Return whether a foil/kite Ad has an equipment or size signal."""
+    if board_type not in {"foil", "kite"}:
+        return True
+    if _model_is_accessory_only(model, board_type):
+        return False
+    if board_type == "kite" and _contains_any_term(model, KITE_HARNESS_TERMS):
+        return True
+
+    has_dimension = any(
+        parsed.get(key) is not None
+        for key in (
+            "foil_area_cm2", "mast_length_cm", "foil_wingspan_cm", "wing_area_m2",
+            "board_length_cm", "board_width_cm",
+        )
+    )
+    if has_dimension or parsed.get("brand"):
+        return True
+
+    if board_type == "foil":
+        component_terms = (
+            "front wing", "frontwing", "rear wing", "tail wing", "ala anteriore",
+            "ala front", "ala posteriore", "stabilizzatore", "stabilizer",
+            "fusoliera", "piantone", "mast", "tavola", "board", "set foil", "kit foil",
+            "vela wing", "ala wing",
+        )
+        configured_terms = tuple(
+            term for term in FOIL_ITEM_TERMS
+            if term not in {"foil", "hydrofoil", "wingfoil", "wing foil", "windfoil", "efoil", "e-foil"}
+        ) + tuple(FOIL_PRODUCT_TERMS)
+    else:
+        component_terms = (
+            "tavola", "board", "kiteboard", "twintip", "twin tip", "ala", "vela",
+            "set", "kit", "attrezzatura", "surfino",
+        )
+        configured_terms = tuple(
+            term for term in KITE_ITEM_TERMS
+            if term not in {"kite", "kitesurf", "kite surf"}
+        ) + tuple(KITE_PRODUCT_TERMS)
+    return _contains_any_term(text, component_terms) or _contains_any_term(text, configured_terms)
+
+
+def classify_equipment_type(text, model=None):
+    """Classify a relevant Ad into a frontend-friendly equipment component."""
+    if not text:
+        return "other"
+    title = model or text
+    if _contains_any_term(title, KITE_HARNESS_TERMS):
+        return "harness"
+    if re.search(
+        r"(?<!\w)(?:tavola|board|kiteboard|foilboard|twintip|twin tip|surfino)(?!\w)",
+        title,
+        re.IGNORECASE,
+    ):
+        return "board"
+    if _contains_any_term(
+        text,
+        (
+            "front wing", "frontwing", "rear wing", "tail wing", "ala anteriore",
+            "ala front", "ala posteriore", "stabilizzatore", "stabilizer", "fusoliera",
+            "piantone", "mast",
+        ),
+    ):
+        return "foil"
+    if re.search(r"(?<!\w)(?:ala|vela|wing|parawing|lowwing)(?!\w)", title, re.IGNORECASE):
+        return "wing"
+    if classify_board_type(text) == "foil":
+        return "foil"
+    if classify_board_type(text) == "kite":
+        return "kite"
+    return "other"
+
+
+def _reconcile_existing_ad(ad, text):
+    """Re-evaluate an existing Ad after classification or visibility rules change."""
+    combined_text = f"{ad.model or ''} {text or ''}".strip()
+    parsed = parse_listing(combined_text)
+    board_type = classify_board_type(combined_text)
+    equipment_type = classify_equipment_type(combined_text, ad.model)
+
+    if _contains_any_term(combined_text, SKIP_ADS_TERMS):
+        is_visible = False
+    elif board_type in {"foil", "kite"}:
+        is_visible = _is_relevant_equipment_ad(combined_text, ad.model or "", board_type, parsed)
+    else:
+        has_excluded_term = _contains_any_term(combined_text, EXCLUDED_TERMS)
+        length_ft = parsed.get("length_ft") or ad.length_ft
+        brand = parsed.get("brand") or ad.brand
+        is_visible = not has_excluded_term and (
+            (isinstance(length_ft, (int, float)) and length_ft >= 4)
+            or bool(isinstance(brand, str) and brand.strip())
+        )
+
+    changed = False
+    for key, value in (
+        ("board_type", board_type),
+        ("equipment_type", equipment_type),
+        ("is_visible", is_visible),
+    ):
+        if getattr(ad, key) != value:
+            setattr(ad, key, value)
+            changed = True
+
+    # Search cards may now carry fields that were unavailable when the Ad was
+    # first stored. Never erase richer values just because this card is sparse.
+    for key in (
+        "brand", "liters", "length_ft", "length_in", "width_in", "thickness_in",
+        "foil_area_cm2", "mast_length_cm", "foil_wingspan_cm", "wing_area_m2",
+        "board_length_cm", "board_width_cm",
+    ):
+        value = parsed.get(key)
+        if value is not None and getattr(ad, key) != value:
+            setattr(ad, key, value)
+            changed = True
+
+    return changed
 
 
 def _extract_listings_from_next_data(soup):
@@ -185,12 +392,10 @@ def _extract_listings_from_next_data(soup):
 
 
 def _extract_listings_from_html(soup):
-    # New markup uses <article> cards with generated class names (no more item-card divs).
-    containers = soup.find_all(
-        "article",
-        class_=lambda cls: cls and 'aditem' in cls.lower() if isinstance(cls, str) else (cls and any('aditem' in c.lower() for c in cls)),
-    )
-    # Fallback for legacy fixtures/tests using div.item-card
+    # Current Subito cards use hashed classes on article elements; use the
+    # semantic element and child tags instead of relying on class names.
+    containers = soup.find_all("article")
+    # Fallback for legacy fixtures/tests using div.item-card.
     if not containers:
         containers = soup.find_all("div", class_="item-card")
     listings = []
@@ -200,8 +405,16 @@ def _extract_listings_from_html(soup):
             continue
         link = link_tag['href']
         title_tag = container.find(["h3", "h2"])
+        if not title_tag:
+            continue
         model = title_tag.get_text(strip=True) if title_tag else "N/A"
         full_text = container.get_text(" ", strip=True)
+        location_tag = container.find(
+            ["span", "p"],
+            class_=lambda classes: classes and "location" in (
+                classes.lower() if isinstance(classes, str) else " ".join(classes).lower()
+            ),
+        )
         image_url = None
         img_tag = container.find("img")
         if img_tag and img_tag.get('src'):
@@ -214,7 +427,7 @@ def _extract_listings_from_html(soup):
                 'model': model,
                 'full_text': full_text,
                 'image_url': image_url,
-                'location_text': None,
+                'location_text': location_tag.get_text(strip=True) if location_tag else None,
             }
         )
     return listings
@@ -225,7 +438,17 @@ def scrape_and_store(db: Session):
     ads_added = []
     
     logger.info("Fetching existing ad links from the database...")
-    existing_links = {result[0] for result in db.query(Ad.link).all()}
+    existing_rows = db.query(Ad).all()
+    existing_links = {
+        row[0] if isinstance(row, tuple) else row.link
+        for row in existing_rows
+    }
+    existing_ads = {
+        row.link: row
+        for row in existing_rows
+        if hasattr(row, "link")
+    }
+    existing_ads_changed = False
     logger.info(f"Found {len(existing_links)} existing links.")
 
     configs = list(search_configs)
@@ -326,24 +549,35 @@ def scrape_and_store(db: Session):
                         listing.get('source'),
                     )
                     if link in existing_links:
+                        existing_ad = existing_ads.get(link)
+                        if existing_ad is not None:
+                            existing_ads_changed = _reconcile_existing_ad(existing_ad, full_text) or existing_ads_changed
                         logger.info(f"Skipping ad, already in database: %s", link)
                         continue
 
                     full_text = listing.get('full_text') or ""
-                    if "€" not in full_text:
-                        continue
-
                     model = listing.get('model') or "N/A"
+
+                    # Hard-skip: board categories the user does not want at all
+                    # (snowboard, windsurf, SUP, skate, wake, bodyboard, ...).
+                    skipped_category = next(
+                        (term for term in SKIP_ADS_TERMS
+                         if re.search(rf"\b{re.escape(term)}\b", full_text, re.IGNORECASE)),
+                        None,
+                    )
+                    if skipped_category:
+                        logger.info(f"Skipping ad {link}: belongs to skipped category '{skipped_category}'")
+                        continue
 
                     if "sacca" in model.lower():
                         logger.info(f"Skipping ad {link}: title contains 'sacca'")
                         continue
 
                     keywords = ["tavola", "surf", "softboard", "longboard", 
-                                "shortboard", "wingfoil", "windsurf", "foil",
-                                  "skateboard", "bodyboard", "paddle", "paddleboard", "snowboard"]
+                                "shortboard", "wingfoil", "foil", "kite",
+                                "kitesurf", "kiteboard", "surfboard", "parakite", "parawing", "lowwing"]
                     if not any(kw in full_text.lower() for kw in keywords):
-                        logger.info(f"Skipping ad {link}: not surf-related")
+                        logger.info(f"Skipping ad {link}: not surf/foil/kite-related")
                         continue
 
                     ad_data = {
@@ -356,51 +590,91 @@ def scrape_and_store(db: Session):
                     }
 
                     try:
-                        detail_resp = fetch_with_resilience(link, referrer=url, max_attempts=2)
-                        if detail_resp is None:
-                            logger.error(f"  > Could not fetch detail page after retries: {link}")
-                            continue
-                        detail_soup = BeautifulSoup(detail_resp.text, "html.parser")
-                        detail_image = _ensure_image_url(ad_data.get('image_url'), detail_soup)
-                        if detail_image:
-                            ad_data['image_url'] = detail_image
-                        desc_div = detail_soup.find("p", class_=lambda c: c and 'description' in c.lower())
-                        desc_text = desc_div.get_text(separator=" ", strip=True) if desc_div else ""
-                        full_desc_text = f"{ad_data['model']} {desc_text}"
+                        # Parse attributes straight from the search listing text first.
+                        # The __NEXT_DATA__ payload already embeds the full ad body, so most
+                        # ads can be captured without a detail-page round-trip. This keeps the
+                        # request footprint low and reduces the chance of being blocked.
+                        parsed = parse_listing(full_text)
+                        for key in (
+                            "brand", "liters", "length_ft", "length_in", "width_in", "thickness_in",
+                            "foil_area_cm2", "mast_length_cm", "foil_wingspan_cm", "wing_area_m2",
+                            "board_length_cm", "board_width_cm",
+                        ):
+                            ad_data[key] = parsed[key]
 
-                        # Extract all attributes at once via parse_listing
-                        parsed = parse_listing(full_desc_text)
-                        ad_data["brand"] = parsed["brand"]
-                        ad_data["liters"] = parsed["liters"]
-                        ad_data["length_ft"] = parsed["length_ft"]
-                        ad_data["length_in"] = parsed["length_in"]
-                        ad_data["width_in"] = parsed["width_in"]
-                        ad_data["thickness_in"] = parsed["thickness_in"]
-                        
+                        needs_detail = not _listing_is_complete(parsed)
+                        desc_text = ""
+                        if needs_detail:
+                            detail_resp = fetch_with_resilience(link, referrer=url, max_attempts=2)
+                            if detail_resp is None:
+                                logger.error(f"  > Could not fetch detail page after retries: {link}")
+                            else:
+                                detail_soup = BeautifulSoup(detail_resp.text, "html.parser")
+                                detail_image = _ensure_image_url(ad_data.get('image_url'), detail_soup)
+                                if detail_image:
+                                    ad_data['image_url'] = detail_image
+                                desc_div = detail_soup.find("p", class_=lambda c: c and 'description' in c.lower())
+                                desc_text = desc_div.get_text(separator=" ", strip=True) if desc_div else ""
+                                if desc_text:
+                                    full_desc_text = f"{ad_data['model']} {desc_text}"
+                                    parsed = parse_listing(full_desc_text)
+                                    for key in (
+                                        "brand", "liters", "length_ft", "length_in", "width_in", "thickness_in",
+                                        "foil_area_cm2", "mast_length_cm", "foil_wingspan_cm", "wing_area_m2",
+                                        "board_length_cm", "board_width_cm",
+                                    ):
+                                        ad_data[key] = parsed[key]
+
+                        full_desc_text = (
+                            f"{ad_data['model']} {desc_text}".strip()
+                            if desc_text
+                            else full_text
+                        ) or ad_data["model"]
+
+                        # Classify the board type: kite, foil, or surf.
+                        ad_data["board_type"] = classify_board_type(full_desc_text)
+                        ad_data["equipment_type"] = classify_equipment_type(full_desc_text, model)
+
                         # Check if ad should be visible based on criteria
                         is_visible = True
-                        
-                        # Check for excluded terms
-                        excluded_terms = EXCLUDED_TERMS
-                        for term in excluded_terms:
-                            if re.search(rf"\b{re.escape(term)}\b", full_desc_text, re.IGNORECASE):
-                                logger.info(f"Marking ad as not visible {link}: contains excluded term '{term}'")
-                                is_visible = False
-                                break
-                        
-                        # Check for valid dimensions or brand
+
+                        # Accessory mentions hide surf Ads, but complete
+                        # foil/kite packages commonly include a bag or wetsuit.
+                        if ad_data["board_type"] == "surf":
+                            for term in EXCLUDED_TERMS:
+                                if re.search(rf"\b{re.escape(term)}\b", full_desc_text, re.IGNORECASE):
+                                    logger.info(f"Marking ad as not visible {link}: contains excluded term '{term}'")
+                                    is_visible = False
+                                    break
+
+                        # Apply a sport-specific gate. Surf Ads retain the
+                        # established length/brand rule; foil and kite Ads
+                        # need an equipment component, known brand, or metric.
                         if is_visible:
-                            length_ft = ad_data.get("length_ft")
-                            brand = ad_data.get("brand")
-                            price = ad_data.get("price")
-                            valid_length = isinstance(length_ft, (int, float)) and length_ft >= 4
-                            valid_brand = isinstance(brand, str) and brand.strip()
-                            if not (valid_length or valid_brand):
-                                logger.warning(f"  > Marking ad as not visible (length_ft is missing or < 4' and no valid brand): Found value 'length_ft={length_ft}', brand='{brand}', price='{price}'. Link: {link}")
-                                is_visible = False
-                        
+                            if ad_data["board_type"] in {"foil", "kite"}:
+                                if not _is_relevant_equipment_ad(
+                                    full_desc_text,
+                                    model,
+                                    ad_data["board_type"],
+                                    ad_data,
+                                ):
+                                    logger.warning(
+                                        "  > Marking %s Ad as not visible: no equipment signal found",
+                                        link,
+                                    )
+                                    is_visible = False
+                            else:
+                                length_ft = ad_data.get("length_ft")
+                                brand = ad_data.get("brand")
+                                price = ad_data.get("price")
+                                valid_length = isinstance(length_ft, (int, float)) and length_ft >= 4
+                                valid_brand = isinstance(brand, str) and brand.strip()
+                                if not (valid_length or valid_brand):
+                                    logger.warning(f"  > Marking ad as not visible (length_ft is missing or < 4' and no valid brand): Found value 'length_ft={length_ft}', brand='{brand}', price='{price}'. Link: {link}")
+                                    is_visible = False
+
                         ad_data["is_visible"] = is_visible
-                        
+
                         logger.info(f"  > Scraped Data for Ad (is_visible={is_visible}):")
                         log_data = ad_data.copy()
                         for key, value in log_data.items():
@@ -414,13 +688,20 @@ def scrape_and_store(db: Session):
 
                     except Exception as e:
                         logger.error(f"  > Could not process detail page {link}. Error: {e}")
-                    
-                    time.sleep(random.uniform(20, 40))
+
+                    # Deeper politeness pause after an actual detail-page request.
+                    if needs_detail:
+                        time.sleep(random.uniform(20, 40))
+                    else:
+                        time.sleep(random.uniform(4, 8))
             
             time.sleep(random.uniform(10, 20))
     
-    if ads_added:
-        logger.info(f"Attempting to commit {len(ads_added)} new ads to the database...")
+    if ads_added or existing_ads_changed:
+        logger.info(
+            "Attempting to commit %d new Ads and existing-Ad updates to the database...",
+            len(ads_added),
+        )
         try:
             db.commit()
             logger.info("Commit successful. Added %d new ads.", len(ads_added))

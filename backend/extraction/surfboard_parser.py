@@ -1,4 +1,4 @@
-"""Deep module wrapping all surfboard extraction behind a single interface.
+"""Deep module wrapping all equipment extraction behind one interface.
 
 Callers use ``parse_listing(text)`` to get every attribute at once.
 Individual extractors are re-exported for backward compatibility but the
@@ -18,8 +18,13 @@ from extraction.extraction import (
     POPULAR_BRANDS,
     create_brand_pattern,
     extract_dimensions,
+    extract_board_dimensions_cm,
+    extract_foil_area_cm2,
+    extract_foil_wingspan_cm,
     extract_liters,
+    extract_mast_length_cm,
     extract_price,
+    extract_wing_area_m2,
     find_brand,
     normalize_for_matching,
     parse_dimension_part,
@@ -28,10 +33,10 @@ from extraction.extraction import (
 
 
 def parse_listing(text: str) -> dict[str, Any]:
-    """Extract all surfboard attributes from ad text.
+    """Extract all supported equipment attributes from Ad text.
 
-    Returns a dict with keys: price, brand, liters, length_ft, length_in,
-    width_in, thickness_in.  Missing values are None.
+    Missing values are represented by ``None``. Surfboard dimensions retain
+    their existing fields; foil/kite sizes use explicit metric fields.
     """
     if not text:
         return {
@@ -42,9 +47,16 @@ def parse_listing(text: str) -> dict[str, Any]:
             'length_in': None,
             'width_in': None,
             'thickness_in': None,
+            'foil_area_cm2': None,
+            'mast_length_cm': None,
+            'foil_wingspan_cm': None,
+            'wing_area_m2': None,
+            'board_length_cm': None,
+            'board_width_cm': None,
         }
 
     dims = extract_dimensions(text) or {}
+    board_dims = extract_board_dimensions_cm(text) or {}
 
     return {
         'price': extract_price(text),
@@ -54,4 +66,10 @@ def parse_listing(text: str) -> dict[str, Any]:
         'length_in': dims.get('length_in'),
         'width_in': dims.get('width_in'),
         'thickness_in': dims.get('thickness_in'),
+        'foil_area_cm2': extract_foil_area_cm2(text),
+        'mast_length_cm': extract_mast_length_cm(text),
+        'foil_wingspan_cm': extract_foil_wingspan_cm(text),
+        'wing_area_m2': extract_wing_area_m2(text),
+        'board_length_cm': board_dims.get('board_length_cm'),
+        'board_width_cm': board_dims.get('board_width_cm'),
     }

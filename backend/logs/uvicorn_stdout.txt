@@ -1,0 +1,9 @@
+INFO:     127.0.0.1:54358 - "GET / HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54358 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58938 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58938 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60870 - "POST /refresh HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64413 - "GET /ads?page_size=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64413 - "GET /ads?page_size=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64413 - "GET /ads?page_size=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64413 - "GET /ads?page_size=10000 HTTP/1.1" 200 OK

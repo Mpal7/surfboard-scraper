@@ -8,7 +8,28 @@ from config.settings import GMAIL_ADDRESS, GMAIL_APP_PASSWORD
 logger = logging.getLogger(__name__)
 
 
-def send_email(subject: str, body: str, to_email: str) -> bool:
+def _smtp_error_detail(error: Exception) -> str:
+    if isinstance(error, smtplib.SMTPAuthenticationError):
+        return "SMTP authentication failed. Check GMAIL_ADDRESS and GMAIL_APP_PASSWORD."
+    if isinstance(error, smtplib.SMTPRecipientsRefused):
+        return "Gmail rejected the recipient address."
+    if isinstance(error, smtplib.SMTPDataError):
+        return "Gmail rejected the message contents."
+    if isinstance(error, (smtplib.SMTPConnectError, smtplib.SMTPServerDisconnected, OSError)):
+        return "Could not connect to Gmail SMTP. Check network access and port 587."
+    return f"Unexpected SMTP error ({type(error).__name__}). Check backend logs."
+
+
+def send_email_with_diagnostics(
+    subject: str, body: str, to_email: str
+) -> tuple[bool, str | None]:
+    if not GMAIL_ADDRESS or not GMAIL_APP_PASSWORD:
+        return (
+            False,
+            "SMTP configuration is incomplete in the running backend process. "
+            "GMAIL_ADDRESS and GMAIL_APP_PASSWORD must be set.",
+        )
+
     try:
         msg = MIMEMultipart("alternative")
         msg["From"] = GMAIL_ADDRESS
@@ -23,7 +44,13 @@ def send_email(subject: str, body: str, to_email: str) -> bool:
             server.sendmail(GMAIL_ADDRESS, to_email, msg.as_string())
 
         logger.info(f"Email sent to {to_email}: {subject}")
-        return True
-    except Exception as e:
-        logger.error(f"Failed to send email to {to_email}: {e}")
-        return False
+        return True, None
+    except Exception as error:
+        detail = _smtp_error_detail(error)
+        logger.error("Failed to send email to %s: %s", to_email, detail)
+        return False, detail
+
+
+def send_email(subject: str, body: str, to_email: str) -> bool:
+    success, _ = send_email_with_diagnostics(subject, body, to_email)
+    return success

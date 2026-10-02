@@ -2,7 +2,7 @@ import os
 import time
 from typing import Optional
 
-from fastapi import Depends, FastAPI, HTTPException, Query
+from fastapi import Depends, FastAPI, HTTPException, Query, status
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
@@ -11,6 +11,7 @@ from sqlalchemy.sql import func
 import src.scraper as scraper
 from config.settings import COOLDOWN_FILE, REFRESH_COOLDOWN_SECONDS
 from src.database import get_db, init_db
+from src.auth import authenticate_admin, create_access_token, require_admin
 from src.email_config import (
     add_recipient,
     delete_recipient,
@@ -22,7 +23,7 @@ from src.email_config import (
 )
 from src.email_template import build_full_email
 from src.models import Ad
-from src.sender import send_email
+from src.sender import send_email_with_diagnostics
 
 app = FastAPI()
 
@@ -69,6 +70,22 @@ def apply_filters(query, filters: dict, include_sent: bool = False):
         if brands:
             query = query.filter(Ad.brand.in_(brands))
 
+    board_type = filters.get("board_type")
+    if board_type:
+        board_types = [t.strip() for t in board_type if t.strip()] if isinstance(board_type, list) else [t.strip() for t in board_type.split(",") if t.strip()]
+        if board_types:
+            query = query.filter(Ad.board_type.in_(board_types))
+
+    equipment_type = filters.get("equipment_type")
+    if equipment_type:
+        equipment_types = (
+            [t.strip() for t in equipment_type if t.strip()]
+            if isinstance(equipment_type, list)
+            else [t.strip() for t in equipment_type.split(",") if t.strip()]
+        )
+        if equipment_types:
+            query = query.filter(Ad.equipment_type.in_(equipment_types))
+
     min_price = filters.get("min_price")
     max_price = filters.get("max_price")
     if min_price is not None:
@@ -104,6 +121,22 @@ def apply_filters(query, filters: dict, include_sent: bool = False):
     if max_liters is not None:
         query = query.filter(Ad.liters <= max_liters)
 
+    for field in (
+        "foil_area_cm2",
+        "mast_length_cm",
+        "foil_wingspan_cm",
+        "wing_area_m2",
+        "board_length_cm",
+        "board_width_cm",
+    ):
+        min_value = filters.get(f"min_{field}")
+        max_value = filters.get(f"max_{field}")
+        column = getattr(Ad, field)
+        if min_value is not None:
+            query = query.filter(column >= min_value)
+        if max_value is not None:
+            query = query.filter(column <= max_value)
+
     return query
 
 
@@ -127,6 +160,11 @@ class AutoRefreshToggle(BaseModel):
     enabled: bool
 
 
+class LoginRequest(BaseModel):
+    username: str
+    password: str
+
+
 # ── Startup ──────────────────────────────────────────────────────────────────
 
 
@@ -138,7 +176,23 @@ def startup():
 # ── Ads endpoints ────────────────────────────────────────────────────────────
 
 
-@app.get("/ads")
+@app.post("/auth/login")
+def login(credentials: LoginRequest):
+    if not authenticate_admin(credentials.username, credentials.password):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    return {"access_token": create_access_token(credentials.username), "token_type": "bearer"}
+
+
+@app.get("/auth/me")
+def authenticated_admin(admin: str = Depends(require_admin)):
+    return {"username": admin}
+
+
+@app.get("/ads", dependencies=[Depends(require_admin)])
 def list_ads(
     page: int = Query(1, ge=1),
     page_size: int = Query(20, ge=1),
@@ -156,13 +210,15 @@ def list_ads(
     }
 
 
-@app.get("/ads/filter")
+@app.get("/ads/filter", dependencies=[Depends(require_admin)])
 def filter_ads(
     db: Session = Depends(get_db),
     page: int = Query(1, ge=1),
     page_size: int = Query(20, ge=1, le=100),
     sort_by: str = Query(None, description="Sort by 'price_asc', 'price_desc', or 'date_desc'"),
     brand: str = None,
+    board_type: str = Query(None, description="Filter by board type: surf, foil, kite (comma-separated)"),
+    equipment_type: str = Query(None, description="Filter by equipment component (comma-separated)"),
     liters: str = None,
     min_price: float = Query(None, ge=0),
     max_price: float = Query(None, ge=0),
@@ -172,9 +228,23 @@ def filter_ads(
     max_width: float = Query(None, ge=17, le=24),
     min_thickness: float = Query(None, ge=2, le=4),
     max_thickness: float = Query(None, ge=2, le=4),
+    min_foil_area_cm2: float = Query(None, ge=0),
+    max_foil_area_cm2: float = Query(None, ge=0),
+    min_mast_length_cm: float = Query(None, ge=0),
+    max_mast_length_cm: float = Query(None, ge=0),
+    min_foil_wingspan_cm: float = Query(None, ge=0),
+    max_foil_wingspan_cm: float = Query(None, ge=0),
+    min_wing_area_m2: float = Query(None, ge=0),
+    max_wing_area_m2: float = Query(None, ge=0),
+    min_board_length_cm: float = Query(None, ge=0),
+    max_board_length_cm: float = Query(None, ge=0),
+    min_board_width_cm: float = Query(None, ge=0),
+    max_board_width_cm: float = Query(None, ge=0),
 ):
     filters = {
         "brand": brand,
+        "board_type": board_type,
+        "equipment_type": equipment_type,
         "min_price": min_price,
         "max_price": max_price,
         "min_length_inches": min_length_inches,
@@ -183,6 +253,18 @@ def filter_ads(
         "max_width": max_width,
         "min_thickness": min_thickness,
         "max_thickness": max_thickness,
+        "min_foil_area_cm2": min_foil_area_cm2,
+        "max_foil_area_cm2": max_foil_area_cm2,
+        "min_mast_length_cm": min_mast_length_cm,
+        "max_mast_length_cm": max_mast_length_cm,
+        "min_foil_wingspan_cm": min_foil_wingspan_cm,
+        "max_foil_wingspan_cm": max_foil_wingspan_cm,
+        "min_wing_area_m2": min_wing_area_m2,
+        "max_wing_area_m2": max_wing_area_m2,
+        "min_board_length_cm": min_board_length_cm,
+        "max_board_length_cm": max_board_length_cm,
+        "min_board_width_cm": min_board_width_cm,
+        "max_board_width_cm": max_board_width_cm,
     }
     query = apply_filters(db.query(Ad), filters, include_sent=True)
 
@@ -217,12 +299,12 @@ def filter_ads(
 # ── Email config endpoints ──────────────────────────────────────────────────
 
 
-@app.get("/email-config")
+@app.get("/email-config", dependencies=[Depends(require_admin)])
 def get_email_config():
     return load_config()
 
 
-@app.post("/email-config/recipient", status_code=201)
+@app.post("/email-config/recipient", status_code=201, dependencies=[Depends(require_admin)])
 def add_email_recipient(recipient: RecipientCreate):
     try:
         r = {
@@ -237,7 +319,7 @@ def add_email_recipient(recipient: RecipientCreate):
         raise HTTPException(status_code=409, detail=str(e))
 
 
-@app.put("/email-config/recipient/{email}")
+@app.put("/email-config/recipient/{email}", dependencies=[Depends(require_admin)])
 def update_email_recipient(email: str, updates: RecipientUpdate):
     try:
         update_data = {k: v for k, v in updates.model_dump().items() if v is not None}
@@ -246,7 +328,7 @@ def update_email_recipient(email: str, updates: RecipientUpdate):
         raise HTTPException(status_code=404, detail=str(e))
 
 
-@app.delete("/email-config/recipient/{email}")
+@app.delete("/email-config/recipient/{email}", dependencies=[Depends(require_admin)])
 def delete_email_recipient(email: str):
     try:
         delete_recipient(email)
@@ -255,7 +337,7 @@ def delete_email_recipient(email: str):
         raise HTTPException(status_code=404, detail=str(e))
 
 
-@app.patch("/email-config/auto-refresh")
+@app.patch("/email-config/auto-refresh", dependencies=[Depends(require_admin)])
 def toggle_auto_refresh(body: AutoRefreshToggle):
     set_auto_send_after_refresh(body.enabled)
     return {"auto_send_after_refresh": body.enabled}
@@ -273,7 +355,7 @@ def _send_to_recipient(recipient: dict, db: Session) -> dict:
     ads = query.order_by(Ad.timestamp.desc()).all()
 
     subject, body = build_full_email(ads)
-    success = send_email(subject, body, email_addr)
+    success, error = send_email_with_diagnostics(subject, body, email_addr)
 
     if success:
         for ad in ads:
@@ -281,10 +363,10 @@ def _send_to_recipient(recipient: dict, db: Session) -> dict:
         db.commit()
         return {"email": email_addr, "ads_count": len(ads), "status": "sent"}
     else:
-        return {"email": email_addr, "ads_count": 0, "status": "failed", "error": "SMTP send failed"}
+        return {"email": email_addr, "ads_count": 0, "status": "failed", "error": error}
 
 
-@app.post("/send_email", status_code=200)
+@app.post("/send_email", status_code=200, dependencies=[Depends(require_admin)])
 def send_email_endpoint(
     emails: Optional[str] = Query(None, description="Comma-separated recipient emails. Omit to send to all."),
     db: Session = Depends(get_db),
@@ -317,7 +399,7 @@ def send_email_endpoint(
 # ── Refresh endpoint ─────────────────────────────────────────────────────────
 
 
-@app.post("/refresh", status_code=200)
+@app.post("/refresh", status_code=200, dependencies=[Depends(require_admin)])
 def refresh_ads(db: Session = Depends(get_db)):
     last_refresh_time = get_last_refresh_time()
     now = time.time()

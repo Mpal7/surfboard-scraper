@@ -9,6 +9,24 @@ Base = declarative_base()
 
 def init_db():
     Base.metadata.create_all(bind=engine)
+    # ``create_all`` does not add columns to an existing SQLite table. Keep
+    # the small, additive migration here so old Ads survive the new fields.
+    with engine.begin() as connection:
+        existing_columns = {
+            row[1] for row in connection.exec_driver_sql("PRAGMA table_info(ads)")
+        }
+        column_types = {
+            "foil_area_cm2": "FLOAT",
+            "mast_length_cm": "FLOAT",
+            "foil_wingspan_cm": "FLOAT",
+            "wing_area_m2": "FLOAT",
+            "board_length_cm": "FLOAT",
+            "board_width_cm": "FLOAT",
+            "equipment_type": "VARCHAR",
+        }
+        for column, column_type in column_types.items():
+            if column not in existing_columns:
+                connection.exec_driver_sql(f"ALTER TABLE ads ADD COLUMN {column} {column_type}")
 
 def get_db():
     db = SessionLocal()

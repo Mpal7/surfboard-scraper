@@ -207,6 +207,40 @@ test_cases = {
             "length_ft": 5, "length_in": 11,
             "width_in": 19.25, "thickness_in": 2.5
         }
+    },
+    "Dash separator - 5'7 - 19 1/2 x 30L":{
+        "text": "Vendo tavola surf LSD. Misure 5'7 - 19 1/2 x 30L.",
+        "expected": {
+            "length_ft": 5, "length_in": 7,
+            "width_in": 19.5, "thickness_in": None,
+            "liters": 30.0
+        }
+    },
+    "FOIL 500 is not liters":{
+        "text": "Tavola KITEFOIL 500 convertibile in SURF - 5'4 - ORAO",
+        "expected": {
+            "length_ft": 5, "length_in": 4,
+            "liters": None
+        }
+    },
+    "al 100% is not liters":{
+        "text": "La tavola è stagna al 100%, non ha mai imbarcato acqua",
+        "expected": {
+            "liters": None
+        }
+    },
+    "nel 2018 is not liters":{
+        "text": "articolo acquistato nel 2018 usato molto poco",
+        "expected": {
+            "liters": None
+        }
+    },
+    "7/8 is a fraction not 7'8":{
+        "text": "la tavola è lunga 213 cm, larga 56 e spessa 7/8 cm",
+        "expected": {
+            "length_ft": 7, "length_in": 0,
+            "liters": None
+        }
     }
 }
 

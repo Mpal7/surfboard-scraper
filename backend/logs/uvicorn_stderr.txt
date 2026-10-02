@@ -1,0 +1,859 @@
+INFO:     Started server process [35636]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+2026-09-05 21:48:18 - INFO - Fetching existing ad links from the database...
+2026-09-05 21:48:18 - INFO - Found 195 existing links.
+2026-09-05 21:48:19 - INFO - Scraping search results from: https://www.subito.it/annunci-veneto/vendita/usato/venezia/?q=tavola+da+surf&o=1
+2026-09-05 21:48:23 - INFO - Found 11 potential ad listings on page 1 using json path.
+2026-09-05 21:48:23 - INFO - ------------------------------------------------------------
+2026-09-05 21:48:23 - INFO - Processing ad link: https://www.subito.it/sport/surfskate-carver-da-monsta-venezia-659595861.htm (source=json)
+2026-09-05 21:48:23 - INFO - Skipping ad https://www.subito.it/sport/surfskate-carver-da-monsta-venezia-659595861.htm: belongs to skipped category 'surfskate'
+2026-09-05 21:48:23 - INFO - ------------------------------------------------------------
+2026-09-05 21:48:23 - INFO - Processing ad link: https://www.subito.it/sport/tavola-surf-mick-fanning-venezia-659025969.htm (source=json)
+2026-09-05 21:48:23 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-surf-mick-fanning-venezia-659025969.htm
+2026-09-05 21:48:23 - INFO - ------------------------------------------------------------
+2026-09-05 21:48:23 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surfing-leggera-a-eraclea-mare-ve-venezia-651698822.htm (source=json)
+2026-09-05 21:48:23 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surfing-leggera-a-eraclea-mare-ve-venezia-651698822.htm
+2026-09-05 21:48:23 - INFO - ------------------------------------------------------------
+2026-09-05 21:48:23 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-gonfiabile-con-maniglie-venezia-650110930.htm (source=json)
+2026-09-05 21:48:23 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-gonfiabile-con-maniglie-venezia-650110930.htm
+2026-09-05 21:48:23 - INFO - ------------------------------------------------------------
+2026-09-05 21:48:23 - INFO - Processing ad link: https://www.subito.it/sport/kite-surf-nuovo-di-zecca-pacchetto-completo-ksp-venezia-646861338.htm (source=json)
+2026-09-05 21:48:23 - INFO - Skipping ad, already in database: https://www.subito.it/sport/kite-surf-nuovo-di-zecca-pacchetto-completo-ksp-venezia-646861338.htm
+2026-09-05 21:48:23 - INFO - ------------------------------------------------------------
+2026-09-05 21:48:23 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-tribord-venezia-647399781.htm (source=json)
+2026-09-05 21:48:23 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-tribord-venezia-647399781.htm
+2026-09-05 21:48:23 - INFO - ------------------------------------------------------------
+2026-09-05 21:48:23 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-venezia-629100983.htm (source=json)
+2026-09-05 21:48:23 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-venezia-629100983.htm
+2026-09-05 21:48:23 - INFO - ------------------------------------------------------------
+2026-09-05 21:48:23 - INFO - Processing ad link: https://www.subito.it/sport/supporti-da-parete-venezia-576396101.htm (source=json)
+2026-09-05 21:48:23 - INFO - Skipping ad, already in database: https://www.subito.it/sport/supporti-da-parete-venezia-576396101.htm
+2026-09-05 21:48:23 - INFO - ------------------------------------------------------------
+2026-09-05 21:48:23 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-kite-surf-made-in-italy-130cm-venezia-615734394.htm (source=json)
+2026-09-05 21:48:23 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-kite-surf-made-in-italy-130cm-venezia-615734394.htm
+2026-09-05 21:48:23 - INFO - ------------------------------------------------------------
+2026-09-05 21:48:23 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-venezia-552985567.htm (source=json)
+2026-09-05 21:48:23 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-venezia-552985567.htm
+2026-09-05 21:48:23 - INFO - ------------------------------------------------------------
+2026-09-05 21:48:23 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-venezia-552985666.htm (source=json)
+2026-09-05 21:48:23 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-venezia-552985666.htm
+2026-09-05 21:48:23 - INFO - Scraping search results from: https://www.subito.it/annunci-veneto/vendita/usato/venezia/?q=tavola+da+surf&o=2
+2026-09-05 21:48:27 - INFO - Found 0 potential ad listings on page 2 using html path.
+2026-09-05 21:48:27 - INFO - No more ads found on page 2. Moving to next search term.
+2026-09-05 21:48:39 - INFO - Scraping search results from: https://www.subito.it/annunci-lazio/vendita/usato/roma/?q=tavola+da+surf&o=1
+2026-09-05 21:48:43 - INFO - Found 27 potential ad listings on page 1 using json path.
+2026-09-05 21:48:43 - INFO - ------------------------------------------------------------
+2026-09-05 21:48:43 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-7-8-x-21-3-4-x-3-roma-659333736.htm (source=json)
+2026-09-05 21:48:43 - INFO -   > Scraped Data for Ad (is_visible=True):
+2026-09-05 21:48:43 - INFO -     - model          : tavola da surf  7'8" x 21" 3/4  x 3"
+2026-09-05 21:48:43 - INFO -     - price          : 340.0
+2026-09-05 21:48:43 - INFO -     - location       : Cerveteri
+2026-09-05 21:48:43 - INFO -     - link           : https://www.subito.it/sport/tavola-da-surf-7-8-x-21-3-4-x-3-roma-659333736.htm
+2026-09-05 21:48:43 - INFO -     - brand          : None
+2026-09-05 21:48:43 - INFO -     - image_url      : https://images.sbito.it/api/v1/sbt-ads-images-pro/images/c1/c1974b67-782b-4bc8-bd36-770c508dc7b3?rule=gallery-desktop-1x-auto
+2026-09-05 21:48:43 - INFO -     - liters         : None
+2026-09-05 21:48:43 - INFO -     - length_ft      : 7
+2026-09-05 21:48:43 - INFO -     - length_in      : 8
+2026-09-05 21:48:43 - INFO -     - width_in       : 21.0
+2026-09-05 21:48:43 - INFO -     - thickness_in   : None
+2026-09-05 21:48:43 - INFO -     - board_type     : surf
+2026-09-05 21:48:43 - INFO -     - is_visible     : True
+2026-09-05 21:48:51 - INFO - ------------------------------------------------------------
+2026-09-05 21:48:51 - INFO - Processing ad link: https://www.subito.it/sport/tavola-surf-twin-fin-lsd-5-7-epoxy-pronto-uso-roma-639624008.htm (source=json)
+2026-09-05 21:48:51 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-surf-twin-fin-lsd-5-7-epoxy-pronto-uso-roma-639624008.htm
+2026-09-05 21:48:51 - INFO - ------------------------------------------------------------
+2026-09-05 21:48:51 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-olaian-roma-659649036.htm (source=json)
+2026-09-05 21:48:52 - INFO - Marking ad as not visible https://www.subito.it/sport/tavola-da-surf-olaian-roma-659649036.htm: contains excluded term 'pinne'
+2026-09-05 21:48:52 - INFO -   > Scraped Data for Ad (is_visible=False):
+2026-09-05 21:48:52 - INFO -     - model          : Tavola da surf Olaian
+2026-09-05 21:48:52 - INFO -     - price          : 130.0
+2026-09-05 21:48:52 - INFO -     - location       : Roma
+2026-09-05 21:48:52 - INFO -     - link           : https://www.subito.it/sport/tavola-da-surf-olaian-roma-659649036.htm
+2026-09-05 21:48:52 - INFO -     - brand          : Olaian
+2026-09-05 21:48:52 - INFO -     - image_url      : https://images.sbito.it/api/v1/sbt-ads-images-pro/images/0f/0ff7a18c-e186-4020-9299-5fee3332b1c0?rule=gallery-desktop-1x-auto
+2026-09-05 21:48:52 - INFO -     - liters         : None
+2026-09-05 21:48:52 - INFO -     - length_ft      : 7
+2026-09-05 21:48:52 - INFO -     - length_in      : 8
+2026-09-05 21:48:52 - INFO -     - width_in       : None
+2026-09-05 21:48:52 - INFO -     - thickness_in   : None
+2026-09-05 21:48:52 - INFO -     - board_type     : surf
+2026-09-05 21:48:52 - INFO -     - is_visible     : False
+2026-09-05 21:49:29 - INFO - ------------------------------------------------------------
+2026-09-05 21:49:29 - INFO - Processing ad link: https://www.subito.it/sport/tavola-surf-bic-6-7-roma-659557601.htm (source=json)
+2026-09-05 21:49:30 - INFO - Marking ad as not visible https://www.subito.it/sport/tavola-surf-bic-6-7-roma-659557601.htm: contains excluded term 'pinne'
+2026-09-05 21:49:30 - INFO -   > Scraped Data for Ad (is_visible=False):
+2026-09-05 21:49:30 - INFO -     - model          : Tavola surf bic 6.7
+2026-09-05 21:49:30 - INFO -     - price          : 20.0
+2026-09-05 21:49:30 - INFO -     - location       : Roma
+2026-09-05 21:49:30 - INFO -     - link           : https://www.subito.it/sport/tavola-surf-bic-6-7-roma-659557601.htm
+2026-09-05 21:49:30 - INFO -     - brand          : Bic
+2026-09-05 21:49:30 - INFO -     - image_url      : https://images.sbito.it/api/v1/sbt-ads-images-pro/images/31/313e7f99-06b7-4980-8bc5-0d76c0fe287a?rule=gallery-desktop-1x-auto
+2026-09-05 21:49:30 - INFO -     - liters         : None
+2026-09-05 21:49:30 - INFO -     - length_ft      : 6
+2026-09-05 21:49:30 - INFO -     - length_in      : 7
+2026-09-05 21:49:30 - INFO -     - width_in       : None
+2026-09-05 21:49:30 - INFO -     - thickness_in   : None
+2026-09-05 21:49:30 - INFO -     - board_type     : surf
+2026-09-05 21:49:30 - INFO -     - is_visible     : False
+2026-09-05 21:50:00 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:00 - INFO - Processing ad link: https://www.subito.it/sport/carrello-pieghevole-yeaupe-pro-spiaggia-xxxl-ruote-roma-659555751.htm (source=json)
+2026-09-05 21:50:00 - INFO -   > Scraped Data for Ad (is_visible=True):
+2026-09-05 21:50:00 - INFO -     - model          : Carrello pieghevole Yeaupe Pro spiaggia XXXL Ruote
+2026-09-05 21:50:00 - INFO -     - price          : 69.0
+2026-09-05 21:50:00 - INFO -     - location       : Anzio
+2026-09-05 21:50:00 - INFO -     - link           : https://www.subito.it/sport/carrello-pieghevole-yeaupe-pro-spiaggia-xxxl-ruote-roma-659555751.htm
+2026-09-05 21:50:00 - INFO -     - brand          : None
+2026-09-05 21:50:00 - INFO -     - image_url      : https://images.sbito.it/api/v1/sbt-ads-images-pro/images/14/14afc78e-d8f7-4a8f-9b3d-82838c1a0dea?rule=gallery-desktop-1x-auto
+2026-09-05 21:50:00 - INFO -     - liters         : 300.0
+2026-09-05 21:50:00 - INFO -     - length_ft      : 4
+2026-09-05 21:50:00 - INFO -     - length_in      : 4
+2026-09-05 21:50:00 - INFO -     - width_in       : None
+2026-09-05 21:50:00 - INFO -     - thickness_in   : None
+2026-09-05 21:50:00 - INFO -     - board_type     : surf
+2026-09-05 21:50:00 - INFO -     - is_visible     : True
+2026-09-05 21:50:07 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:07 - INFO - Processing ad link: https://www.subito.it/sport/dinamo-surf-dinamo-surfboards-vintage-roma-659424772.htm (source=json)
+2026-09-05 21:50:07 - INFO - Skipping ad, already in database: https://www.subito.it/sport/dinamo-surf-dinamo-surfboards-vintage-roma-659424772.htm
+2026-09-05 21:50:07 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:07 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-roma-659342127.htm (source=json)
+2026-09-05 21:50:07 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-roma-659342127.htm
+2026-09-05 21:50:07 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:07 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-roma-659341620.htm (source=json)
+2026-09-05 21:50:07 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-roma-659341620.htm
+2026-09-05 21:50:07 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:07 - INFO - Processing ad link: https://www.subito.it/sport/surf-tavola-6-0-sacca-roma-659273682.htm (source=json)
+2026-09-05 21:50:07 - INFO - Skipping ad https://www.subito.it/sport/surf-tavola-6-0-sacca-roma-659273682.htm: title contains 'sacca'
+2026-09-05 21:50:07 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:07 - INFO - Processing ad link: https://www.subito.it/sport/tavola-surf-minimalibu-7-10-roma-659235689.htm (source=json)
+2026-09-05 21:50:07 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-surf-minimalibu-7-10-roma-659235689.htm
+2026-09-05 21:50:07 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:07 - INFO - Processing ad link: https://www.subito.it/sport/wind-surf-roma-659235617.htm (source=json)
+2026-09-05 21:50:07 - INFO - Skipping ad, already in database: https://www.subito.it/sport/wind-surf-roma-659235617.htm
+2026-09-05 21:50:07 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:07 - INFO - Processing ad link: https://www.subito.it/sport/sacca-per-surf-koalition-9-6-super-imbottita-roma-659233114.htm (source=json)
+2026-09-05 21:50:07 - INFO - Skipping ad https://www.subito.it/sport/sacca-per-surf-koalition-9-6-super-imbottita-roma-659233114.htm: belongs to skipped category 'windsurf'
+2026-09-05 21:50:07 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:07 - INFO - Processing ad link: https://www.subito.it/sport/surf-travel-bag-sacca-tribord-roma-659161505.htm (source=json)
+2026-09-05 21:50:07 - INFO - Skipping ad https://www.subito.it/sport/surf-travel-bag-sacca-tribord-roma-659161505.htm: title contains 'sacca'
+2026-09-05 21:50:07 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:07 - INFO - Processing ad link: https://www.subito.it/sport/tavola-surf-softboard-olaian-7-5-80l-roma-659055271.htm (source=json)
+2026-09-05 21:50:07 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-surf-softboard-olaian-7-5-80l-roma-659055271.htm
+2026-09-05 21:50:07 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:07 - INFO - Processing ad link: https://www.subito.it/sport/tavola-kitesurf-light-wind-roma-659008823.htm (source=json)
+2026-09-05 21:50:07 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-kitesurf-light-wind-roma-659008823.htm
+2026-09-05 21:50:07 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:07 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-sharp-eye-roma-658951616.htm (source=json)
+2026-09-05 21:50:07 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-sharp-eye-roma-658951616.htm
+2026-09-05 21:50:07 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:07 - INFO - Processing ad link: https://www.subito.it/sport/tavola-surf-islands-al-merrick-dfr-6-2-31l-roma-658908667.htm (source=json)
+2026-09-05 21:50:07 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-surf-islands-al-merrick-dfr-6-2-31l-roma-658908667.htm
+2026-09-05 21:50:07 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:07 - INFO - Processing ad link: https://www.subito.it/sport/tavola-surf-olaian-roma-658893890.htm (source=json)
+2026-09-05 21:50:07 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-surf-olaian-roma-658893890.htm
+2026-09-05 21:50:07 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:07 - INFO - Processing ad link: https://www.subito.it/sport/radinn-g2x-jetboard-tavola-surf-elettrica-completa-roma-658857522.htm (source=json)
+2026-09-05 21:50:07 - INFO - Skipping ad, already in database: https://www.subito.it/sport/radinn-g2x-jetboard-tavola-surf-elettrica-completa-roma-658857522.htm
+2026-09-05 21:50:07 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:07 - INFO - Processing ad link: https://www.subito.it/sport/radinn-g2x-jetboard-tavola-surf-elettrica-completa-roma-658857102.htm (source=json)
+2026-09-05 21:50:07 - INFO - Skipping ad, already in database: https://www.subito.it/sport/radinn-g2x-jetboard-tavola-surf-elettrica-completa-roma-658857102.htm
+2026-09-05 21:50:07 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:07 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-5-10-roma-658815658.htm (source=json)
+2026-09-05 21:50:07 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-5-10-roma-658815658.htm
+2026-09-05 21:50:07 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:07 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-longboard-9-0-olaian-roma-658535513.htm (source=json)
+2026-09-05 21:50:07 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-longboard-9-0-olaian-roma-658535513.htm
+2026-09-05 21:50:07 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:07 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-softboard-6-0-alibi-roma-658534647.htm (source=json)
+2026-09-05 21:50:07 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-softboard-6-0-alibi-roma-658534647.htm
+2026-09-05 21:50:07 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:07 - INFO - Processing ad link: https://www.subito.it/sport/tavola-sup-starboard-pro-surf-6-8-roma-658505866.htm (source=json)
+2026-09-05 21:50:07 - INFO - Skipping ad https://www.subito.it/sport/tavola-sup-starboard-pro-surf-6-8-roma-658505866.htm: belongs to skipped category 'sup'
+2026-09-05 21:50:07 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:07 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-6-roma-658331423.htm (source=json)
+2026-09-05 21:50:07 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-6-roma-658331423.htm
+2026-09-05 21:50:07 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:07 - INFO - Processing ad link: https://www.subito.it/sport/tavola-surf-torq-mod-fish-6-6-5-fin-setup-futures-roma-658269798.htm (source=json)
+2026-09-05 21:50:07 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-surf-torq-mod-fish-6-6-5-fin-setup-futures-roma-658269798.htm
+2026-09-05 21:50:07 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:07 - INFO - Processing ad link: https://www.subito.it/sport/kite-surf-quasi-mai-usato-roma-658143687.htm (source=json)
+2026-09-05 21:50:07 - INFO - Skipping ad, already in database: https://www.subito.it/sport/kite-surf-quasi-mai-usato-roma-658143687.htm
+2026-09-05 21:50:07 - INFO - Scraping search results from: https://www.subito.it/annunci-lazio/vendita/usato/roma/?q=tavola+da+surf&o=2
+2026-09-05 21:50:13 - INFO - Found 29 potential ad listings on page 2 using json path.
+2026-09-05 21:50:13 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:13 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-7-8-x-21-3-4-x-3-roma-659333736.htm (source=json)
+2026-09-05 21:50:13 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-7-8-x-21-3-4-x-3-roma-659333736.htm
+2026-09-05 21:50:13 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:13 - INFO - Processing ad link: https://www.subito.it/sport/tavola-surf-twin-fin-lsd-5-7-epoxy-pronto-uso-roma-639624008.htm (source=json)
+2026-09-05 21:50:13 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-surf-twin-fin-lsd-5-7-epoxy-pronto-uso-roma-639624008.htm
+2026-09-05 21:50:13 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:13 - INFO - Processing ad link: https://www.subito.it/sport/surf-bic-e-comp-6-10-evolution-roma-658039003.htm (source=json)
+2026-09-05 21:50:13 - INFO - Skipping ad, already in database: https://www.subito.it/sport/surf-bic-e-comp-6-10-evolution-roma-658039003.htm
+2026-09-05 21:50:13 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:13 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-nsp-fish-protech-tratt-roma-658013387.htm (source=json)
+2026-09-05 21:50:13 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-nsp-fish-protech-tratt-roma-658013387.htm
+2026-09-05 21:50:13 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:13 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-bic-roma-657858423.htm (source=json)
+2026-09-05 21:50:13 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-bic-roma-657858423.htm
+2026-09-05 21:50:13 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:13 - INFO - Processing ad link: https://www.subito.it/sport/tavola-surf-kitesurf-roma-657756326.htm (source=json)
+2026-09-05 21:50:13 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-surf-kitesurf-roma-657756326.htm
+2026-09-05 21:50:13 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:13 - INFO - Processing ad link: https://www.subito.it/sport/kit-completo-kite-surf-roma-657631734.htm (source=json)
+2026-09-05 21:50:13 - INFO - Skipping ad, already in database: https://www.subito.it/sport/kit-completo-kite-surf-roma-657631734.htm
+2026-09-05 21:50:13 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:13 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-5-5-roma-657401159.htm (source=json)
+2026-09-05 21:50:13 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-5-5-roma-657401159.htm
+2026-09-05 21:50:13 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:13 - INFO - Processing ad link: https://www.subito.it/sport/tavola-surf-per-mediterraneo-roma-657196638.htm (source=json)
+2026-09-05 21:50:13 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-surf-per-mediterraneo-roma-657196638.htm
+2026-09-05 21:50:13 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:13 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-roma-657176481.htm (source=json)
+2026-09-05 21:50:13 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-roma-657176481.htm
+2026-09-05 21:50:13 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:13 - INFO - Processing ad link: https://www.subito.it/sport/tavola-sup-surf-gonfiabile-roma-657094900.htm (source=json)
+2026-09-05 21:50:13 - INFO - Skipping ad https://www.subito.it/sport/tavola-sup-surf-gonfiabile-roma-657094900.htm: belongs to skipped category 'sup'
+2026-09-05 21:50:13 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:13 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-tahe-paint-super-magnum-6-0-roma-648415312.htm (source=json)
+2026-09-05 21:50:13 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-tahe-paint-super-magnum-6-0-roma-648415312.htm
+2026-09-05 21:50:13 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:13 - INFO - Processing ad link: https://www.subito.it/sport/sup-c4-waterman-10-6-parmenter-sacca-e-pinne-lat-roma-654215090.htm (source=json)
+2026-09-05 21:50:13 - INFO - Skipping ad https://www.subito.it/sport/sup-c4-waterman-10-6-parmenter-sacca-e-pinne-lat-roma-654215090.htm: belongs to skipped category 'sup'
+2026-09-05 21:50:13 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:13 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-bic-6-7-roma-656981157.htm (source=json)
+2026-09-05 21:50:13 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-bic-6-7-roma-656981157.htm
+2026-09-05 21:50:13 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:13 - INFO - Processing ad link: https://www.subito.it/sport/radinn-x-sport-pro-extended-roma-656656305.htm (source=json)
+2026-09-05 21:50:13 - INFO - Skipping ad, already in database: https://www.subito.it/sport/radinn-x-sport-pro-extended-roma-656656305.htm
+2026-09-05 21:50:13 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:13 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-ragazza-o-27-litri-roma-656339982.htm (source=json)
+2026-09-05 21:50:13 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-ragazza-o-27-litri-roma-656339982.htm
+2026-09-05 21:50:13 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:13 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-bushman-shapes-6-3-sacca-roma-653001415.htm (source=json)
+2026-09-05 21:50:13 - INFO - Skipping ad https://www.subito.it/sport/tavola-da-surf-bushman-shapes-6-3-sacca-roma-653001415.htm: title contains 'sacca'
+2026-09-05 21:50:13 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:13 - INFO - Processing ad link: https://www.subito.it/sport/surfboard-fish-roma-650780678.htm (source=json)
+2026-09-05 21:50:13 - INFO - Skipping ad, already in database: https://www.subito.it/sport/surfboard-fish-roma-650780678.htm
+2026-09-05 21:50:13 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:13 - INFO - Processing ad link: https://www.subito.it/sport/tavola-kite-surf-roma-656095665.htm (source=json)
+2026-09-05 21:50:13 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-kite-surf-roma-656095665.htm
+2026-09-05 21:50:13 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:13 - INFO - Processing ad link: https://www.subito.it/sport/kite-surf-completo-vela-tavola-lish-ed-accessori-roma-656065567.htm (source=json)
+2026-09-05 21:50:13 - INFO - Skipping ad, already in database: https://www.subito.it/sport/kite-surf-completo-vela-tavola-lish-ed-accessori-roma-656065567.htm
+2026-09-05 21:50:13 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:13 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-minimalibu-bic-6-3-roma-655821010.htm (source=json)
+2026-09-05 21:50:13 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-minimalibu-bic-6-3-roma-655821010.htm
+2026-09-05 21:50:13 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:13 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-ocean-and-earth-the-bug-4-8-roma-655765550.htm (source=json)
+2026-09-05 21:50:13 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-ocean-and-earth-the-bug-4-8-roma-655765550.htm
+2026-09-05 21:50:13 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:13 - INFO - Processing ad link: https://www.subito.it/sport/tavola-surf-torq-7-6-roma-655664556.htm (source=json)
+2026-09-05 21:50:13 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-surf-torq-7-6-roma-655664556.htm
+2026-09-05 21:50:13 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:13 - INFO - Processing ad link: https://www.subito.it/sport/js-flame-fish-roma-655660846.htm (source=json)
+2026-09-05 21:50:13 - INFO - Skipping ad, already in database: https://www.subito.it/sport/js-flame-fish-roma-655660846.htm
+2026-09-05 21:50:13 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:13 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-6-5-loka-surf-roma-655505081.htm (source=json)
+2026-09-05 21:50:13 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-6-5-loka-surf-roma-655505081.htm
+2026-09-05 21:50:13 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:13 - INFO - Processing ad link: https://www.subito.it/sport/tavola-kitefoil-500-5-4-kitesurf-takuma-pro-foil-roma-655438404.htm (source=json)
+2026-09-05 21:50:13 - INFO - Skipping ad https://www.subito.it/sport/tavola-kitefoil-500-5-4-kitesurf-takuma-pro-foil-roma-655438404.htm: belongs to skipped category 'windsurf'
+2026-09-05 21:50:13 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:13 - INFO - Processing ad link: https://www.subito.it/sport/longboard-surf-nuovo-roma-655112649.htm (source=json)
+2026-09-05 21:50:13 - INFO - Skipping ad, already in database: https://www.subito.it/sport/longboard-surf-nuovo-roma-655112649.htm
+2026-09-05 21:50:13 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:13 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-5-8-21-5-lt-roma-654570585.htm (source=json)
+2026-09-05 21:50:13 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-5-8-21-5-lt-roma-654570585.htm
+2026-09-05 21:50:13 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:13 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-roma-654542789.htm (source=json)
+2026-09-05 21:50:13 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-roma-654542789.htm
+2026-09-05 21:50:13 - INFO - Scraping search results from: https://www.subito.it/annunci-lazio/vendita/usato/roma/?q=tavola+da+surf&o=3
+2026-09-05 21:50:19 - INFO - Found 29 potential ad listings on page 3 using json path.
+2026-09-05 21:50:19 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:19 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-7-8-x-21-3-4-x-3-roma-659333736.htm (source=json)
+2026-09-05 21:50:19 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-7-8-x-21-3-4-x-3-roma-659333736.htm
+2026-09-05 21:50:19 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:19 - INFO - Processing ad link: https://www.subito.it/sport/tavola-surf-twin-fin-lsd-5-7-epoxy-pronto-uso-roma-639624008.htm (source=json)
+2026-09-05 21:50:19 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-surf-twin-fin-lsd-5-7-epoxy-pronto-uso-roma-639624008.htm
+2026-09-05 21:50:19 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:19 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-vintage-anche-di-arredo-roma-654465073.htm (source=json)
+2026-09-05 21:50:19 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-vintage-anche-di-arredo-roma-654465073.htm
+2026-09-05 21:50:19 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:19 - INFO - Processing ad link: https://www.subito.it/sport/tavole-da-surf-condizioni-nuove-roma-654445838.htm (source=json)
+2026-09-05 21:50:19 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavole-da-surf-condizioni-nuove-roma-654445838.htm
+2026-09-05 21:50:19 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:19 - INFO - Processing ad link: https://www.subito.it/sport/leash-da-sup-longboard-professionale-roma-654095175.htm (source=json)
+2026-09-05 21:50:19 - INFO - Skipping ad https://www.subito.it/sport/leash-da-sup-longboard-professionale-roma-654095175.htm: belongs to skipped category 'sup'
+2026-09-05 21:50:19 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:19 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-roma-654062501.htm (source=json)
+2026-09-05 21:50:19 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-roma-654062501.htm
+2026-09-05 21:50:19 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:19 - INFO - Processing ad link: https://www.subito.it/sport/tavola-foil-roma-638502604.htm (source=json)
+2026-09-05 21:50:19 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-foil-roma-638502604.htm
+2026-09-05 21:50:19 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:19 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-shortboard-roma-653476500.htm (source=json)
+2026-09-05 21:50:19 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-shortboard-roma-653476500.htm
+2026-09-05 21:50:19 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:19 - INFO - Processing ad link: https://www.subito.it/sport/tavola-prone-gonfiabile-roma-653095520.htm (source=json)
+2026-09-05 21:50:19 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-prone-gonfiabile-roma-653095520.htm
+2026-09-05 21:50:19 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:19 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-olaian-6-0-roma-652690520.htm (source=json)
+2026-09-05 21:50:19 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-olaian-6-0-roma-652690520.htm
+2026-09-05 21:50:19 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:19 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-roma-652608969.htm (source=json)
+2026-09-05 21:50:19 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-roma-652608969.htm
+2026-09-05 21:50:19 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:19 - INFO - Processing ad link: https://www.subito.it/sport/borsa-porta-tavola-da-surf-windsurf-tribord-xs-roma-652209313.htm (source=json)
+2026-09-05 21:50:19 - INFO - Skipping ad https://www.subito.it/sport/borsa-porta-tavola-da-surf-windsurf-tribord-xs-roma-652209313.htm: belongs to skipped category 'windsurf'
+2026-09-05 21:50:19 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:19 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-ola-shapes-slide-on-roma-651750146.htm (source=json)
+2026-09-05 21:50:19 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-ola-shapes-slide-on-roma-651750146.htm
+2026-09-05 21:50:19 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:19 - INFO - Processing ad link: https://www.subito.it/sport/olaian-surf-900-soft-6-roma-651601417.htm (source=json)
+2026-09-05 21:50:19 - INFO - Skipping ad, already in database: https://www.subito.it/sport/olaian-surf-900-soft-6-roma-651601417.htm
+2026-09-05 21:50:19 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:19 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-x-surfboard-5-10-quad-fin-roma-651451701.htm (source=json)
+2026-09-05 21:50:19 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-x-surfboard-5-10-quad-fin-roma-651451701.htm
+2026-09-05 21:50:19 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:19 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-bradley-barcellona-5-4-roma-651450181.htm (source=json)
+2026-09-05 21:50:19 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-bradley-barcellona-5-4-roma-651450181.htm
+2026-09-05 21:50:19 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:19 - INFO - Processing ad link: https://www.subito.it/sport/tavola-surf-longboard-takayama-in-the-pink-9-3-roma-649656042.htm (source=json)
+2026-09-05 21:50:19 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-surf-longboard-takayama-in-the-pink-9-3-roma-649656042.htm
+2026-09-05 21:50:19 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:19 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-roma-651108432.htm (source=json)
+2026-09-05 21:50:19 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-roma-651108432.htm
+2026-09-05 21:50:19 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:19 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-roma-650880297.htm (source=json)
+2026-09-05 21:50:19 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-roma-650880297.htm
+2026-09-05 21:50:19 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:19 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-north-kiteboarding-bamboo-tec-29l-roma-650793421.htm (source=json)
+2026-09-05 21:50:19 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-north-kiteboarding-bamboo-tec-29l-roma-650793421.htm
+2026-09-05 21:50:19 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:19 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-roma-642749816.htm (source=json)
+2026-09-05 21:50:19 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-roma-642749816.htm
+2026-09-05 21:50:19 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:19 - INFO - Processing ad link: https://www.subito.it/sport/channel-island-ci-2-pro-5-7-surf-roma-650657905.htm (source=json)
+2026-09-05 21:50:19 - INFO - Skipping ad, already in database: https://www.subito.it/sport/channel-island-ci-2-pro-5-7-surf-roma-650657905.htm
+2026-09-05 21:50:19 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:19 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-longboard-roma-650483285.htm (source=json)
+2026-09-05 21:50:19 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-longboard-roma-650483285.htm
+2026-09-05 21:50:19 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:19 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-dr-ank-7-2-roma-650411131.htm (source=json)
+2026-09-05 21:50:19 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-dr-ank-7-2-roma-650411131.htm
+2026-09-05 21:50:19 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:19 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-roma-650409956.htm (source=json)
+2026-09-05 21:50:19 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-roma-650409956.htm
+2026-09-05 21:50:19 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:19 - INFO - Processing ad link: https://www.subito.it/sport/tavola-serf-roma-649935238.htm (source=json)
+2026-09-05 21:50:19 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-serf-roma-649935238.htm
+2026-09-05 21:50:19 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:19 - INFO - Processing ad link: https://www.subito.it/sport/e-foil-professionali-2-surf-professionali-roma-649453043.htm (source=json)
+2026-09-05 21:50:19 - INFO - Skipping ad, already in database: https://www.subito.it/sport/e-foil-professionali-2-surf-professionali-roma-649453043.htm
+2026-09-05 21:50:19 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:19 - INFO - Processing ad link: https://www.subito.it/sport/e-foil-professionali-2-surf-professionali-roma-649452836.htm (source=json)
+2026-09-05 21:50:19 - INFO - Skipping ad, already in database: https://www.subito.it/sport/e-foil-professionali-2-surf-professionali-roma-649452836.htm
+2026-09-05 21:50:19 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:19 - INFO - Processing ad link: https://www.subito.it/sport/sequoia-5-6-roma-649452354.htm (source=json)
+2026-09-05 21:50:19 - INFO - Skipping ad, already in database: https://www.subito.it/sport/sequoia-5-6-roma-649452354.htm
+2026-09-05 21:50:19 - INFO - Scraping search results from: https://www.subito.it/annunci-lazio/vendita/usato/roma/?q=tavola+da+surf&o=4
+2026-09-05 21:50:24 - INFO - Found 31 potential ad listings on page 4 using json path.
+2026-09-05 21:50:24 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:24 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-7-8-x-21-3-4-x-3-roma-659333736.htm (source=json)
+2026-09-05 21:50:24 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-7-8-x-21-3-4-x-3-roma-659333736.htm
+2026-09-05 21:50:24 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:24 - INFO - Processing ad link: https://www.subito.it/sport/tavola-surf-twin-fin-lsd-5-7-epoxy-pronto-uso-roma-639624008.htm (source=json)
+2026-09-05 21:50:24 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-surf-twin-fin-lsd-5-7-epoxy-pronto-uso-roma-639624008.htm
+2026-09-05 21:50:24 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:24 - INFO - Processing ad link: https://www.subito.it/sport/tavola-surf-bic-natural-surf-2-7-9-roma-649409482.htm (source=json)
+2026-09-05 21:50:24 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-surf-bic-natural-surf-2-7-9-roma-649409482.htm
+2026-09-05 21:50:24 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:24 - INFO - Processing ad link: https://www.subito.it/sport/surf-airush-21-22-cypher-v3-roma-649354425.htm (source=json)
+2026-09-05 21:50:24 - INFO - Skipping ad, already in database: https://www.subito.it/sport/surf-airush-21-22-cypher-v3-roma-649354425.htm
+2026-09-05 21:50:24 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:24 - INFO - Processing ad link: https://www.subito.it/sport/surfboard-honu-australia-roma-649348755.htm (source=json)
+2026-09-05 21:50:24 - INFO - Skipping ad, already in database: https://www.subito.it/sport/surfboard-honu-australia-roma-649348755.htm
+2026-09-05 21:50:24 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:24 - INFO - Processing ad link: https://www.subito.it/sport/tavola-surf-da-onda-mini-malibu-7-6-roma-649197593.htm (source=json)
+2026-09-05 21:50:24 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-surf-da-onda-mini-malibu-7-6-roma-649197593.htm
+2026-09-05 21:50:24 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:24 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-x-surfboard-5-4-mod-grom-roma-648994292.htm (source=json)
+2026-09-05 21:50:24 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-x-surfboard-5-4-mod-grom-roma-648994292.htm
+2026-09-05 21:50:24 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:24 - INFO - Processing ad link: https://www.subito.it/sport/tavola-surf-longboard-bic-10-roma-648785210.htm (source=json)
+2026-09-05 21:50:24 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-surf-longboard-bic-10-roma-648785210.htm
+2026-09-05 21:50:24 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:24 - INFO - Processing ad link: https://www.subito.it/sport/tavola-surf-roma-648647227.htm (source=json)
+2026-09-05 21:50:24 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-surf-roma-648647227.htm
+2026-09-05 21:50:24 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:24 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-6-2-roma-625324520.htm (source=json)
+2026-09-05 21:50:24 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-6-2-roma-625324520.htm
+2026-09-05 21:50:24 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:24 - INFO - Processing ad link: https://www.subito.it/sport/surf-tavola-shortboard-roma-627241060.htm (source=json)
+2026-09-05 21:50:24 - INFO - Skipping ad, already in database: https://www.subito.it/sport/surf-tavola-shortboard-roma-627241060.htm
+2026-09-05 21:50:24 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:24 - INFO - Processing ad link: https://www.subito.it/sport/tavola-surf-softboard-8-6-tribord-roma-647906070.htm (source=json)
+2026-09-05 21:50:24 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-surf-softboard-8-6-tribord-roma-647906070.htm
+2026-09-05 21:50:24 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:24 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-pukas-roma-647844576.htm (source=json)
+2026-09-05 21:50:24 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-pukas-roma-647844576.htm
+2026-09-05 21:50:24 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:24 - INFO - Processing ad link: https://www.subito.it/sport/surf-da-onda-roma-647837404.htm (source=json)
+2026-09-05 21:50:24 - INFO - Skipping ad, already in database: https://www.subito.it/sport/surf-da-onda-roma-647837404.htm
+2026-09-05 21:50:24 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:24 - INFO - Processing ad link: https://www.subito.it/sport/tavola-surf-rrd-chiatta-5-8-roma-647804632.htm (source=json)
+2026-09-05 21:50:24 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-surf-rrd-chiatta-5-8-roma-647804632.htm
+2026-09-05 21:50:24 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:24 - INFO - Processing ad link: https://www.subito.it/sport/x-surfboards-7-4-set-viaggio-completo-roma-647456557.htm (source=json)
+2026-09-05 21:50:24 - INFO - Skipping ad, already in database: https://www.subito.it/sport/x-surfboards-7-4-set-viaggio-completo-roma-647456557.htm
+2026-09-05 21:50:24 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:24 - INFO - Processing ad link: https://www.subito.it/sport/x-surfboards-7-4-set-viaggio-completo-roma-647456241.htm (source=json)
+2026-09-05 21:50:24 - INFO - Skipping ad, already in database: https://www.subito.it/sport/x-surfboards-7-4-set-viaggio-completo-roma-647456241.htm
+2026-09-05 21:50:24 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:24 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-roma-647418183.htm (source=json)
+2026-09-05 21:50:24 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-roma-647418183.htm
+2026-09-05 21:50:24 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:24 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-roma-647417957.htm (source=json)
+2026-09-05 21:50:24 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-roma-647417957.htm
+2026-09-05 21:50:24 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:24 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-pukas-roma-647417685.htm (source=json)
+2026-09-05 21:50:24 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-pukas-roma-647417685.htm
+2026-09-05 21:50:24 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:24 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-roma-647417307.htm (source=json)
+2026-09-05 21:50:24 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-roma-647417307.htm
+2026-09-05 21:50:24 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:24 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-bambini-roma-647318299.htm (source=json)
+2026-09-05 21:50:24 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-bambini-roma-647318299.htm
+2026-09-05 21:50:24 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:24 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-firewire-seaside-5-6-32-7l-roma-646521108.htm (source=json)
+2026-09-05 21:50:24 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-firewire-seaside-5-6-32-7l-roma-646521108.htm
+2026-09-05 21:50:24 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:24 - INFO - Processing ad link: https://www.subito.it/sport/tavola-wing-surf-kite-sup-rrd-mod-100l-roma-646196127.htm (source=json)
+2026-09-05 21:50:24 - INFO - Skipping ad https://www.subito.it/sport/tavola-wing-surf-kite-sup-rrd-mod-100l-roma-646196127.htm: belongs to skipped category 'sup'
+2026-09-05 21:50:24 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:24 - INFO - Processing ad link: https://www.subito.it/sport/bodyboard-olaian-100-pinne-tg-36-37-set-roma-646194870.htm (source=json)
+2026-09-05 21:50:24 - INFO - Skipping ad https://www.subito.it/sport/bodyboard-olaian-100-pinne-tg-36-37-set-roma-646194870.htm: belongs to skipped category 'bodyboard'
+2026-09-05 21:50:24 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:24 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-windsurf-roma-646109355.htm (source=json)
+2026-09-05 21:50:24 - INFO - Skipping ad https://www.subito.it/sport/tavola-da-windsurf-roma-646109355.htm: belongs to skipped category 'windsurf'
+2026-09-05 21:50:24 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:24 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-al-merrick-roma-645171659.htm (source=json)
+2026-09-05 21:50:24 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-al-merrick-roma-645171659.htm
+2026-09-05 21:50:24 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:24 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-5-11-come-nuova-roma-645082709.htm (source=json)
+2026-09-05 21:50:24 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-5-11-come-nuova-roma-645082709.htm
+2026-09-05 21:50:24 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:24 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-rusty-dwart-5-4-surfboard-roma-644545359.htm (source=json)
+2026-09-05 21:50:24 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-rusty-dwart-5-4-surfboard-roma-644545359.htm
+2026-09-05 21:50:24 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:24 - INFO - Processing ad link: https://www.subito.it/sport/al-merrick-ci-2-pro-roma-644484720.htm (source=json)
+2026-09-05 21:50:24 - INFO - Skipping ad, already in database: https://www.subito.it/sport/al-merrick-ci-2-pro-roma-644484720.htm
+2026-09-05 21:50:24 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:24 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-6-roma-644336583.htm (source=json)
+2026-09-05 21:50:24 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-6-roma-644336583.htm
+2026-09-05 21:50:24 - INFO - Scraping search results from: https://www.subito.it/annunci-lazio/vendita/usato/roma/?q=tavola+da+surf&o=5
+2026-09-05 21:50:29 - INFO - Found 30 potential ad listings on page 5 using json path.
+2026-09-05 21:50:29 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:29 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-7-8-x-21-3-4-x-3-roma-659333736.htm (source=json)
+2026-09-05 21:50:29 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-7-8-x-21-3-4-x-3-roma-659333736.htm
+2026-09-05 21:50:29 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:29 - INFO - Processing ad link: https://www.subito.it/sport/tavola-surf-twin-fin-lsd-5-7-epoxy-pronto-uso-roma-639624008.htm (source=json)
+2026-09-05 21:50:29 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-surf-twin-fin-lsd-5-7-epoxy-pronto-uso-roma-639624008.htm
+2026-09-05 21:50:29 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:29 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-roma-644135116.htm (source=json)
+2026-09-05 21:50:29 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-roma-644135116.htm
+2026-09-05 21:50:29 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:29 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-6-3-190cm-sacca-roma-643793245.htm (source=json)
+2026-09-05 21:50:29 - INFO - Skipping ad https://www.subito.it/sport/tavola-da-surf-6-3-190cm-sacca-roma-643793245.htm: title contains 'sacca'
+2026-09-05 21:50:29 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:29 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-xd2-5-9-roma-643446013.htm (source=json)
+2026-09-05 21:50:29 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-xd2-5-9-roma-643446013.htm
+2026-09-05 21:50:29 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:29 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-roma-643402620.htm (source=json)
+2026-09-05 21:50:29 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-roma-643402620.htm
+2026-09-05 21:50:29 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:29 - INFO - Processing ad link: https://www.subito.it/sport/2-canoe-1-pedalo-1-barca-1-tavola-da-surf-roma-643195542.htm (source=json)
+2026-09-05 21:50:29 - INFO - Skipping ad, already in database: https://www.subito.it/sport/2-canoe-1-pedalo-1-barca-1-tavola-da-surf-roma-643195542.htm
+2026-09-05 21:50:29 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:29 - INFO - Processing ad link: https://www.subito.it/sport/tavola-surf-5-7-roma-642698562.htm (source=json)
+2026-09-05 21:50:29 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-surf-5-7-roma-642698562.htm
+2026-09-05 21:50:29 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:29 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-sharpeye-77-5-6-nuova-roma-642590209.htm (source=json)
+2026-09-05 21:50:29 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-sharpeye-77-5-6-nuova-roma-642590209.htm
+2026-09-05 21:50:29 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:29 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-js-monta-box-5-7-roma-642589919.htm (source=json)
+2026-09-05 21:50:29 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-js-monta-box-5-7-roma-642589919.htm
+2026-09-05 21:50:29 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:29 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-town-country-5-9-36-litri-roma-642077677.htm (source=json)
+2026-09-05 21:50:29 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-town-country-5-9-36-litri-roma-642077677.htm
+2026-09-05 21:50:29 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:29 - INFO - Processing ad link: https://www.subito.it/sport/shortboard-chris-garrett-shapes-6-10-artigianale-roma-641683462.htm (source=json)
+2026-09-05 21:50:29 - INFO - Skipping ad, already in database: https://www.subito.it/sport/shortboard-chris-garrett-shapes-6-10-artigianale-roma-641683462.htm
+2026-09-05 21:50:29 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:29 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-roma-641620674.htm (source=json)
+2026-09-05 21:50:29 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-roma-641620674.htm
+2026-09-05 21:50:29 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:29 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-7-4-minimalibu-sic-roma-639623352.htm (source=json)
+2026-09-05 21:50:29 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-7-4-minimalibu-sic-roma-639623352.htm
+2026-09-05 21:50:29 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:29 - INFO - Processing ad link: https://www.subito.it/sport/tavole-da-surf-roma-641213445.htm (source=json)
+2026-09-05 21:50:29 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavole-da-surf-roma-641213445.htm
+2026-09-05 21:50:29 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:29 - INFO - Processing ad link: https://www.subito.it/sport/tavola-roma-640972822.htm (source=json)
+2026-09-05 21:50:29 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-roma-640972822.htm
+2026-09-05 21:50:29 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:29 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-bic-fish-5-10-con-leash-roma-640830697.htm (source=json)
+2026-09-05 21:50:29 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-bic-fish-5-10-con-leash-roma-640830697.htm
+2026-09-05 21:50:29 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:29 - INFO - Processing ad link: https://www.subito.it/sport/vela-wind-surf-junior-3-0-roma-639528845.htm (source=json)
+2026-09-05 21:50:29 - INFO - Skipping ad, already in database: https://www.subito.it/sport/vela-wind-surf-junior-3-0-roma-639528845.htm
+2026-09-05 21:50:29 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:29 - INFO - Processing ad link: https://www.subito.it/sport/borsa-pervtavola-da-surf-roma-639473979.htm (source=json)
+2026-09-05 21:50:29 - INFO - Skipping ad, already in database: https://www.subito.it/sport/borsa-pervtavola-da-surf-roma-639473979.htm
+2026-09-05 21:50:29 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:29 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-mark-richards-twin-roma-639394349.htm (source=json)
+2026-09-05 21:50:29 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-mark-richards-twin-roma-639394349.htm
+2026-09-05 21:50:29 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:29 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-snowboard-sandy-shapes-fantastic-163-roma-637727101.htm (source=json)
+2026-09-05 21:50:29 - INFO - Skipping ad https://www.subito.it/sport/tavola-da-snowboard-sandy-shapes-fantastic-163-roma-637727101.htm: belongs to skipped category 'snowboard'
+2026-09-05 21:50:29 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:29 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-roma-636208762.htm (source=json)
+2026-09-05 21:50:29 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-roma-636208762.htm
+2026-09-05 21:50:29 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:29 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-bic-5-10-fish-roma-635580075.htm (source=json)
+2026-09-05 21:50:29 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-bic-5-10-fish-roma-635580075.htm
+2026-09-05 21:50:29 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:29 - INFO - Processing ad link: https://www.subito.it/sport/serfino-wam-5-10-roma-635366440.htm (source=json)
+2026-09-05 21:50:29 - INFO - Skipping ad, already in database: https://www.subito.it/sport/serfino-wam-5-10-roma-635366440.htm
+2026-09-05 21:50:29 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:29 - INFO - Processing ad link: https://www.subito.it/sport/surfskate-california-board-roma-635005333.htm (source=json)
+2026-09-05 21:50:29 - INFO - Skipping ad https://www.subito.it/sport/surfskate-california-board-roma-635005333.htm: belongs to skipped category 'surfskate'
+2026-09-05 21:50:29 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:29 - INFO - Processing ad link: https://www.subito.it/sport/surf-portatavole-roma-634931109.htm (source=json)
+2026-09-05 21:50:29 - INFO - Skipping ad, already in database: https://www.subito.it/sport/surf-portatavole-roma-634931109.htm
+2026-09-05 21:50:29 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:29 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-roma-634730421.htm (source=json)
+2026-09-05 21:50:29 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-roma-634730421.htm
+2026-09-05 21:50:29 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:29 - INFO - Processing ad link: https://www.subito.it/sport/rrd-maquina-pro-y27-roma-633733372.htm (source=json)
+2026-09-05 21:50:29 - INFO - Skipping ad, already in database: https://www.subito.it/sport/rrd-maquina-pro-y27-roma-633733372.htm
+2026-09-05 21:50:29 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:29 - INFO - Processing ad link: https://www.subito.it/sport/surf-simon-anderson-roma-633372233.htm (source=json)
+2026-09-05 21:50:29 - INFO - Skipping ad, already in database: https://www.subito.it/sport/surf-simon-anderson-roma-633372233.htm
+2026-09-05 21:50:29 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:29 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-longboard-9-2-hobie-positive-force-roma-632992384.htm (source=json)
+2026-09-05 21:50:29 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-longboard-9-2-hobie-positive-force-roma-632992384.htm
+2026-09-05 21:50:48 - INFO - Scraping search results from: https://www.subito.it/annunci-veneto/vendita/usato/venezia/?q=surfboard&o=1
+2026-09-05 21:50:51 - INFO - Found 2 potential ad listings on page 1 using json path.
+2026-09-05 21:50:51 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:51 - INFO - Processing ad link: https://www.subito.it/sport/surfboard-matteo-fabbri-bigfish-7-7-piedi-venezia-651490821.htm (source=json)
+2026-09-05 21:50:51 - INFO - Skipping ad, already in database: https://www.subito.it/sport/surfboard-matteo-fabbri-bigfish-7-7-piedi-venezia-651490821.htm
+2026-09-05 21:50:51 - INFO - ------------------------------------------------------------
+2026-09-05 21:50:51 - INFO - Processing ad link: https://www.subito.it/sport/softboard-venezia-631995285.htm (source=json)
+2026-09-05 21:50:51 - INFO - Skipping ad, already in database: https://www.subito.it/sport/softboard-venezia-631995285.htm
+2026-09-05 21:50:51 - INFO - Scraping search results from: https://www.subito.it/annunci-veneto/vendita/usato/venezia/?q=surfboard&o=2
+2026-09-05 21:50:56 - INFO - Found 0 potential ad listings on page 2 using html path.
+2026-09-05 21:50:56 - INFO - No more ads found on page 2. Moving to next search term.
+2026-09-05 21:51:09 - INFO - Scraping search results from: https://www.subito.it/annunci-veneto/vendita/usato/padova/?q=surfboard&o=1
+2026-09-05 21:51:15 - INFO - Found 1 potential ad listings on page 1 using json path.
+2026-09-05 21:51:15 - INFO - ------------------------------------------------------------
+2026-09-05 21:51:15 - INFO - Processing ad link: https://www.subito.it/sport/tavola-surfboard-padova-618693732.htm (source=json)
+2026-09-05 21:51:15 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-surfboard-padova-618693732.htm
+2026-09-05 21:51:15 - INFO - Scraping search results from: https://www.subito.it/annunci-veneto/vendita/usato/padova/?q=surfboard&o=2
+2026-09-05 21:51:19 - INFO - Found 0 potential ad listings on page 2 using html path.
+2026-09-05 21:51:19 - INFO - No more ads found on page 2. Moving to next search term.
+2026-09-05 21:51:35 - INFO - Scraping search results from: https://www.subito.it/annunci-veneto/vendita/usato/padova/?q=tavola+da+surf&o=1
+2026-09-05 21:51:40 - INFO - Found 14 potential ad listings on page 1 using json path.
+2026-09-05 21:51:41 - INFO - ------------------------------------------------------------
+2026-09-05 21:51:41 - INFO - Processing ad link: https://www.subito.it/sport/2-tavole-da-bodyboard-surf-padova-659381621.htm (source=json)
+2026-09-05 21:51:41 - INFO - Skipping ad https://www.subito.it/sport/2-tavole-da-bodyboard-surf-padova-659381621.htm: belongs to skipped category 'bodyboard'
+2026-09-05 21:51:41 - INFO - ------------------------------------------------------------
+2026-09-05 21:51:41 - INFO - Processing ad link: https://www.subito.it/sport/tavola-di-wind-surf-sup-padova-655658564.htm (source=json)
+2026-09-05 21:51:41 - INFO - Skipping ad https://www.subito.it/sport/tavola-di-wind-surf-sup-padova-655658564.htm: belongs to skipped category 'sup'
+2026-09-05 21:51:41 - INFO - ------------------------------------------------------------
+2026-09-05 21:51:41 - INFO - Processing ad link: https://www.subito.it/sport/tavola-jobe-stimmel-padova-655217562.htm (source=json)
+2026-09-05 21:51:41 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-jobe-stimmel-padova-655217562.htm
+2026-09-05 21:51:41 - INFO - ------------------------------------------------------------
+2026-09-05 21:51:41 - INFO - Processing ad link: https://www.subito.it/sport/tavola-padova-655216980.htm (source=json)
+2026-09-05 21:51:41 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-padova-655216980.htm
+2026-09-05 21:51:41 - INFO - ------------------------------------------------------------
+2026-09-05 21:51:41 - INFO - Processing ad link: https://www.subito.it/sport/windsurf-f2-completo-padova-653221500.htm (source=json)
+2026-09-05 21:51:41 - INFO - Skipping ad https://www.subito.it/sport/windsurf-f2-completo-padova-653221500.htm: belongs to skipped category 'windsurf'
+2026-09-05 21:51:41 - INFO - ------------------------------------------------------------
+2026-09-05 21:51:41 - INFO - Processing ad link: https://www.subito.it/sport/surfskate-waterborne-libra-padova-651542463.htm (source=json)
+2026-09-05 21:51:41 - INFO - Skipping ad https://www.subito.it/sport/surfskate-waterborne-libra-padova-651542463.htm: belongs to skipped category 'surfskate'
+2026-09-05 21:51:41 - INFO - ------------------------------------------------------------
+2026-09-05 21:51:41 - INFO - Processing ad link: https://www.subito.it/sport/attrezzatura-completa-kite-surf-padova-650342720.htm (source=json)
+2026-09-05 21:51:41 - INFO - Skipping ad, already in database: https://www.subito.it/sport/attrezzatura-completa-kite-surf-padova-650342720.htm
+2026-09-05 21:51:41 - INFO - ------------------------------------------------------------
+2026-09-05 21:51:41 - INFO - Processing ad link: https://www.subito.it/sport/tavola-surf-6-6-ocean-earth-padova-642840757.htm (source=json)
+2026-09-05 21:51:41 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-surf-6-6-ocean-earth-padova-642840757.htm
+2026-09-05 21:51:41 - INFO - ------------------------------------------------------------
+2026-09-05 21:51:41 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-torq-summer-5-padova-639643499.htm (source=json)
+2026-09-05 21:51:41 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-torq-summer-5-padova-639643499.htm
+2026-09-05 21:51:41 - INFO - ------------------------------------------------------------
+2026-09-05 21:51:41 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-padova-636423074.htm (source=json)
+2026-09-05 21:51:41 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-padova-636423074.htm
+2026-09-05 21:51:41 - INFO - ------------------------------------------------------------
+2026-09-05 21:51:41 - INFO - Processing ad link: https://www.subito.it/sport/tavola-kitesurf-divisibile-padova-635586251.htm (source=json)
+2026-09-05 21:51:41 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-kitesurf-divisibile-padova-635586251.htm
+2026-09-05 21:51:41 - INFO - ------------------------------------------------------------
+2026-09-05 21:51:41 - INFO - Processing ad link: https://www.subito.it/sport/surf-tavola-padova-626712891.htm (source=json)
+2026-09-05 21:51:41 - INFO - Skipping ad, already in database: https://www.subito.it/sport/surf-tavola-padova-626712891.htm
+2026-09-05 21:51:41 - INFO - ------------------------------------------------------------
+2026-09-05 21:51:41 - INFO - Processing ad link: https://www.subito.it/sport/tavola-windsurf-padova-604854525.htm (source=json)
+2026-09-05 21:51:41 - INFO - Skipping ad https://www.subito.it/sport/tavola-windsurf-padova-604854525.htm: belongs to skipped category 'windsurf'
+2026-09-05 21:51:41 - INFO - ------------------------------------------------------------
+2026-09-05 21:51:41 - INFO - Processing ad link: https://www.subito.it/sport/waveboard-padova-423350581.htm (source=json)
+2026-09-05 21:51:41 - INFO - Skipping ad https://www.subito.it/sport/waveboard-padova-423350581.htm: belongs to skipped category 'snowboard'
+2026-09-05 21:51:41 - INFO - Scraping search results from: https://www.subito.it/annunci-veneto/vendita/usato/padova/?q=tavola+da+surf&o=2
+2026-09-05 21:51:46 - INFO - Found 0 potential ad listings on page 2 using html path.
+2026-09-05 21:51:46 - INFO - No more ads found on page 2. Moving to next search term.
+2026-09-05 21:52:01 - INFO - Scraping search results from: https://www.subito.it/annunci-lombardia/vendita/usato/milano/?q=surfboard&o=1
+2026-09-05 21:52:05 - INFO - Found 9 potential ad listings on page 1 using json path.
+2026-09-05 21:52:05 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:05 - INFO - Processing ad link: https://www.subito.it/sport/surfboard-haydenshapes-hypto-krypto-6-10-milano-656613134.htm (source=json)
+2026-09-05 21:52:05 - INFO - Skipping ad, already in database: https://www.subito.it/sport/surfboard-haydenshapes-hypto-krypto-6-10-milano-656613134.htm
+2026-09-05 21:52:05 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:05 - INFO - Processing ad link: https://www.subito.it/sport/surfboard-dhd-mf-ducks-nuts-6-1-27-24l-fcs-ii-milano-658889830.htm (source=json)
+2026-09-05 21:52:05 - INFO - Skipping ad, already in database: https://www.subito.it/sport/surfboard-dhd-mf-ducks-nuts-6-1-27-24l-fcs-ii-milano-658889830.htm
+2026-09-05 21:52:05 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:05 - INFO - Processing ad link: https://www.subito.it/sport/tavola-surf-fish-retro-5-8-milano-658802658.htm (source=json)
+2026-09-05 21:52:05 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-surf-fish-retro-5-8-milano-658802658.htm
+2026-09-05 21:52:05 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:05 - INFO - Processing ad link: https://www.subito.it/sport/surfboars-torq-x-all-marrick-x-lite-podmod-milano-658184774.htm (source=json)
+2026-09-05 21:52:05 - INFO - Skipping ad, already in database: https://www.subito.it/sport/surfboars-torq-x-all-marrick-x-lite-podmod-milano-658184774.htm
+2026-09-05 21:52:05 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:05 - INFO - Processing ad link: https://www.subito.it/sport/pyzel-surfboard-shadow-model-epoxy-electrali-milano-634962777.htm (source=json)
+2026-09-05 21:52:05 - INFO - Skipping ad, already in database: https://www.subito.it/sport/pyzel-surfboard-shadow-model-epoxy-electrali-milano-634962777.htm
+2026-09-05 21:52:05 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:05 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-slater-design-frk-5-7-milano-634011621.htm (source=json)
+2026-09-05 21:52:05 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-slater-design-frk-5-7-milano-634011621.htm
+2026-09-05 21:52:05 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:05 - INFO - Processing ad link: https://www.subito.it/sport/tavola-surfboard-bradley-lc6-gladiator-5-11-30-4-l-milano-628384493.htm (source=json)
+2026-09-05 21:52:05 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-surfboard-bradley-lc6-gladiator-5-11-30-4-l-milano-628384493.htm
+2026-09-05 21:52:05 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:05 - INFO - Processing ad link: https://www.subito.it/sport/tavola-surf-rusty-zeppelin-alternative-surfboard-milano-616943797.htm (source=json)
+2026-09-05 21:52:05 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-surf-rusty-zeppelin-alternative-surfboard-milano-616943797.htm
+2026-09-05 21:52:05 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:05 - INFO - Processing ad link: https://www.subito.it/sport/tavola-surf-rusty-zeppelin-alternative-surfboard-milano-616973117.htm (source=json)
+2026-09-05 21:52:05 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-surf-rusty-zeppelin-alternative-surfboard-milano-616973117.htm
+2026-09-05 21:52:05 - INFO - Scraping search results from: https://www.subito.it/annunci-lombardia/vendita/usato/milano/?q=surfboard&o=2
+2026-09-05 21:52:10 - INFO - Found 0 potential ad listings on page 2 using html path.
+2026-09-05 21:52:10 - INFO - No more ads found on page 2. Moving to next search term.
+2026-09-05 21:52:27 - INFO - Scraping search results from: https://www.subito.it/annunci-lazio/vendita/usato/roma/?q=surfboard&o=1
+2026-09-05 21:52:31 - INFO - Found 22 potential ad listings on page 1 using json path.
+2026-09-05 21:52:31 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:31 - INFO - Processing ad link: https://www.subito.it/sport/bodyboard-hubb-edition-pp-pro-sci-five-42-roma-659629039.htm (source=json)
+2026-09-05 21:52:31 - INFO - Skipping ad https://www.subito.it/sport/bodyboard-hubb-edition-pp-pro-sci-five-42-roma-659629039.htm: belongs to skipped category 'bodyboard'
+2026-09-05 21:52:31 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:31 - INFO - Processing ad link: https://www.subito.it/sport/migra-6-7-surf-board-bag-sacca-surf-roma-659145546.htm (source=json)
+2026-09-05 21:52:31 - INFO - Skipping ad https://www.subito.it/sport/migra-6-7-surf-board-bag-sacca-surf-roma-659145546.htm: title contains 'sacca'
+2026-09-05 21:52:31 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:31 - INFO - Processing ad link: https://www.subito.it/sport/quiksilver-break-surfboard-pumpkin-orange-roma-657723963.htm (source=json)
+2026-09-05 21:52:31 - INFO - Skipping ad, already in database: https://www.subito.it/sport/quiksilver-break-surfboard-pumpkin-orange-roma-657723963.htm
+2026-09-05 21:52:31 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:31 - INFO - Processing ad link: https://www.subito.it/sport/surfboard-fish-roma-650780678.htm (source=json)
+2026-09-05 21:52:31 - INFO - Skipping ad, already in database: https://www.subito.it/sport/surfboard-fish-roma-650780678.htm
+2026-09-05 21:52:31 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:31 - INFO - Processing ad link: https://www.subito.it/sport/ocean-heart-8-0-ezi-rider-roma-653332776.htm (source=json)
+2026-09-05 21:52:31 - INFO - Skipping ad, already in database: https://www.subito.it/sport/ocean-heart-8-0-ezi-rider-roma-653332776.htm
+2026-09-05 21:52:31 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:31 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-x-surfboard-5-10-quad-fin-roma-651451701.htm (source=json)
+2026-09-05 21:52:31 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-x-surfboard-5-10-quad-fin-roma-651451701.htm
+2026-09-05 21:52:31 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:31 - INFO - Processing ad link: https://www.subito.it/sport/surfboard-leo-leira-roma-650301701.htm (source=json)
+2026-09-05 21:52:31 - INFO - Skipping ad, already in database: https://www.subito.it/sport/surfboard-leo-leira-roma-650301701.htm
+2026-09-05 21:52:31 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:31 - INFO - Processing ad link: https://www.subito.it/sport/surfboard-honu-australia-roma-649348755.htm (source=json)
+2026-09-05 21:52:31 - INFO - Skipping ad, already in database: https://www.subito.it/sport/surfboard-honu-australia-roma-649348755.htm
+2026-09-05 21:52:31 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:31 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-x-surfboard-5-4-mod-grom-roma-648994292.htm (source=json)
+2026-09-05 21:52:31 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-x-surfboard-5-4-mod-grom-roma-648994292.htm
+2026-09-05 21:52:31 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:31 - INFO - Processing ad link: https://www.subito.it/sport/surfboard-al-merrick-roma-645144243.htm (source=json)
+2026-09-05 21:52:31 - INFO - Skipping ad, already in database: https://www.subito.it/sport/surfboard-al-merrick-roma-645144243.htm
+2026-09-05 21:52:31 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:31 - INFO - Processing ad link: https://www.subito.it/sport/sacca-surfboard-5-7-dakine-roma-644775944.htm (source=json)
+2026-09-05 21:52:31 - INFO - Skipping ad https://www.subito.it/sport/sacca-surfboard-5-7-dakine-roma-644775944.htm: title contains 'sacca'
+2026-09-05 21:52:31 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:31 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-rusty-dwart-5-4-surfboard-roma-644545359.htm (source=json)
+2026-09-05 21:52:31 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-rusty-dwart-5-4-surfboard-roma-644545359.htm
+2026-09-05 21:52:31 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:31 - INFO - Processing ad link: https://www.subito.it/sport/pinne-surfboard-machado-quad-roma-644323687.htm (source=json)
+2026-09-05 21:52:31 - INFO - Skipping ad, already in database: https://www.subito.it/sport/pinne-surfboard-machado-quad-roma-644323687.htm
+2026-09-05 21:52:31 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:31 - INFO - Processing ad link: https://www.subito.it/sport/set-ruote-skateboard-slime-balls-60-mm-78-a-roma-627503340.htm (source=json)
+2026-09-05 21:52:31 - INFO - Skipping ad https://www.subito.it/sport/set-ruote-skateboard-slime-balls-60-mm-78-a-roma-627503340.htm: belongs to skipped category 'skateboard'
+2026-09-05 21:52:31 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:31 - INFO - Processing ad link: https://www.subito.it/sport/surf-tavola-5-8-sharpeye-surfboard-roma-625492051.htm (source=json)
+2026-09-05 21:52:31 - INFO - Skipping ad, already in database: https://www.subito.it/sport/surf-tavola-5-8-sharpeye-surfboard-roma-625492051.htm
+2026-09-05 21:52:31 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:31 - INFO - Processing ad link: https://www.subito.it/sport/surfboard-7-6-performer-bic-roma-624096803.htm (source=json)
+2026-09-05 21:52:31 - INFO - Skipping ad, already in database: https://www.subito.it/sport/surfboard-7-6-performer-bic-roma-624096803.htm
+2026-09-05 21:52:31 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:31 - INFO - Processing ad link: https://www.subito.it/sport/surfboard-roma-575939909.htm (source=json)
+2026-09-05 21:52:31 - INFO - Skipping ad, already in database: https://www.subito.it/sport/surfboard-roma-575939909.htm
+2026-09-05 21:52:31 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:31 - INFO - Processing ad link: https://www.subito.it/sport/js-monsta-10-5-11-roma-621810670.htm (source=json)
+2026-09-05 21:52:31 - INFO - Skipping ad, already in database: https://www.subito.it/sport/js-monsta-10-5-11-roma-621810670.htm
+2026-09-05 21:52:31 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:31 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-rrd-fish-lucky-surfboard-5-10-roma-616619952.htm (source=json)
+2026-09-05 21:52:31 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-rrd-fish-lucky-surfboard-5-10-roma-616619952.htm
+2026-09-05 21:52:31 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:31 - INFO - Processing ad link: https://www.subito.it/sport/surfboard-short-roma-616434289.htm (source=json)
+2026-09-05 21:52:31 - INFO - Skipping ad, already in database: https://www.subito.it/sport/surfboard-short-roma-616434289.htm
+2026-09-05 21:52:31 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:31 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-5-10-roma-615816833.htm (source=json)
+2026-09-05 21:52:31 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-5-10-roma-615816833.htm
+2026-09-05 21:52:31 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:31 - INFO - Processing ad link: https://www.subito.it/sport/tavola-surf-surfboard-gonfiabile-coasto-8-roma-564620833.htm (source=json)
+2026-09-05 21:52:31 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-surf-surfboard-gonfiabile-coasto-8-roma-564620833.htm
+2026-09-05 21:52:31 - INFO - Scraping search results from: https://www.subito.it/annunci-lazio/vendita/usato/roma/?q=surfboard&o=2
+2026-09-05 21:52:34 - INFO - Found 0 potential ad listings on page 2 using html path.
+2026-09-05 21:52:34 - INFO - No more ads found on page 2. Moving to next search term.
+2026-09-05 21:52:45 - INFO - Scraping search results from: https://www.subito.it/annunci-lombardia/vendita/usato/milano/?q=tavola+da+surf&o=1
+2026-09-05 21:52:51 - INFO - Found 20 potential ad listings on page 1 using json path.
+2026-09-05 21:52:51 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:51 - INFO - Processing ad link: https://www.subito.it/sport/set-kite-surf-milano-657964253.htm (source=json)
+2026-09-05 21:52:51 - INFO - Skipping ad, already in database: https://www.subito.it/sport/set-kite-surf-milano-657964253.htm
+2026-09-05 21:52:51 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:51 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-surf-catch-the-log-7-milano-659449236.htm (source=json)
+2026-09-05 21:52:51 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-surf-catch-the-log-7-milano-659449236.htm
+2026-09-05 21:52:51 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:51 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-milano-659273922.htm (source=json)
+2026-09-05 21:52:51 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-milano-659273922.htm
+2026-09-05 21:52:51 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:51 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-milano-658853981.htm (source=json)
+2026-09-05 21:52:51 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-milano-658853981.htm
+2026-09-05 21:52:51 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:51 - INFO - Processing ad link: https://www.subito.it/sport/set-campeggio-tentbox-cargo-cucina-tendalino-milano-658752727.htm (source=json)
+2026-09-05 21:52:51 - INFO - Skipping ad https://www.subito.it/sport/set-campeggio-tentbox-cargo-cucina-tendalino-milano-658752727.htm: belongs to skipped category 'snowboard'
+2026-09-05 21:52:51 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:51 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-channel-islands-6-1-milano-657694728.htm (source=json)
+2026-09-05 21:52:51 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-channel-islands-6-1-milano-657694728.htm
+2026-09-05 21:52:51 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:51 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-fanatic-lite-rabbit-milano-656824014.htm (source=json)
+2026-09-05 21:52:51 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-fanatic-lite-rabbit-milano-656824014.htm
+2026-09-05 21:52:51 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:51 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-olaian-milano-655367513.htm (source=json)
+2026-09-05 21:52:51 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-olaian-milano-655367513.htm
+2026-09-05 21:52:51 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:51 - INFO - Processing ad link: https://www.subito.it/sport/tavola-kite-surf-foil-moses-sab-milano-649154077.htm (source=json)
+2026-09-05 21:52:51 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-kite-surf-foil-moses-sab-milano-649154077.htm
+2026-09-05 21:52:51 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:51 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-5-9-milano-654531215.htm (source=json)
+2026-09-05 21:52:51 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-5-9-milano-654531215.htm
+2026-09-05 21:52:51 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:51 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-cjsurboards-milano-654530847.htm (source=json)
+2026-09-05 21:52:51 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-cjsurboards-milano-654530847.htm
+2026-09-05 21:52:51 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:51 - INFO - Processing ad link: https://www.subito.it/sport/tavola-surf-softech-flash-eric-geiselman-5-7-milano-651555388.htm (source=json)
+2026-09-05 21:52:51 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-surf-softech-flash-eric-geiselman-5-7-milano-651555388.htm
+2026-09-05 21:52:51 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:51 - INFO - Processing ad link: https://www.subito.it/sport/bodyboard-tavola-da-surf-bambini-usata-decathlon-milano-653008683.htm (source=json)
+2026-09-05 21:52:51 - INFO - Skipping ad https://www.subito.it/sport/bodyboard-tavola-da-surf-bambini-usata-decathlon-milano-653008683.htm: belongs to skipped category 'bodyboard'
+2026-09-05 21:52:51 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:51 - INFO - Processing ad link: https://www.subito.it/sport/set-2-tavole-bodyboard-surf-mare-per-bambini-milano-652188903.htm (source=json)
+2026-09-05 21:52:51 - INFO - Skipping ad https://www.subito.it/sport/set-2-tavole-bodyboard-surf-mare-per-bambini-milano-652188903.htm: belongs to skipped category 'bodyboard'
+2026-09-05 21:52:51 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:51 - INFO - Processing ad link: https://www.subito.it/sport/mini-tavola-da-surf-milano-651805169.htm (source=json)
+2026-09-05 21:52:51 - INFO - Skipping ad, already in database: https://www.subito.it/sport/mini-tavola-da-surf-milano-651805169.htm
+2026-09-05 21:52:51 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:51 - INFO - Processing ad link: https://www.subito.it/sport/tavola-surf-5-8-wake-surf-dietro-malibu-limited-milano-644496125.htm (source=json)
+2026-09-05 21:52:51 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-surf-5-8-wake-surf-dietro-malibu-limited-milano-644496125.htm
+2026-09-05 21:52:51 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:51 - INFO - Processing ad link: https://www.subito.it/sport/lotto-wind-surf-tavole-milano-641618465.htm (source=json)
+2026-09-05 21:52:51 - INFO - Skipping ad, already in database: https://www.subito.it/sport/lotto-wind-surf-tavole-milano-641618465.htm
+2026-09-05 21:52:51 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:51 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-milano-640362886.htm (source=json)
+2026-09-05 21:52:51 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-milano-640362886.htm
+2026-09-05 21:52:51 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:51 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-snowboard-milano-625479695.htm (source=json)
+2026-09-05 21:52:51 - INFO - Skipping ad https://www.subito.it/sport/tavola-da-snowboard-milano-625479695.htm: belongs to skipped category 'snowboard'
+2026-09-05 21:52:51 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:51 - INFO - Processing ad link: https://www.subito.it/sport/tavola-surf-sundek-anni-90-milano-638728451.htm (source=json)
+2026-09-05 21:52:51 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-surf-sundek-anni-90-milano-638728451.htm
+2026-09-05 21:52:51 - INFO - Scraping search results from: https://www.subito.it/annunci-lombardia/vendita/usato/milano/?q=tavola+da+surf&o=2
+2026-09-05 21:52:57 - INFO - Found 20 potential ad listings on page 2 using json path.
+2026-09-05 21:52:57 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:57 - INFO - Processing ad link: https://www.subito.it/sport/set-kite-surf-milano-657964253.htm (source=json)
+2026-09-05 21:52:57 - INFO - Skipping ad, already in database: https://www.subito.it/sport/set-kite-surf-milano-657964253.htm
+2026-09-05 21:52:57 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:57 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-longboard-8-piedi-resina-milano-638253397.htm (source=json)
+2026-09-05 21:52:57 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-longboard-8-piedi-resina-milano-638253397.htm
+2026-09-05 21:52:57 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:57 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-kite-milano-637837139.htm (source=json)
+2026-09-05 21:52:57 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-kite-milano-637837139.htm
+2026-09-05 21:52:57 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:57 - INFO - Processing ad link: https://www.subito.it/sport/noleggio-onewheel-xr-milano-637800576.htm (source=json)
+2026-09-05 21:52:57 - INFO - Skipping ad https://www.subito.it/sport/noleggio-onewheel-xr-milano-637800576.htm: belongs to skipped category 'skateboard'
+2026-09-05 21:52:57 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:57 - INFO - Processing ad link: https://www.subito.it/sport/firewire-quadfish-5-10-35lt-milano-636090607.htm (source=json)
+2026-09-05 21:52:57 - INFO - Skipping ad, already in database: https://www.subito.it/sport/firewire-quadfish-5-10-35lt-milano-636090607.htm
+2026-09-05 21:52:57 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:57 - INFO - Processing ad link: https://www.subito.it/sport/tavola-snowboard-milano-635756673.htm (source=json)
+2026-09-05 21:52:57 - INFO - Skipping ad https://www.subito.it/sport/tavola-snowboard-milano-635756673.htm: belongs to skipped category 'snowboard'
+2026-09-05 21:52:57 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:57 - INFO - Processing ad link: https://www.subito.it/sport/tavola-surf-soft-performance-softech-6-10-45-5l-milano-634963553.htm (source=json)
+2026-09-05 21:52:57 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-surf-soft-performance-softech-6-10-45-5l-milano-634963553.htm
+2026-09-05 21:52:57 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:57 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-slater-design-frk-5-7-milano-634011621.htm (source=json)
+2026-09-05 21:52:57 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-slater-design-frk-5-7-milano-634011621.htm
+2026-09-05 21:52:57 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:57 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-snowboard-rossignol-158-cm-milano-633964050.htm (source=json)
+2026-09-05 21:52:57 - INFO - Skipping ad https://www.subito.it/sport/tavola-da-snowboard-rossignol-158-cm-milano-633964050.htm: belongs to skipped category 'snowboard'
+2026-09-05 21:52:57 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:57 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-luke-studer-milano-633387752.htm (source=json)
+2026-09-05 21:52:57 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-luke-studer-milano-633387752.htm
+2026-09-05 21:52:57 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:57 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-rusty-model-8-milano-633387144.htm (source=json)
+2026-09-05 21:52:57 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-rusty-model-8-milano-633387144.htm
+2026-09-05 21:52:57 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:57 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-milano-633359324.htm (source=json)
+2026-09-05 21:52:57 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-milano-633359324.htm
+2026-09-05 21:52:57 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:57 - INFO - Processing ad link: https://www.subito.it/sport/surf-soft-performante-themiddie-6-10-45-5-l-milano-630565521.htm (source=json)
+2026-09-05 21:52:57 - INFO - Skipping ad, already in database: https://www.subito.it/sport/surf-soft-performante-themiddie-6-10-45-5-l-milano-630565521.htm
+2026-09-05 21:52:57 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:57 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-5-11-milano-629522642.htm (source=json)
+2026-09-05 21:52:57 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-5-11-milano-629522642.htm
+2026-09-05 21:52:57 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:57 - INFO - Processing ad link: https://www.subito.it/sport/snowboard-rossignol-retox-153-attacchi-sacca-milano-628704024.htm (source=json)
+2026-09-05 21:52:57 - INFO - Skipping ad https://www.subito.it/sport/snowboard-rossignol-retox-153-attacchi-sacca-milano-628704024.htm: belongs to skipped category 'snowboard'
+2026-09-05 21:52:57 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:57 - INFO - Processing ad link: https://www.subito.it/sport/supporto-tavola-da-surf-artigianale-milano-519241448.htm (source=json)
+2026-09-05 21:52:57 - INFO - Skipping ad https://www.subito.it/sport/supporto-tavola-da-surf-artigianale-milano-519241448.htm: belongs to skipped category 'snowboard'
+2026-09-05 21:52:57 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:57 - INFO - Processing ad link: https://www.subito.it/sport/2-tavole-da-surf-per-bambini-milano-448876486.htm (source=json)
+2026-09-05 21:52:57 - INFO - Skipping ad, already in database: https://www.subito.it/sport/2-tavole-da-surf-per-bambini-milano-448876486.htm
+2026-09-05 21:52:57 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:57 - INFO - Processing ad link: https://www.subito.it/sport/tavola-surf-bimbi-milano-437896087.htm (source=json)
+2026-09-05 21:52:57 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-surf-bimbi-milano-437896087.htm
+2026-09-05 21:52:57 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:57 - INFO - Processing ad link: https://www.subito.it/sport/surfsetfitness-tavola-da-surf-per-allenamento-milano-550596610.htm (source=json)
+2026-09-05 21:52:57 - INFO - Skipping ad, already in database: https://www.subito.it/sport/surfsetfitness-tavola-da-surf-per-allenamento-milano-550596610.htm
+2026-09-05 21:52:57 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:57 - INFO - Processing ad link: https://www.subito.it/sport/tavola-mini-surf-milano-548425329.htm (source=json)
+2026-09-05 21:52:57 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-mini-surf-milano-548425329.htm
+2026-09-05 21:52:57 - INFO - Scraping search results from: https://www.subito.it/annunci-lombardia/vendita/usato/milano/?q=tavola+da+surf&o=3
+2026-09-05 21:52:59 - INFO - Found 2 potential ad listings on page 3 using json path.
+2026-09-05 21:52:59 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:59 - INFO - Processing ad link: https://www.subito.it/sport/set-kite-surf-milano-657964253.htm (source=json)
+2026-09-05 21:52:59 - INFO - Skipping ad, already in database: https://www.subito.it/sport/set-kite-surf-milano-657964253.htm
+2026-09-05 21:52:59 - INFO - ------------------------------------------------------------
+2026-09-05 21:52:59 - INFO - Processing ad link: https://www.subito.it/sport/tavola-da-surf-per-bambini-milano-595867107.htm (source=json)
+2026-09-05 21:52:59 - INFO - Skipping ad, already in database: https://www.subito.it/sport/tavola-da-surf-per-bambini-milano-595867107.htm
+2026-09-05 21:52:59 - INFO - Scraping search results from: https://www.subito.it/annunci-lombardia/vendita/usato/milano/?q=tavola+da+surf&o=4
+2026-09-05 21:53:02 - INFO - Found 1 potential ad listings on page 4 using json path.
+2026-09-05 21:53:02 - INFO - ------------------------------------------------------------
+2026-09-05 21:53:02 - INFO - Processing ad link: https://www.subito.it/sport/set-kite-surf-milano-657964253.htm (source=json)
+2026-09-05 21:53:02 - INFO - Skipping ad, already in database: https://www.subito.it/sport/set-kite-surf-milano-657964253.htm
+2026-09-05 21:53:02 - INFO - Scraping search results from: https://www.subito.it/annunci-lombardia/vendita/usato/milano/?q=tavola+da+surf&o=5
+2026-09-05 21:53:06 - INFO - Found 1 potential ad listings on page 5 using json path.
+2026-09-05 21:53:06 - INFO - ------------------------------------------------------------
+2026-09-05 21:53:06 - INFO - Processing ad link: https://www.subito.it/sport/set-kite-surf-milano-657964253.htm (source=json)
+2026-09-05 21:53:06 - INFO - Skipping ad, already in database: https://www.subito.it/sport/set-kite-surf-milano-657964253.htm
+2026-09-05 21:53:20 - INFO - Attempting to commit 4 new ads to the database...
+2026-09-05 21:53:21 - INFO - Commit successful. Added 4 new ads.

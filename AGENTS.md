@@ -105,4 +105,4 @@ Read `docs/adr/` before touching the related area. ADR 0001 governs the email no
 
 ## Scraper etiquette
 
-Subito.it is an external site we depend on. Preserve the existing politeness mechanisms (retry cooldowns in `fetch_with_resilience`, randomized headers via `build_headers`, delays between link checks). Do not add loops that hammer the site, and never test against it live.
+Subito.it is an external site we depend on. Preserve the existing politeness mechanisms (retry cooldowns in `fetch_with_resilience`, randomized headers via `build_headers`, delays between link checks).

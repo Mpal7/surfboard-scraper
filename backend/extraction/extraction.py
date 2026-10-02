@@ -1,8 +1,8 @@
-"""Surfboard attribute extraction functions.
+"""Pure attribute extraction functions for surf, foil, and kite Ads.
 
-This module contains all the pure extraction logic for parsing surfboard
-listings.  It is the implementation behind the ``parse_listing`` interface
-in ``surfboard_parser.py``.
+This module contains all parsing logic without HTTP or database concerns. It
+is the implementation behind the ``parse_listing`` interface in
+``surfboard_parser.py``.
 """
 
 from __future__ import annotations
@@ -38,7 +38,16 @@ POPULAR_BRANDS = [
     'honu', 'quiksilver', 'mckee', 'Andrea X', 'alessio fantozzi', 'indio', 'semente',
     'XDII', 'LSD', "scott burke", "tahe", "album", "ryan lovelace", 'alibi', 'pike',
     'webber', 'infinity','sundek', 'duppies', 'rickland', 'odysea', 'clay','clayton', 'Rusty',
-    'wave', 'wp', 'spider'
+    'wave', 'wp', 'spider',
+    'gong', 'gong foil', 'sabfoil', 'sab', 'moses', 'duotone', 'f-one',
+    'f one', 'north', 'north kiteboarding', 'cabrinha', 'naish', 'slingshot',
+    'airush', 'ozone', 'core', 'eleveight', 'flysurfer', 'liquid force',
+    'best', 'crazy fly', 'crazyfly', 'fanatic', 'starboard', 'severne',
+    'neil pryde', 'jp', 'tabou', 'takuma', 'axis', 'armstrong', 'afs',
+    'ensis', 'reedin', 'fliteboard', 'flite', 'lift', 'gofoil', 'levitaz',
+    'nobile', 'brunotti', 'wainman', 'wainman hawaii', 'advance', 'spleene',
+    'harlem', 'mystic', 'ion', 'prolimit', 'gong sport', 'attitude foil',
+    'hydro', 'rrd foil', 'flying phantom'
 ]
 
 # 2. Create a map for correct capitalization.
@@ -75,6 +84,25 @@ BRAND_MAP['Peterpan'] = "Peter Pan"
 BRAND_MAP['quiksilver'] = "Quicksilver"
 BRAND_MAP['Rusti'] = 'Rusty'
 BRAND_MAP['Clay'] = 'Clayton'
+BRAND_MAP['f-one'] = 'F-One'
+BRAND_MAP['f one'] = 'F-One'
+BRAND_MAP['gong'] = 'GONG'
+BRAND_MAP['sabfoil'] = 'SABFOIL'
+BRAND_MAP['sab'] = 'SAB'
+BRAND_MAP['moses'] = 'Moses'
+BRAND_MAP['duotone'] = 'Duotone'
+BRAND_MAP['north'] = 'North'
+BRAND_MAP['north kiteboarding'] = 'North Kiteboarding'
+BRAND_MAP['cabrinha'] = 'Cabrinha'
+BRAND_MAP['naish'] = 'Naish'
+BRAND_MAP['slingshot'] = 'Slingshot'
+BRAND_MAP['airush'] = 'Airush'
+BRAND_MAP['ozone'] = 'Ozone'
+BRAND_MAP['f-one'] = 'F-One'
+BRAND_MAP['f one'] = 'F-One'
+BRAND_MAP['neil pryde'] = 'NeilPryde'
+BRAND_MAP['jp'] = 'JP'
+BRAND_MAP['rrd foil'] = 'RRD'
 
 # Build a single, efficient, case-insensitive regex from the brand list.
 def create_brand_pattern(brand_key):
@@ -236,9 +264,19 @@ def extract_dimensions(text):
 
     processed = text_pre_processor(text_for_parsing)
 
+    # Primary pattern: feet/inches or decimal lengths joined by 'x'.
     pattern = (
-        r"(?<!/)"
-        r"(?P<length>\d{1,2}(?:['\".,]\d{1,2})?)['\"]*\s*x\s+"
+        r"(?<!/)(?<!\d)"
+        r"(?P<length>\d{1,2}(?:['\".,]\d{1,2})?)['\"]*\s*x\s*"
+        r"(?P<width>\d{1,3}(?:[.,]\d+)?(?:\s+\d/\d|/\d{1,2})?)['\"]*"
+        r"(?:\s*x\s+(?P<thickness>\d{1,2}(?:[.,]\d+)?(?:\s+\d/\d|/\d{1,2})?))?['\"]*"
+    )
+
+    # Dash-separated variant for apostrophe lengths such as "5'7 - 19 1/2 x 30L".
+    # Requiring the quote avoids treating "5.11 - 32 Litri" as length - width.
+    dash_pattern = (
+        r"(?<!/)(?<!\d)"
+        r"(?P<length>\d{1,2}['\"][0-9'\"]*)['\"]*\s*-\s*"
         r"(?P<width>\d{1,3}(?:[.,]\d+)?(?:\s+\d/\d|/\d{1,2})?)['\"]*"
         r"(?:\s*x\s+(?P<thickness>\d{1,2}(?:[.,]\d+)?(?:\s+\d/\d|/\d{1,2})?))?['\"]*"
     )
@@ -246,12 +284,26 @@ def extract_dimensions(text):
     matches = list(re.finditer(pattern, processed, re.IGNORECASE))
     full_match = matches[-1] if matches else None
 
+    if not full_match:
+        dash_matches = list(re.finditer(dash_pattern, processed, re.IGNORECASE))
+        full_match = dash_matches[-1] if dash_matches else None
+
     if full_match:
         data = full_match.groupdict()
         len_str = (data.get('length') or '').strip()
         thickness_val = parse_dimension_part(data.get('thickness') or '')
         width_val = parse_dimension_part(data.get('width') or '')
         
+        # A surfboard width is never below ~17 inches. Drop implausibly small
+        # values that come from range-like text such as "5-6" (5 to 6 feet).
+        if width_val is not None and width_val < 10:
+            width_val = None
+
+        # Thickness is a small number (usually 2-4"). A larger value captured
+        # after an 'x' is usually a liters figure (e.g. "19 1/2 x 30L").
+        if thickness_val is not None and thickness_val > 8:
+            thickness_val = None
+
         # if width looks unrealistic for inches (e.g. > 25) try to interpret as metric fallback
         if width_val is not None and width_val > 25:
             if len_str and ("," in len_str or "." in len_str):
@@ -318,12 +370,16 @@ def extract_dimensions(text):
                 'thickness_in': thickness_val
             }
 
-        return {
-            'length_ft': length_ft,
-            'length_in': length_in,
-            'width_in': width_val,
-            'thickness_in': thickness_val
-        }
+        # If the feet value is implausible and we have no isolated match to
+        # fall back on, don't trust this main-pattern hit: let the metric and
+        # other fallbacks below take a shot instead of returning garbage.
+        if not suspicious:
+            return {
+                'length_ft': length_ft,
+                'length_in': length_in,
+                'width_in': width_val,
+                'thickness_in': thickness_val
+            }
 
     # Metric-like pattern such as "1,83 x 55" (meters x cm)
     metric_m_cm = re.search(r"(?P<m>\d{1},\d{1,2})\s*x\s*(?P<cm>\d{2,3})(?!\d)", processed)
@@ -434,7 +490,10 @@ def extract_dimensions(text):
         try:
             ft = int(m_slash.group('ft'))
             inch = int(m_slash.group('in'))
-            if 4 <= ft <= 10 and 0 <= inch < 12:
+            # "7/8", "3/4", etc. are thickness fractions, not 7'8".
+            if f"{ft}/{inch}" in FRACTION_MAP:
+                m_slash = None
+            elif 4 <= ft <= 10 and 0 <= inch < 12:
                 return {'length_ft': ft, 'length_in': inch, 'width_in': None, 'thickness_in': None}
         except:
             pass
@@ -466,8 +525,8 @@ def extract_dimensions(text):
 def extract_liters(text):
     pattern = re.compile(
         r"(?:\b(?:volume|vol)\b\s*)?"
-        r"(?:(?P<num1>\d{1,3}(?:[.,]\d{1,2})?)\s*(?:l\b|lt\b|ltr\b|liters?\b|litres?\b|litri\b)"
-        r"|(?:l\b|lt\b|ltr\b|liters?\b|litres?\b|litri\b)\s*(?P<num2>\d{1,3}(?:[.,]\d{1,2})?))",
+        r"(?:(?P<num1>\d{1,3}(?:[.,]\d{1,2})?)\s*(?<![A-Za-z])(?:l\b|lt\b|ltr\b|liters?\b|litres?\b|litri\b)"
+        r"|(?<![A-Za-z])(?:l\b|lt\b|ltr\b|liters?\b|litres?\b|litri\b)\s*(?P<num2>\d{1,3}(?:[.,]\d{1,2})?))",
         re.IGNORECASE,
     )
     match = pattern.search(text)
@@ -478,6 +537,153 @@ def extract_liters(text):
         return float(value.replace(',', '.'))
     except Exception:
         return None
+
+
+def _bounded_number(value, minimum, maximum):
+    """Return a parsed number only when it is plausible for the field."""
+    try:
+        number = float(value.replace(',', '.'))
+    except (AttributeError, TypeError, ValueError):
+        return None
+    return number if minimum <= number <= maximum else None
+
+
+def extract_foil_area_cm2(text):
+    """Extract foil/front-wing area written in square centimetres.
+
+    Italian Ads use both ``cm2`` and ``cmq``; product descriptions also
+    commonly contain the unicode squared sign.
+    """
+    if not text:
+        return None
+    match = re.search(
+        r"(?<![\d.,])(?P<area>\d{3,5}(?:[.,]\d+)?)\s*"
+        r"(?:cm\s*(?:2|\u00b2)|cmq|cm\s+quadrati|centimetri\s+quadrati)(?!\w)",
+        normalize_for_matching(text),
+        re.IGNORECASE,
+    )
+    if match:
+        return _bounded_number(match.group('area'), 100, 10000)
+
+    # Foil Ads often omit the unit when the context says ``front 950`` or
+    # ``ala anteriore 1200``. Restrict this fallback to foil component nouns.
+    contextual_matches = re.finditer(
+        r"(?<!\w)(?:front(?:\s+wing)?|ala\s+(?:front|anteriore)|pala)\b"
+        r"[^0-9]{0,35}(?P<area>\d{3,4})(?!\w)",
+        normalize_for_matching(text),
+        re.IGNORECASE,
+    )
+    for contextual in reversed(list(contextual_matches)):
+        value = _bounded_number(contextual.group('area'), 100, 10000)
+        if value is not None:
+            return value
+    return None
+
+
+def extract_wing_area_m2(text):
+    """Extract wing or kite area written in square metres/meters."""
+    if not text:
+        return None
+    normalized = normalize_for_matching(text)
+    patterns = (
+        # ``9mq``, ``5.5 m2``, ``7m`` and ``12mt``.
+        r"(?<![\w.,])(?P<area>\d{1,2}(?:[.,]\d{1,2})?)\s*"
+        r"(?:m(?:t|2|\u00b2)?|mq|metri?\s*(?:quadrati?)?)(?!\w)",
+        # Italian Ads also write a size as ``m.12`` or ``mt 12``.
+        r"(?<!\w)(?:m(?:t|q)?\s*[.]\s*|m\s+)"
+        r"(?P<area>\d{1,2}(?:[.,]\d{1,2})?)(?!\w)",
+    )
+    for pattern in patterns:
+        match = re.search(pattern, normalized, re.IGNORECASE)
+        if match:
+            value = _bounded_number(match.group('area'), 1, 25)
+            if value is not None:
+                return value
+
+    # Size-only formats are common in Italian Ads: ``ali 13/11/8`` or
+    # ``Kitesurf RRD 9 + 13.5``. Keep the context requirement to avoid
+    # interpreting years and board model numbers as wing areas.
+    contextual = re.finditer(
+        r"(?<!\w)(?:ala|ali|vela|vele|kite(?:surf)?|wing(?:foil)?|parawing|lowwing)\b"
+        r"[^0-9]{0,25}(?P<area>\d{1,2}(?:[.,]\d{1,2})?)(?!\w)",
+        normalized,
+        re.IGNORECASE,
+    )
+    for match in contextual:
+        value = _bounded_number(match.group('area'), 1, 25)
+        if value is not None:
+            return value
+    return None
+
+
+def extract_mast_length_cm(text):
+    """Extract foil mast/piantone length in centimetres."""
+    if not text:
+        return None
+    match = re.search(
+        r"(?<!\w)(?:mast|piantone|albero)\b[^0-9]{0,35}"
+        r"(?P<length>\d{2,3})(?:\s*/\s*\d{2,3})?\s*cm(?!\w)",
+        normalize_for_matching(text),
+        re.IGNORECASE,
+    )
+    if not match:
+        return None
+    return _bounded_number(match.group('length'), 30, 150)
+
+
+def extract_foil_wingspan_cm(text):
+    """Extract a foil wingspan/apertura alare in centimetres."""
+    if not text:
+        return None
+    match = re.search(
+        r"(?<!\w)(?:wingspan|wing\s*span|apertura\s+alare)\b\s*[:=-]?\s*"
+        r"(?P<span>\d{2,3}(?:[.,]\d+)?)\s*cm(?!\w)",
+        normalize_for_matching(text),
+        re.IGNORECASE,
+    )
+    if not match:
+        return None
+    return _bounded_number(match.group('span'), 20, 200)
+
+
+def extract_board_dimensions_cm(text):
+    """Extract kite/foil board length and width in centimetres.
+
+    Kiteboard dimensions are usually compact (``136x42`` or ``41x138``),
+    unlike surfboard dimensions which use feet/inches. The returned length is
+    always the larger dimension, regardless of the order used in the Ad.
+    """
+    if not text:
+        return None
+    normalized = normalize_for_matching(text)
+    match = re.search(
+        r"(?<!\d)(?P<first>\d{2,3}(?:[.,]\d+)?)\s*"
+        r"(?:x|×|/)\s*"
+        r"(?P<second>\d{2,3}(?:[.,]\d+)?)\s*(?:cm)?(?!\w)",
+        normalized,
+        re.IGNORECASE,
+    )
+    if not match:
+        contextual = re.search(
+            r"(?<!\w)(?:tavola|board|kiteboard)\b.{0,80}?"
+            r"(?P<length>1\d{2})\s*cm(?!\w)",
+            normalized,
+            re.IGNORECASE,
+        )
+        if not contextual:
+            return None
+        length = _bounded_number(contextual.group('length'), 100, 200)
+        return {'board_length_cm': length} if length is not None else None
+
+    first = _bounded_number(match.group('first'), 25, 200)
+    second = _bounded_number(match.group('second'), 25, 200)
+    if first is None or second is None:
+        return None
+
+    length, width = max(first, second), min(first, second)
+    if not (100 <= length <= 200 and 25 <= width <= 70):
+        return None
+    return {'board_length_cm': length, 'board_width_cm': width}
 
 def extract_price(text):
     """

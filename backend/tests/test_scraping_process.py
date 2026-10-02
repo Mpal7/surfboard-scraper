@@ -1,6 +1,6 @@
 from unittest.mock import MagicMock, call
 import httpx
-from src.scraper import scrape_and_store, Ad
+from src.scraper import _extract_listings_from_html, scrape_and_store, Ad
 
 # It's better to define mock responses once, outside the test functions
 # This avoids redefining them in every test
@@ -149,3 +149,25 @@ def test_scrape_and_store_http_error(mocker):
     assert mock_client.get.call_count == 5 
     mock_db.add.assert_not_called()
     mock_db.commit.assert_not_called()
+
+
+def test_extract_current_subito_article_cards():
+    soup = __import__("bs4").BeautifulSoup(
+        """
+        <article class="index-module_card__abc spec-rules-moderate">
+            <a href="https://www.subito.it/sport/wingfoil-safe.htm">
+                <h3 class="index-module_subject__xyz">ala wingfoil safe 6 mq</h3>
+                <p class="index-module_price__price">110 €</p>
+                <span class="index-module_location__location">Calasetta</span>
+                <img class="index-module_image__image" src="https://example.com/wing.jpg" />
+            </a>
+        </article>
+        """,
+        "html.parser",
+    )
+
+    listings = _extract_listings_from_html(soup)
+
+    assert len(listings) == 1
+    assert listings[0]["model"] == "ala wingfoil safe 6 mq"
+    assert listings[0]["location_text"] == "Calasetta"

@@ -9,6 +9,7 @@ class Ad(Base):
     id = Column(Integer, primary_key=True, index=True)
     model = Column(String, index=True)
     brand = Column(String, nullable=True)
+    board_type = Column(String, nullable=True, index=True, default="surf")
     price = Column(Float, nullable=True)
     location = Column(String)
     link = Column(String, unique=True)
@@ -20,6 +21,13 @@ class Ad(Base):
     width_in = Column(Float, nullable=True)
     thickness_in = Column(Float, nullable=True)
     liters = Column(Float, nullable=True)
+    foil_area_cm2 = Column(Float, nullable=True)
+    mast_length_cm = Column(Float, nullable=True)
+    foil_wingspan_cm = Column(Float, nullable=True)
+    wing_area_m2 = Column(Float, nullable=True)
+    board_length_cm = Column(Float, nullable=True)
+    board_width_cm = Column(Float, nullable=True)
+    equipment_type = Column(String, nullable=True, index=True)
 
     is_mail_sent = Column(Boolean, default=False, nullable=False, index=True)
     is_active = Column(Boolean, default=True, nullable=False, index=True)
@@ -37,6 +45,7 @@ class Ad(Base):
             "id": self.id,
             "model": self.model,
             "brand": self.brand,
+            "board_type": self.board_type,
             "price": self.price,
             "location": self.location,
             "link": self.link,
@@ -47,5 +56,12 @@ class Ad(Base):
             "width_in": self.width_in,
             "thickness_in": self.thickness_in,
             "liters": self.liters,
+            "foil_area_cm2": self.foil_area_cm2,
+            "mast_length_cm": self.mast_length_cm,
+            "foil_wingspan_cm": self.foil_wingspan_cm,
+            "wing_area_m2": self.wing_area_m2,
+            "board_length_cm": self.board_length_cm,
+            "board_width_cm": self.board_width_cm,
+            "equipment_type": self.equipment_type,
             "is_mail_sent": self.is_mail_sent,
         }
